@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter 10 협상</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29570133-dd5d-8080-a968-ee294683afa1" class="page sans"><header><h1 class="page-title">Chapter 10 협상</h1><p class="page-description"></p></header><div class="page-body"><ul id="29570133-dd5d-8047-97f6-ee394bdad6eb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Please allow us to <mark class="highlight-yellow_background">ask for </mark>your price cut <mark class="highlight-yellow_background">by</mark> 10%, The market <mark class="highlight-yellow_background">competition </mark>is really severe here. We will lose a large portion of our M/S if there is no price cut</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8080-94a7-e0dcfc2380e5" class="bulleted-list"><li style="list-style-type:disc">10% 가격 인하 <mark class="highlight-yellow_background">요청</mark> 드립니다. 시장 <mark class="highlight-yellow_background">경쟁이 </mark>진짜 치열합니다. 가격 인하 없이는 견디기 힘듭니다.</li></ul><ul id="29570133-dd5d-8071-a1a2-e7bd784edb7e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We would very much<mark class="highlight-yellow_background"> appreciate it if</mark> you could come down your price by 5%</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-801e-b64d-cff77fd29fa0" class="bulleted-list"><li style="list-style-type:disc">가격을 5%만 인하하<mark class="highlight-yellow_background">여 주시면 감사하겠습니다.</mark></li></ul><ul id="29570133-dd5d-8016-8aab-ee7f32884def" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We get  sure that, with your<mark class="highlight-yellow_background"> hands-on help</mark> and cooperation, we will be able to get more market share, </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80be-90ab-cb4f01fbeca7" class="bulleted-list"><li style="list-style-type:disc">여러분의 <mark class="highlight-yellow_background">실질적인 도움</mark>과 협력을 통해 더 많은 <mark class="highlight-yellow_background">시장 점유율(M/S)</mark>을 확보할 수 있을 것이라고 확신합니다,</li></ul><ul id="29570133-dd5d-800c-ad29-ca3d2e1f56de" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">The <mark class="highlight-yellow_background">advent </mark>of new suppliers expects our customer’s request for price cut soon</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80aa-8497-f92fabbc8135" class="bulleted-list"><li style="list-style-type:disc">신규 공급업체의 등장으로 고객의 가격 인하 요청이 예상된다. (<mark class="highlight-yellow_background">경쟁자</mark>)</li></ul><ul id="29570133-dd5d-80c4-ac4e-e2b4ef81c8ea" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">We regret that </mark>we can’t accept your<mark class="highlight-yellow_background"> request for price cut</mark> because of the market situation of raw materials.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-808b-9ec8-d1d28ff5bb45" class="bulleted-list"><li style="list-style-type:disc">원자재 시장 상황으로 귀사의<mark class="highlight-yellow_background"> 가격 인하</mark>를 수락<mark class="highlight-yellow_background">할 수 없어 유감스럽습니다.</mark></li></ul><p id="29570133-dd5d-800f-9a25-e550c786872e" class=""><strong>가격 인하 수락 불가</strong></p><ul id="29570133-dd5d-806f-ba05-fc005386ad36" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">The increasing<mark class="highlight-yellow_background"> labor cost</mark> <mark class="highlight-yellow_background">prevents us from</mark> accepting your price cut.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-804e-b02e-d13a39e6c4ff" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">인건비</mark> 상승으로 더 이상 가격 인하 수용<mark class="highlight-yellow_background"> 불가</mark>합니다. (<mark class="highlight-yellow_background">우리가 ~ 하는 것을 막을 수 없습니다</mark>.)</li></ul><ul id="29570133-dd5d-80cc-b8d8-e6db687cad9f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">we can’t satisfy your <mark class="highlight-yellow_background">specification </mark>if you<mark class="highlight-yellow_background"> insist on that</mark> kind of price cut</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80f1-b50d-d387b9d5aee7" class="bulleted-list"><li style="list-style-type:disc">그 가격으로는 귀사에서 <mark class="highlight-yellow_background">요구</mark>하는<mark class="highlight-yellow_background"> 사양</mark>을 만족시킬 수 없습니다. (요구, 강요, 주장, 조르다)</li></ul><p id="29570133-dd5d-80ed-893b-fff03a696720" class=""><strong>가격 인하 통보</strong></p><ul id="29570133-dd5d-8036-884c-ec510901533b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">All the <mark class="highlight-yellow_background">vendors </mark>are <mark class="highlight-yellow_background">required to accept</mark> our suggested supplying price cut by 3%, <mark class="highlight-yellow_background">effective </mark>June 1, 2012.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80a6-a1ca-e1d239a80f86" class="bulleted-list"><li style="list-style-type:disc">6/1일<mark class="highlight-yellow_background">부터(효력 발생)</mark> 모든 <mark class="highlight-yellow_background">협력업체</mark>의 공급 가격을 3% 인하 요청(통보) 드리오니 협조하여 주시기 바랍니다. </li></ul><p id="29570133-dd5d-8001-9cea-ebb886e4cda9" class=""><strong>가격 인하 수락</strong></p><ul id="29570133-dd5d-8058-8a62-c4e7f3ba6711" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">As you said, <mark class="highlight-yellow_background">the market is turning out to our favor (/to the company’s advantage)</mark></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8010-b6c9-e27a8d5d5536" class="bulleted-list"><li style="list-style-type:disc">말씀하신 바와 같이, <mark class="highlight-yellow_background">시장 상황이 유리하게 변하고 있습니다.(그 회사에)</mark></li></ul><ul id="29570133-dd5d-8041-82e5-e79ae5c6b085" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We will be happy to join our <mark class="highlight-yellow_background">invaluable </mark>customer’s cost-down program.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80b9-91e7-dd72673d1132" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">귀중한 </mark>고객사의 원가 절감 운동에 기꺼이 동참하겠습니다.</li></ul><ul id="29570133-dd5d-8052-86ce-feda4b9d10c3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">I am<mark class="highlight-yellow_background"> in</mark> full <mark class="highlight-yellow_background">accordance</mark>/accord <mark class="highlight-yellow_background">with </mark>your pricing startegy.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80d6-b7ab-cad1d0f0a7bf" class="bulleted-list"><li style="list-style-type:disc">당신의 가격 전략에 전적으로<mark class="highlight-yellow_background"> 찬성/순응</mark>합니다.</li></ul><p id="29570133-dd5d-801b-9bed-c0c3c7a9cce0" class=""><strong>가격 인하 폭 조정</strong></p><ul id="29570133-dd5d-8010-a1d2-e02586f48668" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">It’s very difficult for us to <mark class="highlight-yellow_background">come down </mark>our price by 10%</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80af-a1d6-d73dad055596" class="bulleted-list"><li style="list-style-type:disc">귀사에서 제안하신 10% <mark class="highlight-yellow_background">가격 인하</mark>는 매우 어렵습니다.</li></ul><ul id="29570133-dd5d-8040-ab1f-ecc58fa20d0b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Our profit is not big as you might think</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80da-be27-e73f42d71e95" class="bulleted-list"><li style="list-style-type:disc">당사의 마진은 귀사가 생각하는 만큼 크지 않습니다.</li></ul><p id="29570133-dd5d-801d-9e2c-cd3415eccb69" class=""><strong>가격 인하 요청 대응</strong></p><ul id="29570133-dd5d-8098-b65f-ddbee4aceb3f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Your<mark class="highlight-yellow_background"> suggestion for</mark> the touch screen vendor to come down the price <mark class="highlight-yellow_background">goes too much</mark></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8019-b7f4-c1d806e4fbd3" class="bulleted-list"><li style="list-style-type:disc">터치스크린 업체가 가격을 인하하여야 된다는<mark class="highlight-yellow_background"> 귀사의 제안</mark>은 <mark class="highlight-yellow_background">너무합니다.</mark></li></ul><ul id="29570133-dd5d-8016-b28a-c639aaa1d1bc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Your suggestion for our company to work together with your marketing company is <mark class="highlight-yellow_background">highly appreciated.</mark></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80bc-ab9e-ce7175e22bea" class="bulleted-list"><li style="list-style-type:disc">귀사의 마케팅 회사가 당사와 함께 일하자는 귀사의 제안은 감사하나.</li></ul><ul id="29570133-dd5d-8095-bbb9-f148c1448f39" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">The production manager<mark class="highlight-yellow_background"> asserted that</mark> our price<mark class="highlight-yellow_background"> should not exceed </mark>FOB US$10.00/unit</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80ba-9124-ccb97ad1835e" class="bulleted-list"><li style="list-style-type:disc">구매 과장<mark class="highlight-yellow_background">은</mark> 우리의 가격이 10불<mark class="highlight-yellow_background">을 넘지(초과하지) 말아야</mark> 한다고 <mark class="highlight-yellow_background">단언했다</mark>.</li></ul><p id="29570133-dd5d-8047-8b1c-e53d148a690e" class=""><strong>가격 인한 방안 제시</strong></p><ul id="29570133-dd5d-80b8-ad83-d9d802d6341d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We can send our proposed sample right away for your evaluation and approval.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8049-97e8-f1aa0cf501a5" class="bulleted-list"><li style="list-style-type:disc">귀사 검토 및 승인용 견본 샘플 즉시 송부 가능합니다.</li></ul><p id="29570133-dd5d-8063-99bc-e220b6a3f526" class=""><strong>가격 인상 통보</strong></p><ul id="29570133-dd5d-8060-9212-d4cf7aadb917" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We would like to <mark class="highlight-yellow_background">inform you that,</mark> because of the recent <mark class="highlight-yellow_background">price hike</mark> of metal silicon, our price of polysilicon will go up to US$32/kg as from March 1. 2013.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80c4-a762-df64d5fc6ebb" class="bulleted-list"><li style="list-style-type:disc">최근 금속 실리콘 <mark class="highlight-yellow_background">가격 인상</mark>으로 인해 2013년 3월 1일부터 폴리실리콘 가격이 kg당 32달러로 상승할 예정임을<mark class="highlight-yellow_background"> 통보드립니다</mark></li></ul><ul id="29570133-dd5d-80e9-b167-d5808030b4d5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">There will be an<mark class="highlight-yellow_background"> across-the board</mark> price increase of 3% as from this Wednesday</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80c8-8364-c23b20bf5b80" class="bulleted-list"><li style="list-style-type:disc">이번 수요일에 3%의 가격인상이<mark class="highlight-yellow_background"> 전면적으로</mark> 단행될 것이다.</li></ul><p id="29570133-dd5d-8067-9c51-f805dd08e38a" class=""><strong>가격 인상의 불가피성 설명</strong></p><ul id="29570133-dd5d-80da-9cf8-c9f535618195" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">In other words</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-800f-9bf1-fcfbb3f25783" class="bulleted-list"><li style="list-style-type:disc">바꾸어 말하자면</li></ul><ul id="29570133-dd5d-808d-86c8-fb830b4dbd21" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">There is no question</mark> that our device is more powerful than any of the other devices on the market.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80e5-9ad5-fa24c70db40b" class="bulleted-list"><li style="list-style-type:disc">우리 장치가 시장에 나와 있는 어떤 장치보다 더 강력한 장치라는 것에<mark class="highlight-yellow_background"> 의심할 여지가 없다.</mark></li></ul><p id="29570133-dd5d-80c0-a2f0-f6f10bf2ab27" class=""><strong>가격 인상 요청</strong></p><ul id="29570133-dd5d-80be-8af4-c2efa6f561fd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We want to <mark class="highlight-yellow_background">ask for </mark>your <mark class="highlight-yellow_background">considerate understanding </mark>of our inevitable situation</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8065-b240-e58ba884a1a8" class="bulleted-list"><li style="list-style-type:disc">당사의 불가피한 상황에 대한 귀사의 (생각이 깊은)<mark class="highlight-yellow_background">양해를 </mark>구합니다.(<mark class="highlight-yellow_background">요청합니다</mark>)</li></ul><ul id="29570133-dd5d-8095-8341-f07c69fffe16" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">As you might well know, the price of steel has been <mark class="highlight-yellow_background">tremendously </mark>going up recently</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8014-902e-e08434d456e7" class="bulleted-list"><li style="list-style-type:disc">아마 잘 아시다시피 최근 스틸 가격이 <mark class="highlight-yellow_background">지속적(많이)으로</mark> 인상되고 있습니다.</li></ul><ul id="29570133-dd5d-8009-90a4-f1d0eeda78ba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Our original <mark class="highlight-yellow_background">quotation </mark>was based upon your<mark class="highlight-yellow_background"> purchasing quantity </mark>of 100,000 tons/month</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8063-be73-fa780800dc9b" class="bulleted-list"><li style="list-style-type:disc">당사가 처음에 제출한 가격은 귀사에서 제시하신(<mark class="highlight-yellow_background">구매 수량</mark>) 월 10만 톤 기준으로 가격 <mark class="highlight-yellow_background">산정</mark>하였습니다.</li></ul><p id="29570133-dd5d-800d-945e-d0a825d73ca4" class="">가격 인상 수락 불가</p><ul id="29570133-dd5d-8026-a5ea-f6180cbf8f92" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We <mark class="highlight-yellow_background">regret </mark>to inform you that now is not an occasion for price hike</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8091-9178-fab998d8a011" class="bulleted-list"><li style="list-style-type:disc">지금은 가격 인상할 때가 아님을 통보 드리게 되어 <mark class="highlight-yellow_background">유감입니다</mark>.</li></ul><ul id="29570133-dd5d-80b1-a9d8-e45894bd39f4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">L<mark class="highlight-yellow_background">ast but not the least.</mark> your request for price hike is totally <mark class="highlight-yellow_background">unacceptable</mark>.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-806a-8d9e-ebc5f2cf2099" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">마지막으로 말씀드리지만,</mark> 귀사의 가격 인상 요청은 절대 <mark class="highlight-yellow_background">받아들일 수 없습니다. (사업 끊자)</mark></li></ul><ul id="29570133-dd5d-808a-84e2-f004b64d86c6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">You should keep your original quotation to us, as far as there is not our change of<mark class="highlight-yellow_background"> original specification.</mark></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-803c-9420-f1ad159e9e18" class="bulleted-list"><li style="list-style-type:disc">우리의 <mark class="highlight-yellow_background">사양 </mark>변경이 없는 한, 귀사가 당초 당사에 오퍼하신 가격은 준수하셔야 됩니다.</li></ul><ul id="29570133-dd5d-80cf-9150-cdf99a0977dd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">I, however, regret to <mark class="highlight-yellow_background">advise</mark><span style="border-bottom:0.05em solid"> you</span> that we are not in a position to give a positive answer to your suggestion.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-808a-a10a-c9bbc1f9bc16" class="bulleted-list"><li style="list-style-type:disc">귀하의 제안에 대해 긍정적인 회신을 드릴 입장이 아님을 <mark class="highlight-yellow_background">통보 </mark>드리게 되어 유감입니다. (<mark class="highlight-yellow_background">단순 전달</mark>)</li></ul><p id="29570133-dd5d-808a-ae60-df978e007b95" class=""><strong>가격 인상 수락</strong></p><ul id="29570133-dd5d-8009-a37a-e07481849366" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">Considering </mark>the recent <mark class="highlight-yellow_background">price hike</mark> of raw materials, we will accept your request for price increase.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8039-a7a9-dc1aa2de2179" class="bulleted-list"><li style="list-style-type:disc">최근 원료 가격 인상<mark class="highlight-yellow_background">을 고려</mark>, 귀사의 <mark class="highlight-yellow_background">가격 인상</mark> 요청을 받아들입니다.</li></ul><ul id="29570133-dd5d-80d6-9c9b-dca4f09107e6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">But <mark class="highlight-yellow_background">please note that</mark> our price to our customer can’t go up, and so our profit gets smaller</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-806f-a030-f31214864c41" class="bulleted-list"><li style="list-style-type:disc">하지만, <mark class="highlight-yellow_background">(강조)</mark>당사의 대 고객 가격은 인상될 수 없어 당사의 이익은 더 작게 됩니다.</li></ul><ul id="29570133-dd5d-802a-bf53-c6b099f67c92" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">if possible, <mark class="highlight-yellow_background">you will consider our position</mark> in the future.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8018-8849-f0437c78cb27" class="bulleted-list"><li style="list-style-type:disc">가능하다면, <mark class="highlight-yellow_background">당사의 입장을 고려</mark>하여 주시기 바랍니다.</li></ul><p id="29570133-dd5d-809b-8e25-fc3ac73811f0" class=""><strong>가격 인상 폭 조정</strong></p><ul id="29570133-dd5d-8012-aebc-e20c42d7cfba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">it was <mark class="highlight-yellow_background">inevitable</mark> that the company cut down the price in order to keep the position of vandor</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80a4-b916-c07deaa9c1a9" class="bulleted-list"><li style="list-style-type:disc">협력업체의 지위를 지키기 위해 가격 인하는 <mark class="highlight-yellow_background">불가피한</mark> 일이였다.</li></ul><ul id="29570133-dd5d-804e-b4a3-d353a268672e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Recent change of raw materials market will <mark class="highlight-yellow_background">affect</mark> the price of our product.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8076-ab0f-e415d2314bcc" class="bulleted-list"><li style="list-style-type:disc">최근 원자재 시장의 변동으로 당사 제품의 가격에 <mark class="highlight-yellow_background">영향을 미칠</mark> 것 입니다.</li></ul><ul id="29570133-dd5d-80aa-a394-cd44a5760ebe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">The quality and price are <mark class="highlight-yellow_background">equally critical</mark>.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80b7-81fc-da294ca21495" class="bulleted-list"><li style="list-style-type:disc">품질과 가격 모두 같이 중요한 바</li></ul><ul id="29570133-dd5d-804d-ad87-fa061e07eb99" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Regarding your IQC</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8096-9b65-e3a972381f3b" class="bulleted-list"><li style="list-style-type:disc">귀사의 품질 검사와 관련<ul id="29570133-dd5d-8081-8acf-da14491e76bb" class="bulleted-list"><li style="list-style-type:circle">IQC : incoming quality control : 들어오는 부품 품질 검사</li></ul><ul id="29570133-dd5d-80ed-b4c3-e48bf4112916" class="bulleted-list"><li style="list-style-type:circle">OQC : outgoing quality control : 나가는 부품 품질 검사</li></ul></li></ul><ul id="29570133-dd5d-8003-b3a3-de9cea7eabea" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">What’s more important to us in that, before you start <mark class="highlight-yellow_background">placing orders</mark> with us.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80db-865b-f4d1774f8a61" class="bulleted-list"><li style="list-style-type:disc">우리에게 보다 더 중요한 일은, 귀사가 당사에 <mark class="highlight-yellow_background">발주</mark>전에</li></ul><ul id="29570133-dd5d-80d8-a75f-e96aa589ad25" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">You designate examine the <mark class="highlight-yellow_background">foreign material</mark> in question</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80b8-aa42-c7944382e6f1" class="bulleted-list"><li style="list-style-type:disc">문제의 <mark class="highlight-yellow_background">이물질</mark>을 검사하도록</li></ul><ul id="29570133-dd5d-8065-92e8-f9b6de4221dd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Our company <mark class="highlight-yellow_background">enjoys an outstanding requtation worlwid </mark>thanks to its high quality</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80be-96a1-ed5646d86451" class="bulleted-list"><li style="list-style-type:disc">당사의 취급 제품의 높은 품질 덕분에 <mark class="highlight-yellow_background">세계적으로 탁월한 명성</mark>을 향유하고 있음</li></ul><ul id="29570133-dd5d-80c2-aee8-d89cf2f933bc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">What’s your normal delivery?</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80a1-8f49-c2c504250e8a" class="bulleted-list"><li style="list-style-type:disc">정상적인 경우 납기가 어떻게 되나요?</li></ul><ul id="29570133-dd5d-8038-a8c8-fb89fc6b3120" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We want to enter into the <mark class="highlight-yellow_background">frame contract </mark>of 500K MT of coal first with the delivery of 30 days after our Purchasing order</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8084-a90f-f4c30cbf2f1f" class="bulleted-list"><li style="list-style-type:disc">우선 50만톤 석탄에 대해 po 발급 후 30일 이내 납품하는 것으로 프레임(<mark class="highlight-yellow_background">기본적인) 계약</mark> 체결하고 싶습니다.</li></ul><ul id="29570133-dd5d-8078-be76-dcf27fb753fe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">If you <mark class="highlight-yellow_background">miss the deadline</mark>, you’ll have to pay a fine/penalty.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8079-818f-ff7e83e9cc3f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">마감 기한 못 맞추면</mark> 벌금을 내야함</li></ul><ul id="29570133-dd5d-80d3-8bb9-fc6fbda99b1a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">What if</mark> we ask for your urgent shipment?</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-807e-b3b6-c805e0abc02d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">(상대방 푸시)만약</mark> 우리가 급하게 선적을 요구하면?</li></ul><ul id="29570133-dd5d-80c4-be54-dc8addf00fb6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">How soon can you ship our order when we are in an urgent need of your goods suddenly?</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8006-9dba-fb4ce56088b4" class="bulleted-list"><li style="list-style-type:disc">갑작스럽게 화급한 선적을 요구하면 얼마나 빨리 선적 가능하시나요?</li></ul><ul id="29570133-dd5d-801f-a68d-eaf94f8b2b61" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We will supply your sudden order <mark class="highlight-yellow_background">within</mark> five days, up to three 20” containers</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8025-97ef-c3ece7cd72ae" class="bulleted-list"><li style="list-style-type:disc">20피트 컨테이너 3대분까지는 주문 후 5일 <mark class="highlight-yellow_background">이내</mark> 공급하겠습니다.</li></ul><ul id="29570133-dd5d-803b-9d3c-d5fcf5e6c56b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Now we want to discuss <mark class="highlight-yellow_background">terms of payment</mark>.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80bb-8b6e-f2f35bb7d585" class="bulleted-list"><li style="list-style-type:disc">이제 <mark class="highlight-yellow_background">결제조건</mark>을 협의하였으면 합니다.</li></ul><ul id="29570133-dd5d-8019-bba5-e74272242255" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Our terms of payment are 100% <mark class="highlight-yellow_background">T/T remittance</mark> within 60 days after receipt of goods</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-804f-b77e-d4dbe249db52" class="bulleted-list"><li style="list-style-type:disc">당사의 결제 조건은 화물 수치 후 60일 이내 <mark class="highlight-yellow_background">전신환 송금</mark> 입니다.<ul id="29570133-dd5d-8005-9334-d9b7ba350be9" class="bulleted-list"><li style="list-style-type:circle">open account(o/a) : 물품을 먼저 제공한 후 대금을 지급</li></ul></li></ul><ul id="29570133-dd5d-800d-808b-ecc5c6df280c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Speed is one of key factors to business success.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-803b-82f4-dbea016b5d90" class="bulleted-list"><li style="list-style-type:disc">속도는 사업 성공의 주요 요소 중 하나이다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

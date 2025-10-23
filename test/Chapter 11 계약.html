@@ -1,0 +1,707 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter11 계약</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29570133-dd5d-8072-96d9-e680b3209e8a" class="page sans"><header><h1 class="page-title">Chapter11 계약</h1><p class="page-description"></p></header><div class="page-body"><ul id="29570133-dd5d-80d7-a9c9-fce09d07b9be" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We have reached <mark class="highlight-yellow_background">mutual consent</mark> finally.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8082-b2a1-f2c49c32dcf7" class="bulleted-list"><li style="list-style-type:disc">마침내 <mark class="highlight-yellow_background">상호 합의</mark>에 도달하였음</li></ul><ul id="29570133-dd5d-80e1-9c13-ccee0b0e637c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">The remaining thing is to<mark class="highlight-yellow_background"> enter into the contract</mark></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80f8-a69c-cdafad03e7c5" class="bulleted-list"><li style="list-style-type:disc">남은 일은<mark class="highlight-yellow_background"> 계약서를 체결</mark>하는 것이다.</li></ul><ul id="29570133-dd5d-80a7-a6be-c3465e0457ad" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">The contract is <mark class="highlight-yellow_background">binding</mark> each party</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80d4-aeac-ca6b5faf9880" class="bulleted-list"><li style="list-style-type:disc">계약은 쌍방을 <mark class="highlight-yellow_background">묶는</mark>다</li></ul><p id="29570133-dd5d-800a-9ff2-c67064982d95" class="">
+</p><ul id="29570133-dd5d-8028-93c6-dcb02b94d73b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">With the two exceptions</mark> noted below, I am in full agreement with proposed contract</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80c2-be41-cd2139f33230" class="bulleted-list"><li style="list-style-type:disc">아래의 <mark class="highlight-yellow_background">2가지 사항을 제외</mark>하고, 제시한 계약서의 모든 내용에 동의함.</li></ul><ul id="29570133-dd5d-80cf-99b4-fd8962bf36ed" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">Substituting for the</mark> first paragraph</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80f1-8dda-d1b54c8ab5cf" class="bulleted-list"><li style="list-style-type:disc">첫번째 패러그래프의 내용을을 <mark class="highlight-yellow_background">대신해서</mark></li></ul><ul id="29570133-dd5d-80b4-893a-ea5c52e69bf9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">in fundamental contradiction to our role</mark></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80b9-b3e7-c9ab0cf78021" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">우리의 역활에 대해 심각한 모순이다.</mark></li></ul><ul id="29570133-dd5d-8083-b102-e84424213df9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">t<mark class="highlight-yellow_background">he non-competition clause</mark>, represents the most critical marketing parameter</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80a2-b3eb-f0f2c3da90d8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">동종 품목 금지</mark></li></ul><ul id="29570133-dd5d-8014-a0c3-e652f89c8c37" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">I appreciate your consideration of our two <mark class="highlight-yellow_background">modifications</mark>.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8041-9e57-c894dd501497" class="bulleted-list"><li style="list-style-type:disc">상기 2가지 <mark class="highlight-yellow_background">조정 내용</mark>을 고려하여 주시면 감사.</li></ul><ul id="29570133-dd5d-809d-bc51-f20b284450b5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">His words are consistent with his action</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80b0-bc4c-f347bdc7aaf6" class="bulleted-list"><li style="list-style-type:disc">그는 언행이 일치한다.</li></ul><ul id="29570133-dd5d-8011-80bf-da07f98ccd5f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><strong>The contract automatically renews as a one-year term beginning June 1, 2010.</strong></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8059-b948-ca6d1b42cbfc" class="bulleted-list"><li style="list-style-type:disc">2010년 6월 1일을 시작으로 일 년 단위로 자동 갱신된다.</li></ul><ul id="29570133-dd5d-8073-a648-c2c8576b0154" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background"><strong>Unless otherwise notified</strong></mark><strong> by three months before the end of the contract.</strong></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-807b-9e03-c9629bfe75a3" class="bulleted-list"><li style="list-style-type:disc">계약은 계약 만료 3개월 전까지 쌍방이 아무말<mark class="highlight-yellow_background"> 없으면</mark></li></ul><ul id="29570133-dd5d-8069-9287-ecd9dcc1a9af" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We <mark class="highlight-yellow_background">guarantee </mark>that we will not use the drawing of your product</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80e7-8774-dc94813c13c2" class="bulleted-list"><li style="list-style-type:disc">제품의 도면을 사용하지 않을 것을 <mark class="highlight-yellow_background">보증함</mark></li></ul><ul id="29570133-dd5d-8091-b851-d3f01d7b6d38" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">The governing law</mark> of this Agreement shall be the laws of Hong Kong</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80b7-a97e-dd6f75aef36f" class="bulleted-list"><li style="list-style-type:disc">본 계약의 <mark class="highlight-yellow_background">준거법은</mark> 홍콩법이다.</li></ul><ul id="29570133-dd5d-80d9-9830-ead9b822f70b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Notice of <mark class="highlight-yellow_background">revision </mark>or <mark class="highlight-yellow_background">termination </mark>of the agreement should be made at least three months before the end of the agreement.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80d9-8394-de9cdb388d1d" class="bulleted-list"><li style="list-style-type:disc">계약 <mark class="highlight-yellow_background">변경이나 해지는 </mark>계약 만기 3개월 전에 이루어져야한다.</li></ul><ul id="29570133-dd5d-80e5-b602-ebfcb2744679" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">The company <mark class="highlight-yellow_background">honors </mark>its contract. Please<mark class="highlight-yellow_background"> rest assured</mark> of doing business with that company, once it signs the contract.</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8015-acbf-f9fb26e86c6b" class="bulleted-list"><li style="list-style-type:disc">그 회사는 계약을 <mark class="highlight-yellow_background">존중</mark>한다. 일단 계약서 서명하면 그 회사와의 거래는 <mark class="highlight-yellow_background">안심해라</mark>.</li></ul><p id="29570133-dd5d-8045-adc0-ff1e77b4a2f6" class=""><strong>계약서 검토 및 동의 요청</strong></p><ul id="29570133-dd5d-806e-88e8-e004a6b30dc1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We agree to your contract <mark class="highlight-yellow_background">draft</mark> <mark class="highlight-yellow_background">except </mark>three points</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-800f-ba59-dabe7e64e477" class="bulleted-list"><li style="list-style-type:disc">3가지 사항<mark class="highlight-yellow_background">이외</mark> <mark class="highlight-yellow_background">초안</mark>에 동의 드립니다.</li></ul><p id="29570133-dd5d-80e2-ab30-f1df82952663" class=""><strong>계약서 합의/서명</strong></p><ul id="29570133-dd5d-80e9-b533-e758b0a87a45" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><strong>In witness whereof, duly authorized representatives of the parties sign the Agreement in duplicate and each party retains one signed original.</strong></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8019-a218-ec41f1f25ea8" class="bulleted-list"><li style="list-style-type:disc"><strong>본 합의 사항을 입증하기 위해 양사의 대표가 계약서 부에 서명하며 각자가 한 부씩 보관한다.</strong><ul id="29570133-dd5d-80cf-ad29-f7e8f6185cbe" class="bulleted-list"><li style="list-style-type:circle">계약서 맨 마지막에 들어감</li></ul></li></ul><ul id="29570133-dd5d-8073-8585-e7d6ba673f12" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Let’s call it a <mark class="highlight-yellow_background">deal</mark>. That’s a deal</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-800f-b3bd-fc30e538bcdd" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">계약</mark>하자</li></ul><p id="29570133-dd5d-8017-8666-cf5d13766f13" class=""><strong>수정 계약서 송부 및 서명 요청</strong></p><ul id="29570133-dd5d-808d-b7da-c2dc71ea8e8b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">As you have <mark class="highlight-yellow_background">assent</mark>ed in your message</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80a1-8cdb-f95e98772655" class="bulleted-list"><li style="list-style-type:disc">귀하가 <mark class="highlight-yellow_background">동의</mark>한 바와 같이</li></ul><p id="29570133-dd5d-8094-a921-c2572e0ce393" class="">계약 성사 도움 감사</p><ul id="29570133-dd5d-80c1-9d59-f40a00e5a2ac" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">I don’t know how to <mark class="highlight-yellow_background">thank you enough</mark> for your hands-on help</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-804e-be39-c723f7477824" class="bulleted-list"><li style="list-style-type:disc">당신의 직접적인 <mark class="highlight-yellow_background">도움에 뭐라 감사드려야</mark> 될지 모르겠습니다.</li></ul><ul id="29570133-dd5d-80e0-b4be-c0041905e31e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Thanks to your <mark class="highlight-yellow_background">influential power</mark></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80f0-bdc4-cfad8d2a01f5" class="bulleted-list"><li style="list-style-type:disc">귀하의<mark class="highlight-yellow_background"> 영향력</mark> 덕분에</li></ul><p id="29570133-dd5d-8044-a799-f05970f44145" class=""><strong>양해각서(MOU: memorandum of inderstanding)</strong></p><ul id="29570133-dd5d-8042-b4fe-e2226532072d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We <mark class="highlight-yellow_background">agree</mark>d <mark class="highlight-yellow_background">on</mark> the most critical issues of price</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8098-bb10-fbeb84db3e12" class="bulleted-list"><li style="list-style-type:disc">주요 사안<mark class="highlight-yellow_background">에 대해</mark> <mark class="highlight-yellow_background">합의</mark>함</li></ul><ul id="29570133-dd5d-8048-a660-f6f295979ab0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We <mark class="highlight-yellow_background"><strong>enclose </strong></mark>the Memorandum</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8089-a17b-f8483aff6d98" class="bulleted-list"><li style="list-style-type:disc">mou를<mark class="highlight-yellow_background"> </mark><mark class="highlight-yellow_background"><strong>첨부</strong></mark>한다</li></ul><p id="29570133-dd5d-809f-ba43-c0ec2d6aeb30" class=""><strong>매도확약서(Offer)</strong></p><p id="29570133-dd5d-8005-a10c-c6e3edeed91a" class="">※ 공급자가 발행하는 것으로 어떤 품목을 얼마의 가격으로 어떤 결제조건으로 언제 공급할 수 있다는 확약서.<br/>(최종적으로 이렇습니다~) 유효기일이 명시되어 있으며, 이 유효 기일이 지나면 offer 내용은 유효하지 않다.</p><p id="29570133-dd5d-80d7-96b8-ebe4fefbc140" class=""><strong>offer sheet : 매도확약서</strong></p><ol type="1" id="29570133-dd5d-80f9-ac50-f0669ff38937" class="numbered-list" start="1"><li>Item: Solar Glass</li></ol><ol type="1" id="29570133-dd5d-80f7-9046-dee57814f50f" class="numbered-list" start="2"><li>Size: 3.2T * 1000 * 1000mm</li></ol><ol type="1" id="29570133-dd5d-80c1-b460-c9612706e1ce" class="numbered-list" start="3"><li>Specification: Low iron patterned, tempered</li></ol><ol type="1" id="29570133-dd5d-808d-9491-f1e8e6f28a4b" class="numbered-list" start="4"><li><strong>Unit price: FOB China US$7 / SM → 제일 중요한 항복</strong></li></ol><ol type="1" id="29570133-dd5d-8068-8da6-e2df62284473" class="numbered-list" start="5"><li>Quantity: 50,000 PCS</li></ol><ol type="1" id="29570133-dd5d-80cf-952e-d328c0f69eb0" class="numbered-list" start="6"><li>Amount: US$350,000</li></ol><ol type="1" id="29570133-dd5d-8029-a483-f6e801770323" class="numbered-list" start="7"><li>Shipment: within 3 weeks after receipt of the advance money</li></ol><ol type="1" id="29570133-dd5d-80b1-9477-f00727fffeae" class="numbered-list" start="8"><li>Terms of payment: 50% T/T in advance ang 50% T/T within 7 days after B/L date</li></ol><ol type="1" id="29570133-dd5d-80c8-a502-d955cfabc0dc" class="numbered-list" start="9"><li><strong>Validity</strong>: Until January 10, 2012 (유효기간)</li></ol><ul id="29570133-dd5d-8087-908f-f72298ac510f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><mark class="highlight-yellow_background">Upon</mark> receiving your <mark class="highlight-yellow_background">reply</mark></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80c2-a55a-e4e176acc1d5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">회신</mark>을 받자<mark class="highlight-yellow_background">(하자)마자</mark></li></ul><p id="29570133-dd5d-80ca-abbc-fa37bcbd3884" class=""><strong>매수 확약서(Bid)</strong></p><p id="29570133-dd5d-8019-b8c4-f9d31dbc0c7a" class="">※ 매수자가 발행하는 것으로 어떤 품목을 얼마의 가격으로 어떤 결제조건으로 언제 공급받는 조건으로 구매하겠다<br/>는 확약서.</p><p id="29570133-dd5d-8069-b9d8-f5f00c4c099c" class=""><strong>구매승인서(PO: Purchase Order)</strong></p><p id="29570133-dd5d-805d-8d00-e37ec7949a2d" class="">※ 매도자와 매수자간에 모든 사항이 합의되어 매수자가 발행하는 것으로 매도자의 생산/선적의 근거가 된다.<br/>(법적 구속력은 없지만 재판에서 따져볼 수는 있음)</p><ul id="29570133-dd5d-8022-a677-d50dbd46195f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">We are pleased to <mark class="highlight-yellow_background">place an order</mark> as below</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80a5-9910-ef70cdec16af" class="bulleted-list"><li style="list-style-type:disc">다음과 같이<mark class="highlight-yellow_background"> 발주</mark> 드립니다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

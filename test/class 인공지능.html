@@ -1,0 +1,710 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>class 인공지능</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29570133-dd5d-8011-b508-f40f41799b86" class="page sans"><header><h1 class="page-title">class 인공지능</h1><p class="page-description"></p></header><div class="page-body"><p id="29570133-dd5d-802c-aba3-ed40571397b8" class="">
+</p><ul id="29570133-dd5d-80c3-b187-f14a56a26ab8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>인공지능 기술</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8091-a6a2-c550ff599433" class="bulleted-list"><li style="list-style-type:disc">인간의 학습능력, 추론능력, 지각능력을 인공적으로 구현하려는 과학 기술</li></ul><ul id="29570133-dd5d-806d-a8d4-e9fe2729392d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>알고리즘</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8019-9637-e4eebaf59a22" class="bulleted-list"><li style="list-style-type:disc"> 컴퓨터 과학에서 어떠한 문제를 풀기 위한 일련의 절차와 방법을 공식화한 형태로 표현</li></ul><ul id="29570133-dd5d-8009-ba89-ee22491d7230" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>튜링 테스트</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80d8-b860-f8c0449e7146" class="bulleted-list"><li style="list-style-type:disc">최초의 컴퓨터,<mark class="highlight-yellow_background"> </mark><mark class="highlight-yellow_background"><strong>인간과 같은 지능을 가지는 기계</strong></mark><strong> 를 판별하는 목적</strong></li></ul><ul id="29570133-dd5d-806b-99e7-d70755c24387" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>다트머스 회의</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8017-aaac-c8fccfb001b9" class="bulleted-list"><li style="list-style-type:disc">에서 존 매카시가 최초록 생각하는 기계 → 인공지능 사용</li></ul><ul id="29570133-dd5d-806d-a855-f0fb897bb6e9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>백트래킹</code>ㅇ<code>탐색 추론</code> </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8006-89a5-c4dfa96710b9" class="bulleted-list"><li style="list-style-type:disc">문제의 정답을 단계별로 찾아가다 실패할 경우 이전 단계에서 다른 해를 찾아나가는 최적화 기법 : </li></ul><ul id="29570133-dd5d-80ac-baed-fea05902477a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">FSD 완전 자율주행 - 오토 파일럿, FDS 이상 거래 탐지 시스템, DALL-E 이미지 생성 모델, 코파일럿 등, </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8038-b9ac-de46a36c67dd" class="bulleted-list"><li style="list-style-type:disc">인공지능 적용 기술</li></ul><ul id="29570133-dd5d-80c8-a5ea-e794a391e6a6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ChatGPT 의 <code>대규모 언어 모델</code> </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80fd-a5df-fd8298c08ed2" class="bulleted-list"><li style="list-style-type:disc">방대한 양의 텍스트 데이터를 학습하여 사람들이 언어를 사용하는 방식을 흉내</li></ul><ul id="29570133-dd5d-8097-8a85-e784ef66cd13" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>딥페이크</code> 기술 </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-806a-82b1-fa1b93561c82" class="bulleted-list"><li style="list-style-type:disc">딥러닝을 이용한 가짜 이미지나 동영상을 생성하는 인공지능 기술 </li></ul><p id="29570133-dd5d-802b-8677-d9879e652217" class="">
+</p><ul id="29570133-dd5d-8048-adb5-dca911c9bdaf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">모라벡의 역설 </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8014-8c06-ca18a9e38b87" class="bulleted-list"><li style="list-style-type:disc"> 인간에게 단순해 보이는 낮은 수준의 기술을 구현하려면 많은 양의 연산 자원</li></ul><ul id="29570133-dd5d-8027-8440-f7659451edc6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>약한 인공지능</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8079-94f2-ca1924f6c730" class="bulleted-list"><li style="list-style-type:disc"> : 제한적으로 좁은 영역에 대해 적용 (하나의 작업에 특화 , 알파고)</li></ul><ul id="29570133-dd5d-8066-b8ec-c0eeb693dbcd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>강한 인공지능</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8033-8c7b-eb5f57576d7d" class="bulleted-list"><li style="list-style-type:disc"> : 인간처럼 지속적으로 배우고, 여러 도메인 지식을 연결, 다기능적 요소</li></ul><ul id="29570133-dd5d-80ba-9806-ceb9aacf5ad9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>초 인공지능</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8061-90fe-d4fbe0676857" class="bulleted-list"><li style="list-style-type:disc"> : 다면적 지능을 넘어 인간보다 빠르고 정확한 의사 결정</li></ul><ul id="29570133-dd5d-8007-8bb7-f94a1a6329b9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>지도학습</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8051-a7c1-e92a590de07e" class="bulleted-list"><li style="list-style-type:disc">치와와 VS 머핀 구별</li></ul><ul id="29570133-dd5d-8097-861f-ebf677f1f90e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">1차 산업 혁명</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8002-a799-d4278c6d779f" class="bulleted-list"><li style="list-style-type:disc">증기기관 기반의 기계화 혁명 - <strong>대량생산</strong></li></ul><ul id="29570133-dd5d-80d4-9c08-e93fcf504104" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">2차 산업  혁명 </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80f8-8cce-d1b367b11754" class="bulleted-list"><li style="list-style-type:disc">: <strong>석유와 전기 에너지 기반의 대량생산</strong></li></ul><ul id="29570133-dd5d-80c3-a2be-fd6f9c63f07d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">3차 산업 혁명 </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80c2-ac02-eacda0c8fb1d" class="bulleted-list"><li style="list-style-type:disc">: 지식 정보 혁명 - 서비스기반 혁명</li></ul><ul id="29570133-dd5d-8058-92f0-e43ff90fedb8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>4차 산업 혁명</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8089-a3e3-df42cfe6b3de" class="bulleted-list"><li style="list-style-type:disc"> : 지능 정보 기술을 산업과 서비스에 결합</li></ul><ul id="29570133-dd5d-80de-bdd8-c849ec7dee5e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>퍼셉트론</code>의 출현</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-808f-b9ce-d5632f0deb9e" class="bulleted-list"><li style="list-style-type:disc"> 뇌세포와 유사한 인공 신경망을 어떻게 학습</li></ul><ul id="29570133-dd5d-808a-b220-d2fe09269cc5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>머신러닝</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80f7-b665-cbd315f22bc2" class="bulleted-list"><li style="list-style-type:disc"> : 데이터 기반으로 <strong>학습을 수행</strong> , <strong>규칙을 수정</strong></li></ul><ul id="29570133-dd5d-8073-9126-e4d5b441b443" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>딥러닝</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8015-bb76-c6e751f648c6" class="bulleted-list"><li style="list-style-type:disc"> : 학습과 오류의 수정을 통해 품질을 스스로 개선 → 스스로 시행착오를 겪음</li></ul><ul id="29570133-dd5d-80c3-9220-fb9002e22303" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">불쾌한 골짜기</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8019-91a5-f96bb9faa65f" class="bulleted-list"><li style="list-style-type:disc"> : 인간과 가까워질 수록 호감도가 급격히 떨어짐</li></ul><ul id="29570133-dd5d-807a-8520-d97069f15ae0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>빅데이터</code> </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8073-8d23-f24d0ae114d7" class="bulleted-list"><li style="list-style-type:disc">: 컴퓨터나 스마트폰을 통해서 생성된 방대한 데이터 를 학습데이터로 사용</li></ul><ul id="29570133-dd5d-800e-a501-cb789eb249d5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">데이터 분석 : </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8062-9714-d535fb955c2c" class="bulleted-list"><li style="list-style-type:disc">가공하는 작업 → 의미 있는 정보 얻는 일</li></ul><p id="29570133-dd5d-802d-a817-ebc57f6e2dab" class="">
+</p><ul id="29570133-dd5d-80a2-b4f0-c8ff872ba761" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>확증 편향</code>(선택적 인지</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8024-acf3-d9e212eae7fd" class="bulleted-list"><li style="list-style-type:disc">) : 원하는 정보만 선택적으로 모으거나 어떤 것을 설명하거나 주장할 떄 편향된 방법</li></ul><ul id="29570133-dd5d-8013-9ed2-ccce1193dde1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>데이터 표본 편향</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-807e-8cb5-cc6e6b7c5bd0" class="bulleted-list"><li style="list-style-type:disc"> : 자료 수집 단계의 문제로 데이터 <strong>샘플링 </strong>편향</li></ul><ul id="29570133-dd5d-8071-9304-f2bcf3cba151" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인간 편향 , 숨겨진 편향, 롱테일 편향, 고의적 편향</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-803e-9cb3-df60473f750d" class="bulleted-list"><li style="list-style-type:disc">그외 편향</li></ul><ul id="29570133-dd5d-8048-a56f-daacb6c9a153" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"> 사람들에게 허구의 말과 행동을 하는 것을 보여줌</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8079-8932-cf8010ed178f" class="bulleted-list"><li style="list-style-type:disc">딥페이크 의 윤리 문제</li></ul><ul id="29570133-dd5d-804c-b543-f37106547aa9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>아실로마 인공지능 원칙</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80f6-b457-eeaf82827ef7" class="bulleted-list"><li style="list-style-type:disc"> : 생산성 증대와 기술 혁신에 의한 경제 성장으로 인간의 삶이 윤택해졌다고 강조함 (낙관+비관)</li></ul><ul id="29570133-dd5d-8092-bf03-c5648a7f1e58" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">모럴 머신 (자율주행차의 윤리)</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-805b-b820-d4672be0eae1" class="bulleted-list"><li style="list-style-type:disc">인공지능이 윤리적 결정에 대한 사회적 인식을 수집하는 작업?  , 인간의 윤리적 판단을 통해 사회적 합의</li></ul><ul id="29570133-dd5d-802d-ae4c-d6e168477b07" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>공리주의</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80ef-9954-ff0ca9634e40" class="bulleted-list"><li style="list-style-type:disc"> : 최대 다수의 최대 행복</li></ul><ul id="29570133-dd5d-8017-a39e-e4a1795f2823" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>저급 언어</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80c7-a540-d524d6bdd9dd" class="bulleted-list"><li style="list-style-type:disc"> : <strong>기계가 바로 이해</strong>하여 수행 → 0과 1로 구성 - 수행속도가 빠름</li></ul><ul id="29570133-dd5d-8083-b812-dce4bd29ebb7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>고급 언어</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80ae-8e96-c63e74bc74b1" class="bulleted-list"><li style="list-style-type:disc"> : <strong>사람이 쉽게 이해할 수 있는 언어</strong>, 컴파일러와 인터프리터와 같은 해석과 실행을 하는 별도의 프로그램</li></ul><ul id="29570133-dd5d-803b-9069-ea2a4421cefe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">컴파일러 방식 </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8061-904b-e58b39ef02eb" class="bulleted-list"><li style="list-style-type:disc">: 기계어로 해석하여 실행시 기계어를 메모리에서 실행 (자바) / 전체 단위 해석 - 후 실행</li></ul><ul id="29570133-dd5d-80b0-9ff7-c0008b25e105" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인터프리터 방식</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8010-adee-c9307036b448" class="bulleted-list"><li style="list-style-type:disc"> : 즉시 해석하고 기계에서 실행 (파이썬) / 실시간 디버깅 가능 / 줄 단위로 실행</li></ul><ul id="29570133-dd5d-8030-ace5-ce5dcd8f2e79" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>명시적 프로그램</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8045-b145-c3f1279ac0c3" class="bulleted-list"><li style="list-style-type:disc"> : 규칙을 명시하고 이 규칙에 따라 수행</li></ul><ul id="29570133-dd5d-80fb-8430-f2a903e9ac4d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>기호주의</code>적 시도</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-803c-987a-f8a391e8ae70" class="bulleted-list"><li style="list-style-type:disc"> : 인간의 사고를 완벽하게 표현할 수 있다면 인공지능을 구현할 수 있지 않을까? </li></ul><ul id="29570133-dd5d-800b-b360-df3da1870a91" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>규칙 기반</code> 모델 </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80e7-b3d7-d404871b51cb" class="bulleted-list"><li style="list-style-type:disc">: <strong>인간의 지능과 유사한 일</strong>을 할 수 있을 것이다.</li></ul><ul id="29570133-dd5d-80c7-9ae4-e5b878d53572" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>전문가 시스템</code> </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80af-9724-df56d42a2801" class="bulleted-list"><li style="list-style-type:disc">: 고도의 현실적 문제를 전문가와 동등한 레벨에서 해결하는 지적 인공지능 시스템</li></ul><ul id="29570133-dd5d-80ee-a2bd-d4255b3e6be7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>머신러닝</code> :</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80fc-ae87-f578cd9d331f" class="bulleted-list"><li style="list-style-type:disc"> 데이터 학습을 통해 <code>규칙을 찾는</code> 프로그램 (자동)</li></ul><ul id="29570133-dd5d-8011-85c8-d18e65c5a336" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>명시적 프로그램</code> : </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8056-9b4f-e9444c2d5b40" class="bulleted-list"><li style="list-style-type:disc">의 한계 사람이 세부적인 규칙을 일일히 알려줘야 함 (수동)</li></ul><ul id="29570133-dd5d-8072-81dd-e5e56e75d660" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ASCII</code> </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80fd-b05b-f902af29b379" class="bulleted-list"><li style="list-style-type:disc">: 8bit → <strong>1 byte 는 영문 한 글자와 특수 기호</strong>를 표현하는 단위</li></ul><ul id="29570133-dd5d-8054-bfcd-dbde91c6d2a5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>유니코드</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8066-a387-d17c3638985e" class="bulleted-list"><li style="list-style-type:disc"> : <strong>2바이트를 묶어서 하나의 문자</strong>로 사용 (2byte가 <strong>국제 표준</strong> )</li></ul><ul id="29570133-dd5d-8051-be5a-e13bb3a66301" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>빅데이터 </code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80e7-9d43-fad6f6cfc3bd" class="bulleted-list"><li style="list-style-type:disc">: DB관리 도구의 능력을 넘어 <strong>정형-비정형 데이터 집합으로 부터 가치를 추출, 결과를 분석</strong></li></ul><ul id="29570133-dd5d-8010-b9e9-e28859bcf1d9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"> : 양 VOLUME, 속도 VELOCITY,종류 VARIETY</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8021-939d-c970e29fb10a" class="bulleted-list"><li style="list-style-type:disc">ㅇV3</li></ul><ul id="29570133-dd5d-8032-bbba-fe0268e5b6f1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>비정형 데이터</code> </span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8000-85b4-eb198f7264af" class="bulleted-list"><li style="list-style-type:disc">: 정해진 규칙이 없어서 값의 의미를 파악하기 힘든 데이터</li></ul><ul id="29570133-dd5d-8072-9c70-f7cc60aea107" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>정형 데이터</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8077-8040-faa5d71cbb5d" class="bulleted-list"><li style="list-style-type:disc"> : 행&amp;열로 표현된 정제된 데이터,<strong> 의미 파악이 쉽고 규칙적인 값</strong>으로 이루어짐</li></ul><ul id="29570133-dd5d-8030-ab85-c9afa7f23858" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>사물인터넷 </code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-802a-b146-c5f328d4e795" class="bulleted-list"><li style="list-style-type:disc">: IOT   사물의 센서와 통신 기능 등 </li></ul><ul id="29570133-dd5d-8003-adad-fcaa74500863" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>온톨로지</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-805c-b268-cfe742039be9" class="bulleted-list"><li style="list-style-type:disc"><code> </code>: 인간이 보고 듣고 느끼고 생각하는 것에 대해 컴퓨터에서 처리할 수 있는 형태로 표현한 모델</li></ul><ul id="29570133-dd5d-8040-8e80-ed3714347009" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">프로그램 내장 방식</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80eb-8d3d-f0a312639b6e" class="bulleted-list"><li style="list-style-type:disc"> : 존 폰 노이만에 의해 고안 / 주기억 장치가 (메모리) 데이터 저장 → 중앙처리장치 (CPU) 가 처리하는 방식</li></ul><ul id="29570133-dd5d-8086-92d7-f296f3a5df5a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">CPU</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80a4-b233-f97f270d7f29" class="bulleted-list"><li style="list-style-type:disc">: 1~8개 가량 적은 코어 /  직렬 처리 방식 / 컴퓨터의 연산과 제어를 담당 / 빠른 병렬 연산이 어려움</li></ul><ul id="29570133-dd5d-8000-8c1c-fb798b35c247" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">GPU</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8099-b5bb-fe245bcb812e" class="bulleted-list"><li style="list-style-type:disc">그래픽 처리를 담당, 인공지능을 위한 병렬처리 / 병렬 처리 방식 /  병렬 연산 이외의 복잡한 처리가 어려움 / 느림</li></ul><ul id="29570133-dd5d-802f-a648-c96fcddd55b4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>GPGPU와 형용모순</code></span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80f0-b642-cb79d432f493" class="bulleted-list"><li style="list-style-type:disc"> (안나올듯) : GP(범용) ←형용모순→ GPU(그래픽 처리 전용) / 그래픽용으로 만들어진건데 GP 범용 기능을 추가하여 CPU대신 다른 범용 하드웨어로도 씀 → 딥러닝시스템에 최적화</li></ul><ul id="29570133-dd5d-8010-8896-f98919369357" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">클라우드 컴퓨팅</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-8013-865d-d2b57cdba7b0" class="bulleted-list"><li style="list-style-type:disc"> : 컴퓨터 자원을 인터넷 어딘가에서 가져와 사용하는 것</li></ul><ul id="29570133-dd5d-80a3-bdc7-cf9ca76ceb0e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">데이터 센터 :</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80e0-86cd-c3500ff15a64" class="bulleted-list"><li style="list-style-type:disc"> 서버 컴퓨터와 회선을 제공하는 건물이나 집적화 된 시설 → 안정적 관리를 위해</li></ul><ul id="29570133-dd5d-801e-8e20-f3e606ea24ca" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">지능형 로봇 구성 :</span><div class="indented"></div></li></ul><ul id="29570133-dd5d-80b7-a232-d3958a05ec10" class="bulleted-list"><li style="list-style-type:disc"> 매니퓰레이터 (기구부), 엔추에이터(근육), 센서 (오감)</li></ul><p id="29570133-dd5d-8074-be95-d472a97170e1" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

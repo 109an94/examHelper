@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>시험 준비 스터디</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, "Noto Sans KR", sans-serif; max-width: 960px; margin: 28px auto; padding: 0 16px; line-height: 1.6; }
+    h1 { margin: 0 0 8px; }
+    .panel { border:1px solid #e5e7eb; border-radius:14px; padding:16px; margin-top:14px; }
+    .row { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    button { border:1px solid #e5e7eb; background:#f8fafc; border-radius:10px; padding:8px 12px; cursor:pointer; }
+    #kr { font-size:22px; font-weight:700; line-height:1.5; }
+    #en { font-size:18px; margin-top:8px; display:none; }
+    #progress { font-size:12px; color:#666; margin-top:6px; }
+    #chapterList { display:grid; grid-template-columns:1fr; gap:6px; margin-top:8px; }
+    #chapterList label { display:flex; gap:8px; align-items:baseline; cursor:pointer; }
+    #listContainer label{ display:block; border:1px dashed #e5e7eb; border-radius:10px; padding:8px 10px; margin:4px 0; }
+    .muted { color:#666; }
+    .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;border:1px solid #e5e7eb;border-bottom-width:2px;border-radius:6px;padding:0 6px;background:#fff}
+  </style>
+</head>
+<body>
+  <h1>시험 준비 스터디</h1>
+  <p class="muted">엔터로 “다음” · 체크된 문장은 <b>영어 숨김</b></p>
+
+  <!-- 1) 챕터 선택 -->
+  <section class="panel">
+    <div class="row">
+      <strong>챕터 선택</strong>
+      <button id="btnSelectAll" type="button">전체 선택</button>
+      <button id="btnClear" type="button">모두 해제</button>
+      <button id="btnStart" type="button">학습 시작</button>
+    </div>
+    <div id="chapterList"></div>
+  </section>
+
+  <!-- 2) 학습 컨트롤 -->
+  <section class="panel">
+    <div class="row" role="group" aria-label="학습 모드">
+      <strong>모드</strong>
+      <label><input type="radio" name="mode" value="sequential" checked> 순차</label>
+      <label><input type="radio" name="mode" value="random"> 랜덤</label>
+      <span class="muted">|</span>
+      <button id="btnPrev" type="button" title="이전(Shift+Enter)">이전</button>
+      <button id="btnNext" type="button" title="다음(Enter)">다음 <span class="kbd">Enter</span></button>
+    </div>
+  </section>
+
+  <!-- 3) 뷰어 -->
+  <section id="viewer" class="panel" aria-live="polite">
+      <div style="margin: 200px;"></div>
+    <div id="kr"></div>
+    <div id="en"></div>
+    <div id="progress"></div>
+    <div style="margin: 200px;"></div>
+  </section>
+
+  <!-- 4) 체크리스트 -->
+  <section class="panel">
+    <h3 style="margin:0 0 10px">문장 리스트 <small class="muted">(체크 시 해당 영어 숨김)</small></h3>
+    <div id="listContainer"></div>
+  </section>
+
+  <!-- ✅ 여기에 챕터를 수동으로 추가하세요 -->
+  <script>
+    window.STUDY_CHAPTERS = [
+      // 예시: /test 폴더 내 파일 경로들
+      "/test/class 인공지능.html",
+      "/test/Chapter 01 회사 소개.html",
+      "/test/Chapter 02 상품거래.html",
+      "/test/Chapter 03 상담.html",
+      "/test/Chapter 10 협상.html",
+      "/test/Chapter 11 계약.html",
+      // "/test/Chapter 02 제품 소개 ....html",
+      // "/test/Chapter 03 질의응답 ....html",
+    ];
+  </script>
+
+  <script src="./study.js"></script>
+
+  <script>
+    // 챕터 선택 UI 생성
+    const chapterListEl = document.getElementById("chapterList");
+    function renderChapterChoices(paths) {
+      chapterListEl.innerHTML = "";
+      paths.forEach((p, idx) => {
+        const label = document.createElement("label");
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.value = p;
+        cb.checked = true; // 기본 전체 선택
+        label.append(cb, `${idx+1}. ${decodeURIComponent(p)}`);
+        chapterListEl.appendChild(label);
+      });
+    }
+    function selectedChapters(){
+      return Array.from(chapterListEl.querySelectorAll("input[type=checkbox]"))
+        .filter(cb=>cb.checked).map(cb=>cb.value);
+    }
+    document.getElementById("btnSelectAll").addEventListener("click", ()=>{
+      chapterListEl.querySelectorAll("input[type=checkbox]").forEach(cb=>cb.checked=true);
+    });
+    document.getElementById("btnClear").addEventListener("click", ()=>{
+      chapterListEl.querySelectorAll("input[type=checkbox]").forEach(cb=>cb.checked=false);
+    });
+    document.getElementById("btnStart").addEventListener("click", ()=>{
+      window.startStudy(selectedChapters());
+    });
+    renderChapterChoices(window.STUDY_CHAPTERS);
+
+    // Shift+Enter = 이전
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && e.shiftKey) {
+        e.preventDefault();
+        document.getElementById("btnPrev")?.click();
+      }
+    });
+  </script>
+</body>
+</html>
