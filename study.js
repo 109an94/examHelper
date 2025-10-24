@@ -17,6 +17,18 @@ function shuffle(arr) {
   }
   return a;
 }
+//도우미 함수
+function textKeepBreaksFromHTML(html) {
+  return html
+    .replace(/<br\s*\/?>/gi, "\n")     // <br> → \n
+    .replace(/<\/p>\s*<p>/gi, "\n")    // 문단 사이도 줄바꿈(있다면)
+    .replace(/<[^>]+>/g, "")           // 나머지 태그 제거
+    .replace(/\u00a0/g, " ")           // nbsp → 공백
+    .replace(/[ \t]+\n/g, "\n")        // 줄 끝 공백 정리
+    .replace(/\n[ \t]+/g, "\n")        // 줄 시작 공백 정리
+    .replace(/[ \t]{2,}/g, " ")        // 다중 공백 1칸
+    .trim();
+}
 
 // ===== 파서 (필터 유지) =====
 async function loadChapter(url) {
@@ -29,7 +41,7 @@ async function loadChapter(url) {
   const result = [];
 
   enNodes.forEach((enNode) => {
-    const en = enNode.textContent.trim().replace(/\s+/g, " ");
+    const en = textKeepBreaksFromHTML(enNode.innerHTML || "");
     const ul = enNode.closest("ul.to-do-list");
     if (!ul) return;
 
@@ -46,7 +58,7 @@ async function loadChapter(url) {
     const listStyle = krLi.getAttribute("style") || "";
     if (/list-style-type\s*:\s*(circle|square)/i.test(listStyle)) return;
 
-    const kr = krLi.textContent.trim().replace(/\s+/g, " ");
+    const kr =  textKeepBreaksFromHTML(krLi.innerHTML || "");
     if (!en || !kr) return;
     if (/callout|quote|table/i.test(kr)) return;
 
@@ -75,8 +87,14 @@ async function loadAll(paths) {
 
 // ===== 순서/체크리스트/렌더 =====
 function rebuildOrder() {
-  const base = Array.from({ length: pairs.length }, (_, i) => i);
-  order = mode === "random" ? shuffle(base) : base;
+  //제외 체크 된 문장ID 들은 아예 순회 대상에서 빼기
+  // const base = Array.from({ length: pairs.length }, (_, i) => i);
+  const base = [];  
+  for (let i = 0; i < pairs.length; i++) {
+    const id = pairs[i].id;
+    if (!excludes[id]) base.push(i);
+  }
+  order = (mode === "random") ? shuffle(base) : base;
   idx = 0;
   phase = "kr";
 }
@@ -92,6 +110,21 @@ function buildChecklist() {
     cb.addEventListener("change", () => {
       excludes[p.id] = cb.checked;
       saveExcludes();
+
+       // 순서 재구성(제외 반영)
+      const curId = pairs[order[idx]]?.id;
+      rebuildOrder();
+      // 방금 체크한 게 현재 문장이면 다음으로 넘어가기
+      if (cb.checked && curId === p.id) {
+        if (order.length) renderPairKR();
+        else {
+          document.getElementById("kr").textContent = "모든 문장이 제외되어 표시할 항목이 없습니다.";
+          document.getElementById("en").style.display = "none";
+          document.getElementById("progress").textContent = "";
+        }
+      } else {
+        renderPairKR();
+      }
     });
     label.append(cb, `${i + 1}. ${p.kr}`);
     cont.append(label);
