@@ -1,0 +1,2173 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>금융과 핀테크</title>
+    <style>
+      /* cspell:disable-file */
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 10px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .collection-content td {
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        padding-inline-start: 0;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      .page-description {
+        margin-bottom: 2em;
+      }
+
+      .simple-table {
+        margin-top: 1em;
+        font-size: 0.875rem;
+        empty-cells: show;
+      }
+      .simple-table td {
+        height: 29px;
+        min-width: 120px;
+      }
+
+      .simple-table th {
+        height: 29px;
+        min-width: 120px;
+      }
+
+      .simple-table-header-color {
+        background: rgb(247, 246, 243);
+        color: black;
+      }
+      .simple-table-header {
+        font-weight: 500;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .callout img.notion-static-icon {
+        width: 1em;
+        height: 1em;
+      }
+
+      .callout p {
+        margin: 0;
+      }
+
+      .callout h1,
+      .callout h2,
+      .callout h3 {
+        margin: 0 0 0.6rem;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        max-height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      blockquote.quote-large {
+        font-size: 1.25em;
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono",
+          "Liberation Mono", Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, ui-serif, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK JP";
+      }
+      .pdf:lang(zh-CN) .sans {
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC";
+      }
+      .pdf:lang(zh-TW) .sans {
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK TC";
+      }
+      .pdf:lang(ko-KR) .sans {
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI Variable Display", "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK KR";
+      }
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK JP";
+      }
+      .pdf:lang(zh-CN) .code {
+        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC";
+      }
+      .pdf:lang(zh-TW) .code {
+        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK TC";
+      }
+      .pdf:lang(ko-KR) .code {
+        font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+          "PT Mono", "Liberation Mono", Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK KR";
+      }
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+          "Noto Color Emoji", "Noto Serif CJK JP";
+      }
+      .pdf:lang(zh-CN) .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+          "Noto Color Emoji", "Noto Serif CJK SC";
+      }
+      .pdf:lang(zh-TW) .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+          "Noto Color Emoji", "Noto Serif CJK TC";
+      }
+      .pdf:lang(ko-KR) .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, "Twemoji",
+          "Noto Color Emoji", "Noto Serif CJK KR";
+      }
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK JP";
+      }
+      .pdf:lang(zh-CN) .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC";
+      }
+      .pdf:lang(zh-TW) .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK TC";
+      }
+      .pdf:lang(ko-KR) .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK KR";
+      }
+      .highlight-default {
+        color: rgba(44, 44, 43, 1);
+      }
+      .highlight-gray {
+        color: rgba(134, 131, 126, 1);
+        fill: rgba(134, 131, 126, 1);
+      }
+      .highlight-brown {
+        color: rgba(159, 118, 90, 1);
+        fill: rgba(159, 118, 90, 1);
+      }
+      .highlight-orange {
+        color: rgba(210, 123, 45, 1);
+        fill: rgba(210, 123, 45, 1);
+      }
+      .highlight-yellow {
+        color: rgba(203, 148, 52, 1);
+        fill: rgba(203, 148, 52, 1);
+      }
+      .highlight-teal {
+        color: rgba(80, 148, 110, 1);
+        fill: rgba(80, 148, 110, 1);
+      }
+      .highlight-blue {
+        color: rgba(56, 125, 201, 1);
+        fill: rgba(56, 125, 201, 1);
+      }
+      .highlight-purple {
+        color: rgba(154, 107, 180, 1);
+        fill: rgba(154, 107, 180, 1);
+      }
+      .highlight-pink {
+        color: rgba(193, 76, 138, 1);
+        fill: rgba(193, 76, 138, 1);
+      }
+      .highlight-red {
+        color: rgba(207, 81, 72, 1);
+        fill: rgba(207, 81, 72, 1);
+      }
+      .highlight-default_background {
+        color: rgba(44, 44, 43, 1);
+      }
+      .highlight-gray_background {
+        background: rgba(42, 28, 0, 0.07);
+      }
+      .highlight-brown_background {
+        background: rgba(139, 46, 0, 0.086);
+      }
+      .highlight-orange_background {
+        background: rgba(224, 101, 1, 0.129);
+      }
+      .highlight-yellow_background {
+        background: rgba(211, 168, 0, 0.137);
+      }
+      .highlight-teal_background {
+        background: rgba(0, 100, 45, 0.09);
+      }
+      .highlight-blue_background {
+        background: rgba(0, 124, 215, 0.094);
+      }
+      .highlight-purple_background {
+        background: rgba(102, 0, 178, 0.078);
+      }
+      .highlight-pink_background {
+        background: rgba(197, 0, 93, 0.086);
+      }
+      .highlight-red_background {
+        background: rgba(223, 22, 0, 0.094);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(134, 131, 126, 1);
+        fill: rgba(134, 131, 126, 1);
+      }
+      .block-color-brown {
+        color: rgba(159, 118, 90, 1);
+        fill: rgba(159, 118, 90, 1);
+      }
+      .block-color-orange {
+        color: rgba(210, 123, 45, 1);
+        fill: rgba(210, 123, 45, 1);
+      }
+      .block-color-yellow {
+        color: rgba(203, 148, 52, 1);
+        fill: rgba(203, 148, 52, 1);
+      }
+      .block-color-teal {
+        color: rgba(80, 148, 110, 1);
+        fill: rgba(80, 148, 110, 1);
+      }
+      .block-color-blue {
+        color: rgba(56, 125, 201, 1);
+        fill: rgba(56, 125, 201, 1);
+      }
+      .block-color-purple {
+        color: rgba(154, 107, 180, 1);
+        fill: rgba(154, 107, 180, 1);
+      }
+      .block-color-pink {
+        color: rgba(193, 76, 138, 1);
+        fill: rgba(193, 76, 138, 1);
+      }
+      .block-color-red {
+        color: rgba(207, 81, 72, 1);
+        fill: rgba(207, 81, 72, 1);
+      }
+      .block-color-default_background {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray_background {
+        background: rgba(240, 239, 237, 1);
+      }
+      .block-color-brown_background {
+        background: rgba(245, 237, 233, 1);
+      }
+      .block-color-orange_background {
+        background: rgba(251, 235, 222, 1);
+      }
+      .block-color-yellow_background {
+        background: rgba(249, 243, 220, 1);
+      }
+      .block-color-teal_background {
+        background: rgba(232, 241, 236, 1);
+      }
+      .block-color-blue_background {
+        background: rgba(229, 242, 252, 1);
+      }
+      .block-color-purple_background {
+        background: rgba(243, 235, 249, 1);
+      }
+      .block-color-pink_background {
+        background: rgba(250, 233, 241, 1);
+      }
+      .block-color-red_background {
+        background: rgba(252, 233, 231, 1);
+      }
+      .select-value-color-default {
+        background-color: rgba(42, 28, 0, 0.07);
+      }
+      .select-value-color-gray {
+        background-color: rgba(28, 19, 1, 0.11);
+      }
+      .select-value-color-brown {
+        background-color: rgba(127, 51, 0, 0.156);
+      }
+      .select-value-color-orange {
+        background-color: rgba(196, 88, 0, 0.203);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(209, 156, 0, 0.282);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 96, 38, 0.156);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 118, 217, 0.203);
+      }
+      .select-value-color-purple {
+        background-color: rgba(92, 0, 163, 0.141);
+      }
+      .select-value-color-pink {
+        background-color: rgba(183, 0, 78, 0.152);
+      }
+      .select-value-color-red {
+        background-color: rgba(206, 24, 0, 0.164);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="29670133-dd5d-8071-96ab-fe660855f7a9" class="page sans">
+      <header>
+        <h1 class="page-title">금융과 핀테크</h1>
+        <p class="page-description"></p>
+        <table class="properties">
+          <tbody></tbody>
+        </table>
+      </header>
+      <div class="page-body">
+        <ul id="29670133-dd5d-80ec-afbf-faa8cc36ed6f" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"> ( X )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8054-a294-d1f63739a0af" class="bulleted-list">
+          <li style="list-style-type: disc">
+            이자율이 상승할 때 모든 사람의 경제적 형편이 전보다 어려워진다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-805b-9a5c-f2c6773008bf" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( O )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-801d-9204-e4125f7ca1ca" class="bulleted-list">
+          <li style="list-style-type: disc">
+            1년 후에 받기로 되어 있는 1,000만 원의 현재 시점에서의 가치의 크기는
+            이자율이 5%인<br />경우의 크기가 이자율이 10%인 경우의 크기보다 더
+            크다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80ec-a498-f0a5ab5b1dba" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( X )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8075-80b0-c10256c031d6" class="bulleted-list">
+          <li style="list-style-type: disc">
+            통화량을 측정하는 지표에는 M1, M2 등이 있는데, M1을 구성하는
+            자산들의 유동성이<br />M2를 구성하는 자산들의 유동성보다 낮다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80fe-9ecc-e9f2f06ec1dd" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( X )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80a6-bc0b-c441eae509ca" class="bulleted-list">
+          <li style="list-style-type: disc">
+            4. 주식(stock)은 기업의 가장 중요한 외부자금 조달원이다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-807b-b750-e696c6bde8c4" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( O )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8062-a5f7-cff8af68f99c" class="bulleted-list">
+          <li style="list-style-type: disc">
+            5. 채권(이표채)의 가격과 이자율은 서로 음의 관계이다. 즉 이자율이
+            상승하면 채권가격은<br />하락하고, 이자율이 하락하면 채권가격은
+            상승한다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-806e-a304-d6ee0cb12a60" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( O )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80e3-8039-fe6205e54b92" class="bulleted-list">
+          <li style="list-style-type: disc">
+            6. 스왑(swab) 계약이란 두 당사자가 갖고 있는 미래의 서로 다른
+            자금흐름을 일정기간 동안<br />서로 교환하기로 계약하는 거래를
+            말한다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80fe-90d1-d74a8ca79543" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( O )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8016-9cac-d708182f282b" class="bulleted-list">
+          <li style="list-style-type: disc">
+            7. 한 국가의 통화가 절상되면, 이 국가에서 생산된 재화는 해외에서 더
+            비싸지고 외국에서<br />생산된 재화는 이 국가에서 더 싸지게 된다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80b9-bda4-de4352f52a89" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( X )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80a0-a4d4-e5f18470b2b2" class="bulleted-list">
+          <li style="list-style-type: disc">
+            8. 펀드(fund)는 2명 이상의 불특정 다수의 투자자로부터 자금을 모아서
+            다양한 자산에<br />분산투자하여 그 결과를 투자자에게 돌려주는
+            상품으로서 규모의 경제 효과에 의해서 비용의<br />절감이 가능하다는
+            점, 원금의 손실이 발생하지 않는다는 점 등의 장점이 있다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8090-842d-f3e4d263376e" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( X )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8024-b374-d4afadeda5ca" class="bulleted-list">
+          <li style="list-style-type: disc">
+            9. 콜옵션(call option)이란 거래당사자 간에 미래의 일정 시점에 거래의
+            대상이 되는 기초자산을<br />현재시점에서 약정한 가격으로 매입 및
+            매도하기로 체결한 계약을 말한다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80b6-bb22-f01f786b3fb1" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">( X )</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80b4-8446-c28785130419" class="bulleted-list">
+          <li style="list-style-type: disc">
+            10. 선물매입자는 매입포지션 청산일의 현물가격이 체결일의
+            선물가격보다 하락하면 이익을 얻게<br />된다.
+          </li>
+        </ul>
+        <p id="29670133-dd5d-8040-9de9-d3ce3a834651" class=""></p>
+        <ul id="29670133-dd5d-80d7-a789-c25f16fc092b" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">③ 투자의 증진 </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f1-8d7c-d1efa12730dd" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 중 화폐의 기능이라고 할 수 없는 것은? ( )<br />① 교환의 매개
+            수단 ② 계산의 단위 ③ 투자의 증진 ④ 가치의 저장 수단
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80bd-a6e5-f8ea10f22280" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">④ 통화량</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80fc-bada-cbe7843ea60c" class="bulleted-list">
+          <li style="list-style-type: disc">
+            한 나라의 경제에서 일정 시점에 유통되고 있는 화폐의 존재량은? ( )<br />①
+            현금 ② 금융상품 ③ 투자액 ④ 통화량
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-809c-b331-c8207d8dcad6" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">③ ⓑ-ⓓ-ⓒ-ⓐ </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8018-9e0e-ffa8a578be2b" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 자산을 유동성이 높은 자산부터 순서대로 번호를 매긴다면 어떤
+            것이 맞는가? ( )<br />ⓐ 주택 ⓑ 현금 ⓒ 자동차 ⓓ 보통예금<br />①
+            ⓑ-ⓒ-ⓓ-ⓐ<br />② ⓐ-ⓓ-ⓒ-ⓑ<br />③ ⓑ-ⓓ-ⓒ-ⓐ <br />④ ⓑ-ⓓ-ⓐ-ⓒ
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8016-9fda-e687269b8821" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">① 1%</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f1-88a0-d9d09797346e" class="bulleted-list">
+          <li style="list-style-type: disc">
+            연간 명목이자율이 7%이고 향후 1년간 기대 인플레이션이 6%이면
+            실질이자율은 얼마인가?<br /><br />① 1% ② - 1% ③ 0% ④ 13%
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8009-8a6b-d4f1604460a4" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >② 지급준비율의 역수와 같다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8016-8e65-c0213eea2206" class="bulleted-list">
+          <li style="list-style-type: disc">
+            은행들이 초과지불준비금을 보유하지 않고 민간은 추가적인 현금통화를
+            보유하지 않는<br />승수적 예금창출의 단순모형에서 예금의
+            단순예금승수는? ( )<br />① 지급준비율과 같다. ② 지급준비율의 역수와
+            같다.<br />③ 예금에 대한 이자율과 같다. ④ 대출금에 대한 이자율과
+            같다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8093-aabe-f79600098374" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">③ 6%</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8023-bbd5-e4afdc39530f" class="bulleted-list">
+          <li style="list-style-type: disc">
+            액면가 1억 원이 채권이 매년 600만 원씩 이표를 지급하고 만기일에
+            액면가인 1억 원을<br />지급하는 경우에 이표율은 얼마인가? ( )<br />①
+            3% ② 5% ③ 6% ④ 7%
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80c9-a126-ecee3b285953" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >④ 화폐의 공급은 불변인 상태에서 물가가 상승할 경우 각 이자율
+              수준에서 화폐의 수요가<br />감소하고 균형이자율은 하락하게
+              된다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80c9-99c5-e928651b49b9" class="bulleted-list">
+          <li style="list-style-type: disc">
+            유동성선호 모형에 관한 다음 설명 중 옳지 않은 것은? ( )<br />①
+            유동성선호 모형에 의하면 화폐시장의 균형은 화폐이 수요와 공급이
+            일치하는 수준에서<br />달성되며 이때의 이자율이 균형이자율이
+            된다.<br />② 화폐의 공급은 불변인 상태에서 소득이 증가하면 각 이자율
+            수준에서 화폐의 수요가<br />증가하고 균형이자율은 상승한다.<br />③
+            다른 모든 변수들은 불변인 상태에서 중앙은행에 의한 화폐의 공급이
+            증가하면<br />각 이자율 수준에서 화폐의 공급이 증가하고 그에 따라
+            균형이자율은 하락한다.<br />④ 화폐의 공급은 불변인 상태에서 물가가
+            상승할 경우 각 이자율 수준에서 화폐의 수요가<br />감소하고
+            균형이자율은 하락하게 된다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80c4-ac47-dc3bd619a1b1" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >ⓐ 역선택, ⓑ 도덕적 위험
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f2-9d93-ea8fce796e17" class="bulleted-list">
+          <li style="list-style-type: disc">
+            아래의 문장이 옳은 문장이 되기 위해서 괄호 안에 어떤 단어가 들어가야
+            하는가? ( )<br />금융거래 당사자들 간에 존재하는 정보의 비대칭성은
+            거래가 이루어지기 전에는 ( ⓐ )(을)를<br />초래할 수 있고, 거래가
+            이루어진 후에는 ( ⓑ )(을)를 발생시킬 수 있다.<br />① (ⓐ 역선택, ⓑ
+            도덕적 위험) ② (ⓐ 역선택, ⓑ 무임승차)<br />③ (ⓐ 도덕적 위험, ⓑ
+            역선택) ④ (ⓐ 도덕적 위험, ⓑ 무임승차)
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-804f-92a2-efa85241ae33" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">④ 무임승차의 허용</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8064-a9e5-f84aad2af9f3" class="bulleted-list">
+          <li style="list-style-type: disc">
+            정보의 비대칭성에 의해 발생하는 역선택(adverse selection)은
+            금융시장의 효율적 작동을<br />저해한다. 역선택 문제를 해결하는
+            수단으로 볼 수 없는 것은? ( )<br />① 민간의 정보 생산과 판매 ②
+            금융중개기관의 역할<br />③ 담보와 순자산 ④ 무임승차의 허용
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8053-9069-e788382a48e2" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 금융시스템은 경제 내에서 규제가 필요 없는 부문 중의
+              하나이다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8001-8b71-e4562e646b2f" class="bulleted-list">
+          <li style="list-style-type: disc">
+            아래의 문항 중에서 옳지 않은 것은? ( )<br />① 간접금융이
+            직접금융보다 몇 배나 더 중요하다.<br />② 금융중개기관, 특히 은행은
+            기업의 가장 중요한 외부자금 조달원이다.<br />③ 금융시스템은 경제
+            내에서 규제가 필요 없는 부문 중의 하나이다.<br />④ 담보는 가계나
+            기업의 채무계약에서 흔히 나타나는 일반적인 특징이다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-805c-9a39-dae0893369ff" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >④ 금융거래를 규제하여 안전성을 제고한다.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8017-b17a-efc4e1fd4c12" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 중 금융중개기관이 수행하는 기능으로 적절하지 않은 것은? ( )<br />①
+            금융의 거래비용을 낮추어 준다.<br />② 소액 저축자와 소액 차입자가
+            금융시장의 이득을 누리게 해준다.<br />③ 투자자가 위험에 노출되는
+            것을 줄여준다.<br />④ 금융거래를 규제하여 안전성을 제고한다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80c7-a8a2-fc8e39ef0b45" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② 절하된다.</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-803c-acee-e2eb87cf1325" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다른 모든 조건에는 변화가 없는 상황에서 국내 이자율이 외국 이자율에
+            비해 상대적으로<br />낮아질 경우 국내 화폐의 가치는? ( )<br />①
+            절상된다. ② 절하된다. ③ 변하지 않는다. ④ 알 수 없다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8079-9ba4-c0bac2eb0b97" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">① 수출 증가, 수입 감소</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80e2-8d72-c5ad562e7b38" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다른 모든 조건에는 변화가 없는 상황에서 한국의 원화가 평가절하되면
+            한국의 수출과<br />수입에 어떤 일이 발생하는가? ( )<br />① 수출
+            증가, 수입 감소 ② 수출 증가, 수입 증가<br />③ 수출 감소, 수입 증가 ④
+            수출 감소, 수입 감소
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8094-b6fa-dbe208360b8a" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 금융중개기관에게 완전자율권 부여 및 경쟁 유도</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8038-9686-d59640d70fc9" class="bulleted-list">
+          <li style="list-style-type: disc">
+            금융위기를 예방하기 위한 조치로서 적합하지 않은 것은? ( )<br />①
+            건실한 거시경제정책의 수행 ② 국민 대상 금융교육 확대<br />③
+            금융중개기관에게 완전자율권 부여 및 경쟁 유도 ④ 소비자 보호 규정
+            개발
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80e7-b4d1-e35f7b01c053" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">① 레버리지 효과</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80e3-8df1-fbb7e098bb56" class="bulleted-list">
+          <li style="list-style-type: disc">
+            투자를 할 때 기대수익률을 더욱 높이기 위해 위험을 오히려 늘리는
+            전략에 의해서 실제<br />가격변동률보다 몇 배 많은 투자수익률이
+            발생하는 현상을 무엇이라고 하는가? ( )<br />① 레버리지 효과 ② 규모의
+            경제 효과<br />③ 승수 효과 ④ 범위의 경제 효과
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80e3-9328-d9f851cdc1ec" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">④ 주가이익비율(PER)</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8035-93ab-d003485c5f3b" class="bulleted-list">
+          <li style="list-style-type: disc">
+            ‘주식가격을 1주당 순이익으로 나눈 값’으로서 기업의 본질적인 가치에
+            비해 주가가 고평가되어<br />있는지 또는 저평가되어 있는지를 판단하는
+            기준으로 사용되는 것은? ( )<br />① 당좌비율 ② 자기자본이익률<br />③
+            주가장부가치비율(PBR) ④ 주가이익비율(PER)
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80a4-941c-c9cbb016a05e" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >주가배수 평가에서 주가장부가치비율(PBR)이 낮을수록 투자자는 높은
+              가격에<br />주당순자산을 확보하게 된다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-801b-be60-f4957fda3540" class="bulleted-list">
+          <li style="list-style-type: disc">
+            증권 분석에 관한 다음 설명 중에서 옳지 않은 것은? ( )<br />① 기본적
+            분석이란 시장에서 증권의 수요와 공급에 의해서 결정되는 시장가격이 그
+            증권의<br />내재 가치와 동일하지 않을 수 있다는 전제하에 증권의
+            내재가치를 분석하는 것이다.<br />② 기술적 분석은 과거의 증권가격 및
+            거래량의 추세와 변동패턴에 관한 역사적 정보를<br />이용하여 미래
+            증권가격의 움직임을 예측하는 분석기법이다.<br />③ 개별 증권의 가격에
+            영향을 미치는 가장 중요한 요인은 기업에 대한 정보이기 때문에<br />상장기업은
+            중요한 기업 내용에 관한 정보를 반드시 공시하도록 되어 있다.<br />④
+            주가배수 평가에서 주가장부가치비율(PBR)이 낮을수록 투자자는 높은
+            가격에<br />주당순자산을 확보하게 된다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8087-837c-e6ecc6ae0625" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">③ 상장지수펀드(ETF)</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8026-b9a3-c7d3a7460cf0" class="bulleted-list">
+          <li style="list-style-type: disc">
+            특정 지수의 변동 또는 특정 자산의 가격변동과 수익률이 연계되도록
+            설계된 펀드로서<br />증권거래소에 상장되어 주식처럼 거래되는 것은? (
+            )<br />① 가치주펀드 ② 성장주펀드 ③ 상장지수펀드(ETF) ④ 회사채펀드
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-809f-90f0-ec9d739bfe6c" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 계약당사자 중 일방은 자기에게 유리하면 계약을 이행하고 그렇지
+              않으면 계약을<br />이행하지 않을 수 있는 권리를 갖는다는 점.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80b7-8d57-f11d4725b12a" class="bulleted-list">
+          <li style="list-style-type: disc">
+            ‘선물(future)’에 관한 다음 설명 중 옳지 않은 것은? ( )<br />① 미래의
+            가격변동 리스크를 헤지할 수 있다는 점.<br />② 현물의 가격변동 위험의
+            헤지를 통해 현물의 투자위험을 감소시켜서 현물시장의 유동성을<br />확대시킬
+            수 있음.<br />③ 계약당사자 중 일방은 자기에게 유리하면 계약을
+            이행하고 그렇지 않으면 계약을<br />이행하지 않을 수 있는 권리를
+            갖는다는 점.<br />④ 선물시장에서 경쟁적으로 형성되는 가격은 미래의
+            현물가격에 대한 기댓값을 제공.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8019-9e88-d447c3b94b81" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >② 콜옵션 매도자는 만기 시점 기초자산의 가격이 손익분기점 이상이면
+              이익이 발생한다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8059-97d1-d9b5f1faeb9a" class="bulleted-list">
+          <li style="list-style-type: disc">
+            옵션의 손익구조에 관한 아래 문항 중에서 옳지 않은 것은? ( )<br />①
+            콜옵션 매입자는 만기 시점 기초자산의 가격이 행사가격에 콜옵션
+            프리미엄을 가산한<br />가격인 손익분기점 이상으로 상승해야 이익이
+            발생한다.<br />② 콜옵션 매도자는 만기 시점 기초자산의 가격이
+            손익분기점 이상이면 이익이 발생한다.<br />③ 풋옵션 매입자는 만기
+            시점 기초자산의 가격이 행사가격에 풋옵션 프리미엄을 차감한<br />가격인
+            손익분기점 이하로 하락해야 이익이 발생한다.<br />④ 풋옵션 매도자는
+            만기 시점 기초자산의 가격이 손익분기점 이상이면 이익이 발생함.
+          </li>
+        </ul>
+        <p id="29670133-dd5d-80e8-9955-f7cf60dfe23e" class=""></p>
+        <ul id="29670133-dd5d-80be-a4c5-c8dd9c899eb5" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >비트코인은 전자화폐의 일종으로서 화폐의 기능 중에서 교환의
+              매개수단으로서<br />기능을 수행함. 하지만 비트코인은 가격 변동이
+              심해서 회계의 단위, 가치의 저장<br />수단 등의 기능을 수행할 수
+              없기 때문에 화폐로 간주하기 어렵다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8022-acaf-f377d3390f1a" class="bulleted-list">
+          <li style="list-style-type: disc">
+            화폐의 기능을 고려할 때 비트코인(bitcoin)을 화폐로 간주하기 어려운
+            이유는 무엇인가? (6점)
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-803b-9d5a-e5334654b795" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >지분계약은 기업의 이윤과 자산의 일정 몫에 대한 청구권으로서
+              대리인(전문경영인)이 주<br />인(주주)보다 더 많은 정보를
+              보유하고서 주주의 이득보다는 자기 자신의 이득을 행동해려는<br />도덕적
+              위험이 발생한다.<br />채무계약은 특정 상황에서만 도덕적 위험이
+              존재하도록 계약하는 것으로서 지분계약에 비<br />해서 기업에 대한
+              감시 불필요, 특정 상황에서만 채무자의 도덕적 위험이 존재하게끔 할
+              수<br />있으며, 동시에 상태입증 비용도 더 적게 소요된다는 장점을
+              갖는다. 이와 같이 채무계약은<br />지분계약에 비해 도덕적 위험을
+              줄일 수 있다는 점 때문에 지분계약보다 더 널리 이용된다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80e0-8be3-e58bdd066519" class="bulleted-list">
+          <li style="list-style-type: disc">
+            금융시장에서 채무계약이 지분계약에 비해 더 널리 이용되는 이유는
+            무엇인가? (7점)
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d1-954c-ce3628e92696" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >1,800만 원 = {100만원 ÷ (1 + i)} + {100만원 ÷ (1 + i)2} +
+              {2,000만원 ÷ (1 + i)2}</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80ff-8235-fa6bbccd3bba" class="bulleted-list">
+          <li style="list-style-type: disc">
+            잔여 만기가 2년이고 이표율이 5%이며 액면가가 2,000만 원인 이표채가
+            현재 1,800만 원에<br />팔리고 있다. 이 채권의 만기수익률을 구하는
+            (공)식을 제시하시오. (수치 계산 불필요) (7점)
+          </li>
+        </ul>
+        <p id="29670133-dd5d-8083-88b4-c66c24c6e82a" class=""></p>
+        <ul id="29670133-dd5d-808d-b334-c2f88d57898b" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">2023 지금부턴 퀴즈</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d8-b371-e328359b6e60" class="bulleted-list">
+          <li style="list-style-type: disc">퀴즈입니다</li>
+        </ul>
+        <ul id="29670133-dd5d-8005-b216-db1ee18a83c8" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">2주차</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80db-a2c8-d2220d000764" class="bulleted-list">
+          <li style="list-style-type: disc">2주차</li>
+        </ul>
+        <ul id="29670133-dd5d-8073-98b2-c90b0162b221" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② 유동성</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80a4-9bc3-ea64ac190e02" class="bulleted-list">
+          <li style="list-style-type: disc">
+            주식, 부동산, 보석 등의 자산을 상대적으로 얼마나 쉽고 빠르게 교환의
+            매개수단인 현금으로 전환할 수 있는 정도를 의미하는 것은 무엇인가?<br />①
+            전환사채<br />② 유동성<br />③ 생산성<br />④ 효율성
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80b8-85df-e7e5595d5268" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 거래당사자 간에 존재하는 정보의 비대칭성</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f8-b4e1-dee3a8234f5c" class="bulleted-list">
+          <li style="list-style-type: disc">
+            금융거래에 있어서 역선택(adverse selection)과 도덕적 위험이라는
+            문제를 초래하는 것은 다음 중 무엇이라고 할 수 있는가?<br />①
+            통화량의 부족<br />② 규모의 경제<br />③ 거래당사자 간에 존재하는
+            정보의 비대칭성<br />④ 분산투자
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8027-bec6-c5d081514317" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >→ 금융시장 / 금융시스템</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-800a-95f5-e65d4965d626" class="bulleted-list">
+          <li style="list-style-type: disc">
+            여유자금이 있는 저축자로부터 자금이 필요한 경제주체에게 자금을
+            전달하여 경제의 효율성을 높이는 핵심기능을 수행하는 것은?
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8046-b533-d34a737ccd67" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >④ 금융거래를 규제하여 안전성을 재고한다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8065-8253-d48fda961b39" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 중 금융중개기관의 기능으로 적절하지 않은 것은?<br />①
+            거래비용을 낮추어 준다.<br />② 투자자가 위험에 노출되는 것을
+            줄여준다.<br />③ 소액 저축자와 소액 차입자가 금융시장의 이득을
+            누리게 해준다.<br />④ 금융거래를 규제하여 안전성을 재고한다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f2-8794-f11fbb5303c3" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ ’재산’은 저량(stock) 변수이고, ‘화폐’와 ‘소득’은 유량(flow)
+              변수에 해당한다 → 화폐 재산은 유량</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f3-88a3-eeed96635e21" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 설명 중 옳지 않은 것은?<br />① 보다 넒은 의미로 정의된 화폐는
+            수표나 저축예금 등을 포함한다<br />② 경제학에서 화폐를 재산, 소득
+            등과 구분한다<br />③ ’재산’은 저량(stock) 변수이고, ‘화폐’와
+            ‘소득’은 유량(flow) 변수에 해당한다<br />④ 화폐의 계산의 단위(가치의
+            척도) 기능은 다른 재화의 가치를 평가하는 기준이 되어 비교를 손쉽게
+            해줌으로써 거래비용을 낮춘다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80c2-8293-c8b55f20179b" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 가상화폐란 실물 형태 없이 네트워크로 연결된 특정 가상공간에서
+              전자적 형태로 사용되는 디지털 화폐로서 암호화폐와 특정
+              가상커뮤니티 내 화폐 등 2가지 유형이 있다. 우리나라의 경우 이러한
+              가상화폐는 화폐가치가 법적으로 보장되는 법정통화이다.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f2-8c5e-d5bad8f658b5" class="bulleted-list">
+          <li style="list-style-type: disc">
+            디지털 화폐에 관한 다음 설명 중 옳지 않은 것은?<br />① 디지털 화폐는
+            전자적 형태로 저장되고 거래되는 통화로서 그 유형은 전자, 가상,
+            중앙디지털화폐 (cbdc) 등이 있다.<br />② 전자화폐는 전자매체나
+            IC카드에 전자기호로 화폐가치를 저장하여 현금, 수표를 대체하여
+            사용하는 선불형 전자지급수단으로 직불카드, 가치저장카드(스마트카드),
+            전자현금 등이 있다.<br />③ 가상화폐란 실물 형태 없이 네트워크로
+            연결된 특정 가상공간에서 전자적 형태로 사용되는 디지털 화폐로서
+            암호화폐와 특정 가상커뮤니티 내 화폐 등 2가지 유형이 있다.
+            우리나라의 경우 이러한 가상화폐는 화폐가치가 법적으로 보장되는
+            법정통화이다.<br />④ 비트코인은 정부나 중앙은행의 개입 없이
+            온라인상에서 P2P 네트워크를 통해 거래가 이루어지는 암호화폐로서
+            블록체인 기술을 적용하여 데이터의 위, 변조가 불가능하도록 되어 있다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8038-b842-d627e0257ea0" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"> ① 전환사채 CB</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f7-80cc-c3139313afdd" class="bulleted-list">
+          <li style="list-style-type: disc">
+            부채를 주식으로 전환할 수 있는 청구권이 부여된 증권은?<br />①
+            전환사채 CB<br />② 신주인수권부사채 BW<br />③ 양도성예금증서 CD<br />④
+            환매조건부채권 RP
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8045-8ec3-ddf33694a0d9" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 투자한 원금의 손실가능성
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-806f-8c6e-d3b9e1a19272" class="bulleted-list">
+          <li style="list-style-type: disc">
+            금융상품을 ‘금융투자상품’과 ‘비금융투자상품’으로 구분하는 기준은?<br />①
+            금융상품을 취급하는 금융기관<br />② 금융상품의 만기<br />③ 투자한
+            원금의 손실가능성<br />④ 물리적인 거래 장소의 유무
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8026-93c2-e48caba79c38" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">역선택</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8065-96c2-c0eea6b53eb9" class="bulleted-list">
+          <li style="list-style-type: disc">
+            금융거래에 있어서 거래 상대방에 대하여 충분히 모른다는 정보의
+            불균형을 뜻하는 정보의 비대칭성이 초래하는 문제로는 도덕적 위험과 (
+            )이(가) 있다.
+          </li>
+        </ul>
+        <p id="29670133-dd5d-80d4-b094-e4309ec205e4" class=""></p>
+        <ul id="29670133-dd5d-80b3-8aab-facce0116841" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">3주차</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8036-9539-f0706e978eb3" class="bulleted-list">
+          <li style="list-style-type: disc">3주차</li>
+        </ul>
+        <ul id="29670133-dd5d-80ae-ad06-fe7a9362db29" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② 만기수익률</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80ae-acb4-f5a61f823162" class="bulleted-list">
+          <li style="list-style-type: disc">
+            금융상품에서 미래에 지급하는 현금흐름의 현재가치를 지금 현재의
+            가격과 일치시키는 이자율은 무엇인가?<br />① 이표율<br />②
+            만기수익률<br />③ 할인율<br />④ 주식담보대출 이자율
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-801a-9cae-e886d69a6dc0" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">④ 7%</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d0-8041-e5ce1cfbb723" class="bulleted-list">
+          <li style="list-style-type: disc">
+            액면가 1억원의 채권이 매년 700만원 씩 이표를 지급하고 만기일에
+            액면가인 1억원을 지급하는 경우에 이표율은 얼마인가?<br />① 3%<br />②
+            3.5%<br />③ 5%<br />④ 7%
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8042-9d0b-f4e0a94e4c4d" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 유동성선호 모형에 의하면 이자율이 상승하면 화폐에 대한 수요는
+              증가한다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d3-8cf3-da4215ec2d18" class="bulleted-list">
+          <li style="list-style-type: disc">
+            균형이자율의 결정에 관한 다음 설명 중 적절하지 못한 것은?<br />①
+            재화시장에서 재화의 가격이 수요와 공급에 의해 결정되는 원리와
+            동일하게 이자율도 금융시장에서 화폐에 대한 수요와 공급에 의해
+            결정된다.<br />② 사람들이 재산을 보관하는 수단으로서 화폐와
+            채권이라는 2가지 자산 범주가 있다고 가정하는 유동성선호 모형은
+            화폐시장이 균형을 이루면 채권시장도 균형이 된다라고 주장한다.<br />③
+            유동성선호 모형에 의하면 이자율이 상승하면 화폐에 대한 수요는
+            증가한다.<br />④ 유동성선호 모형에 의하면 화폐시장의 균형은 화폐의
+            수요와 공급이 일치하는 수준에서 달성되며 이 때의 이자율이
+            균형이자율이 된다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8042-b895-d509275dd8e1" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >④ 화폐의 공급은 불변인 상태에서 물가가 상승할 경우 각 이자율
+              수준에서 화폐의 수요가 감소하고 균형이자율은 하락하게 된다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80bc-b8cd-e7f0cf886f1c" class="bulleted-list">
+          <li style="list-style-type: disc">
+            유동성선호 모형에 의한 다음 설명 중 옳지 않은 것은?<br />①
+            유동성선호 모형은 화폐에 대한 수요와 공급을 분석하여 균형이자율이
+            결정되는 과정을 보여준다.<br />② 화폐의 공급은 불변인 상태에서
+            소득이 증가하면 각 이자율 수준에서 화폐의 수요가 증가하고
+            균형이자율은 상승한다.<br />③ 다른 모든 변수들은 불변인 상태에서
+            중앙은행에 의한 화폐의 공급이 증가하면 각 이자율 수준에서 화폐의
+            공급이 증가하고 그에 따라 균형이자율은 하락하게 된다.<br />④ 화폐의
+            공급은 불변인 상태에서 물가가 상승할 경우 각 이자율 수준에서 화폐의
+            수요가 감소하고 균형이자율은 하락하게 된다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80f5-ab89-fc6c82d73560" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② 아니오</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d8-9e57-e2b0bd94ebc5" class="bulleted-list">
+          <li style="list-style-type: disc">
+            시간선호율(rate of time preference)이 적은 사람일수록 시간선호율이
+            큰 사람에 비해서 미래의 재화와 서비스의 가치를 상대적으로 낮게
+            평가한다.<br />① 예 <br />② 아니오
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80c9-a993-cad8afa95e99" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">(① 예</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8019-b2d8-d7a018e24dfd" class="bulleted-list">
+          <li style="list-style-type: disc">
+            실질이자율은 재화나 용역의 수량이라는 실질변수를 이용하여 원금과
+            이자의 크기를 결정하고, 이로부터 원금에 대한 이자의 비율을 계산하여
+            얻은 이자율이다.<br />① 예 <br />② 아니오
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8010-965f-c21fbe3a42e3" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >④ 무이표채의 경우 만기수익률과 채권의 가격 간의 역관계는 장기
+              채권보다 단기 채권에서 더 크게 나타난다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-803e-b5d6-f86fa5e9381b" class="bulleted-list">
+          <li style="list-style-type: disc">
+            채권에 관한 다음 설명 중에서 옳지 않은 것은?<br />① 주어진 만기
+            하에서 채권의 현금흐름의 현재가치와 채권의 시장가격을 일치시키는
+            이자율을 만기수익률 또는 내부수익률이라고 한다.<br />② 채권의
+            시장가격이 채권의 현금흐름의 현재가치보다 낮을 경우 채권을
+            구매하려는 수요가 증가하고 그에 따라 채권의 가격이 상승하게 된다.<br />③
+            무이표채의 경우 만기수익률이 고정되어 있을 때 단기 채권의 가격이
+            장기 채권보다 높다.<br />④ 무이표채의 경우 만기수익률과 채권의 가격
+            간의 역관계는 장기 채권보다 단기 채권에서 더 크게 나타난다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80dd-abad-f22b0734f374" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">
+              ③ 인플레이션율이 상승하면 채권의 실질이자율이 하락하므로 채권에
+              대한 수요곡선은 우측으로 이동하게 된다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-802d-bd50-eede5886350c" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 설명 중 옳지 않은 것은?<br />① 채권 수요자의 부(wealth)가
+            증가하면 채권의 투자수익이 증가하고 그에 따라 채권에 대한 수요곡선이
+            우측으로 이동한다.<br />② 채권의 위험도가 감소하면 채권 보유의
+            안정성이 증가하여 수요곡선은 우측으로 이동한다.<br />③
+            인플레이션율이 상승하면 채권의 실질이자율이 하락하므로 채권에 대한
+            수요곡선은 우측으로 이동하게 된다.<br />④ 채권 이외 다른 자산의
+            기대수익률이 높아지면 채권에 대한 수요가 감소하여 수요곡선은
+            좌측으로 이동한다.
+          </li>
+        </ul>
+        <p id="29670133-dd5d-8059-a79a-efbdd2a58a9f" class=""></p>
+        <p id="29670133-dd5d-804d-a4ff-f7eec13a48fa" class=""></p>
+        <p id="29670133-dd5d-8086-983f-ee92dbef7169" class=""></p>
+        <ul id="29670133-dd5d-8053-b699-f2ef8cc840d0" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">4주차</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-809d-978a-c777c55e0930" class="bulleted-list">
+          <li style="list-style-type: disc">4주차</li>
+        </ul>
+        <ul id="29670133-dd5d-80fa-9b69-fdc32bf5ab06" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">③ 명목 국내총생산</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8034-a9bd-dcc8cde26f29" class="bulleted-list">
+          <li style="list-style-type: disc">
+            일상생활이 거래에 사용하기 위해 화폐를 보유하려는 동기인 거래적
+            동기에 의한 화폐수요에 영향을 미치는 요인으로 보기 어려운 것은?<br />①
+            소득 수준<br />② 물가수준의 변화<br />③ 명목 국내총생산<br />④
+            거래빈도
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80c4-a63c-eb0dc32cf3c0" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">① 보몰-토빈 모형</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-801b-b878-caef188f5325" class="bulleted-list">
+          <li style="list-style-type: disc">
+            거래비용과 이자수입 사이의 상충관계를 고려하여 최적의 현금 보유량을
+            결정하는 이론으로서 거래적 동기에 의한 화폐수요를 설명하는 데 매우
+            유용한 것은?<br />① 보몰-토빈 모형<br />② 고전학파의 이분법<br />③
+            미시적 화폐수요 이론<br />④ 화폐의 중립성 이론
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d0-9246-ee7ae40c6864" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >② 아니요 - 중앙은행이 행하는 공개시작 운영에 의해서 비차입
+              본원통화(MBn)가 감소하면 본원통화와 지급준비금이 줄어들고, 그에
+              따라 승수적 예금수축이 발생하고 화폐공급이 감소하게 됨.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8094-b235-c4a4c22e5417" class="bulleted-list">
+          <li style="list-style-type: disc">
+            중앙은행이 실행하는 공개시장 운영에 의해서 비차입 본원통화(MBn)가
+            감소하면 본원통화와 지급준비금이 늘어나고, 그에 따라 승수적
+            예금창출이 발생하고 화폐공급이 증가하게 된다.<br />① 예<br />②
+            아니요
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8043-97d8-eef823c2271f" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >1,3,4 <br />본원통화와 다른 변수들이 일정한 상태에서 예금통화가
+              현금통화로 전환되면 승수적 확장의 수준은 감소하며 화폐공급은
+              감소한다. 반면에 본원통화와 다른 변수들이 일정한 상태에서
+              현금통화가 예금통화로 전환되면 승수적 확장의 수준은 증가하며
+              화폐공급은 증가한다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8016-ae86-e159d62d0451" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 중 옳은 설명을 모두 선택하시오.<br />① 개별 은행은
+            초과지급준비금까지 대출을 할 수 있고, 이에 따라 동일한 금액만큼의
+            예금을 창출한다.<br />② 본원통화와 다른 변수들이 일정한 상태에서
+            예금통화가 현금통화로 전환되면 승수적 확장의 수준은 증가하여
+            화폐공급은 증가한다.<br />③ 은행시스템에 의한 승수적 예금창출
+            단순모형에서 예금의 단순예금승수는 지급준비율의 역수이다.<br />④
+            화폐수량설에 따르면 장기적으로 통화량의 변화는 재화와 용역의
+            산출량에 영향을 주지 못하며, 통화량의 급격한 증가는 인플레이션만
+            초래하게 된다.
+          </li>
+        </ul>
+        <p id="29670133-dd5d-8085-834b-e454cc098c10" class=""></p>
+        <ul id="29670133-dd5d-80bd-837c-e7e4de5cf9c0" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">5주차</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8094-98f8-cf0ffc293614" class="bulleted-list">
+          <li style="list-style-type: disc">5주차</li>
+        </ul>
+        <ul id="29670133-dd5d-80ab-b9ab-f3d73d96cbc1" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② X</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-809f-abc9-c61dafdc6869" class="bulleted-list">
+          <li style="list-style-type: disc">
+            한 국가에서 통화가 절상할 때, 이 국가에서 생산된 재화는 해외에서 더
+            싸지고 외국에서 생산된 재화는 이 국가에서 더 비싸지게 된다.<br />①
+            O<br />② X
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8046-81a8-de776f02463d" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">③ 구매력 평가 이론</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8000-bbb4-fc78d4dbf5d3" class="bulleted-list">
+          <li style="list-style-type: disc">
+            두 국가 간 환율의 장기적 변화는 두 국가의 상대 물가 수준의 변화에
+            의해 결정된다고 설명하는 이론은?<br />① 자산시장 접근법<br />②
+            유동성 이론<br />③ 구매력 평가 이론<br />④ 정보의 비대칭성 이론
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8001-8304-f2af923dfb1d" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >④ 장기적으로 한 국가가 다른 국가들에 비해 더 생산적이 되면 이
+              국가의 통화는 절하된다.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d6-b7fb-f23eca9cd639" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 중 옳지 않은 설명은?<br />① 장기적으로, 외국 물가 수준에 비해
+            한 국가의 물가 수준의 상대적인 상승은 이 국가의 통화를
+            절하시킨다.<br />② 관세, 쿼터 등의 무역장벽은 환율에 영향을 줄 수
+            있는데, 무역장벽을 높이는 것은 이 국가의 통화를 장기적으로
+            절상시킨다.<br />③ 한 국가 재화에 대한 수출 수요의 증가는 이 국가의
+            통화를 장기적으로 절상시킨다.<br />④ 장기적으로 한 국가가 다른
+            국가들에 비해 더 생산적이 되면 이 국가의 통화는 절하된다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8091-b678-f89327ea4149" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >② 금융 분야의 규제 철폐 및 규율 완화
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-801a-b31d-d0d6e0b16d54" class="bulleted-list">
+          <li style="list-style-type: disc">
+            금융위기를 예방하기 위한 조치로서 적절하지 못한 것은?<br />① 건실한
+            거시경제정책의 수행<br />② 금융 분야의 규제 철폐 및 규율 완화<br />③
+            금융교육 및 소비자 보호 정책 개발<br />④ 각 국 중앙은행들의 양자 간
+            및 다자 간 감독협력의 강화
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-809c-a747-f5818f49938d" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② 아니오</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8046-a110-cc621359ef5f" class="bulleted-list">
+          <li style="list-style-type: disc">
+            미국, 한국 등의 주요 국가들에서 시장성 채무 및 지분증권의 발행은
+            기업이 자금을 조달하는 가장 주된 수단이라고 할 수 있다.<br />① 예<br />②
+            아니오
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d6-9a10-e426d84287c4" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">③ 정보의 비대칭성</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80a3-a68c-c86567a709e8" class="bulleted-list">
+          <li style="list-style-type: disc">
+            거래 상대방에 대한 지식이 불충분하기 때문에 거래 성사를 위한 올바른
+            의사결정을 내릴 수 없다는 ( )는(은) 금융시장의 중요한 특성이라고 할
+            수 있다. 다음 중 괄호 안에 적합한 단어는?<br />① 역선택<br />②
+            도덕적 위험<br />③ 정보의 비대칭성<br />④ 거래비용
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80db-a49d-ff054d157bf5" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >② 사적인 대출 (private loan)
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8027-af43-f8eb18ceb943" class="bulleted-list">
+          <li style="list-style-type: disc">
+            은행이 채권과 같은 시장성 채무에 상존하는 무임승차 문제를 해결하는
+            방법으로 적합한 것은?<br />① 계약의 표준화<br />② 사적인 대출
+            (private loan)<br />③ 규모의 경제 (economy of scale)<br />④ 전문성
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8014-97b9-cea68f883778" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">① 예</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80e8-bec8-e0840382ab87" class="bulleted-list">
+          <li style="list-style-type: disc">
+            순자산과 담보가 많아서 &quot;사업에 건 내 돈&quot;이 클수록 차입자의
+            인센티브와 대부자의 인센티브가 어긋나지 않게 된다. <br />① 예<br />②
+            아니오
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8015-a64a-d23ac2689f5f" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 표준화된 계약과 절차를 사용하여 거래 절차를 간소화하고 자원을
+              절약한다.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8073-a953-f0203e9c5b3e" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 중 금융중개기관이 투자자가 위험(risk)에 노출되는 것을 줄여주기
+            위해 하는 행위로 간주하기 어려운 것은?<br />① 저금리예금, 정기예금
+            등의 저위험 상품을 고객에게 제공하여 자금을 유치한다.<br />②
+            고객들에게서 모금한 자금을 장기 대출이나 고위험 자산에 투자하는 등
+            자산 변환을 통해 수익을 획득한다.<br />③ 표준화된 계약과 절차를
+            사용하여 거래 절차를 간소화하고 자원을 절약한다.<br />④ 자산
+            클래스의 분산, 산업 및 지역의 분석, 시간적 분산 등에 의한 투자를
+            실시한다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-804c-9e1d-ee974bcc4f51" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 제한적 약관에 의한 감시와 집행 → 채무계약에서의 도덕적 위험을
+              해결하기 위한 수단임.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-807b-bd86-c648bb172a12" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 중 역선택 문제를 해결하기 위한 수단으로 보기 어려운 것은?<br />①
+            정보의 확대를 위한 정부에 의한 규제<br />② 민간 회사들의 정보 생산
+            및 판매<br />③ 제한적 약관에 의한 감시와 집행<br />④ 담보와 순자산
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80ab-9f24-e6d7c1e5018b" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">6주차</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80d6-a0bd-e36e9328d9cf" class="bulleted-list">
+          <li style="list-style-type: disc">6주차</li>
+        </ul>
+        <ul id="29670133-dd5d-8038-8dcc-ec3dadce3561" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② 아니오</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-802f-b9a1-f652b9e7b905" class="bulleted-list">
+          <li style="list-style-type: disc">
+            한 국가의 통화가 절상될 때, 이 국가에서 생산된 재화는 해외에서 더
+            싸지고 외국에서 생산된 재화는 이 국가에서 더 비싸지게 된다. <br />①
+            예<br />② 아니오
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8081-a5e3-e95d2fc8c32f" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >④ 구매력 평가 이론은 단기적인 환율의 변화를 설명하는 데 적합한
+              이론이다. /// <br />유사한 재화들도 두 국가에서 동일하지 않다는
+              점, 구매력 가 이론은 비교역재를 고려하지 않는다는 점, 현실에는
+              무역장벽이 존재한다는 점 등으로 인하여 구매력평가 이론은 단기적인
+              환율변화를 설명하지 못함.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-800c-be5a-d35bb934b5ed" class="bulleted-list">
+          <li style="list-style-type: disc">
+            구매력 평가 이론에 관한 설명으로 옳지 않은 것은?<br />① 구매력 평가
+            이론은 두 통화 간의 환율은 두 국가의 물가 수준의 변화를 반영하도록
+            조정된다는 것으로서 일물일가의 법칙을 물가 수준에 적용한 것이라 할
+            수 있다.<br />② 만일 한 국가의 물가수준이 다른 국가의 물가수준에
+            비해 상대적으로 일정한 퍼센트만큼 상승하면, 다른 국가의 통화는 같은
+            퍼센트만큼 절상되고, 이 국가의 통화는 같은 퍼센트만큼 절하된다.<br />③
+            구매력 평가 이론은 &#x27;모든 재화들은 두 국가에서 동일하며,
+            무역장벽과 수송비용이 매우 낮다&#x27;라는 가정을 전제로 하여 제시된
+            것이다.<br />④ 구매력 평가 이론은 단기적인 환율의 변화를 설명하는 데
+            적합한 이론이다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80ee-838a-cc4159045fb8" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">① 예</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8003-9c77-c6a4663b3524" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다른 모든 조건에는 변화가 없는 상태에서 외국의 이자율이 상승하면
+            외국 자산의 상대적 수익률은 상승하고 이에 따라 원화 자산의 상대적
+            수익률은 감소한다. 따라서 국내 자산의 수요량은 감소하고, 국내 자산의
+            수요곡선은 왼쪽으로 이동하며<br />① 예<br />② 아니오
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80b6-9ac1-e49368dc3938" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >② 상승한다 // - 미국의 이자율이 더 낮을 경우 미국 내의 자산에
+              대한 선호도가 떨어져서 자금은 한국으로 이동하게 되어 결국 한국의
+              원화자산에 대한 국내외의 수요가 증가하게 됨. 이것은 원화 자산에
+              대한 수요곡선을 우측으로 이동시키게 됨. 이 때 원화 자산에 대한
+              공급에는 변화가 없고(공급곡선은 이동 없음) 수요만 증가한 것이므로
+              원화의 가치는 상승하게 됨.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8008-9821-ff4f0c91f4e6" class="bulleted-list">
+          <li style="list-style-type: disc">
+            만일 미국의 국내 이자율이 한국의 이자율에 비해 상대적으로 더 낮아질
+            경우 달러 기준을 나타낸 한국 원화의 가치는 어떻게 되는가?<br />①
+            하락한다<br />② 상승한다<br />③ 상승하다가 하락한다.<br />④ 알수없다
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8030-9801-fe8f3eea4342" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② 아니오 </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80df-96d3-fe866186c5e1" class="bulleted-list">
+          <li style="list-style-type: disc">
+            장기적으로 한 국가가 다른 국가들에 비해 더 생산적이 되면 이 국가의
+            통화는 절하된다.<br />① 예<br />② 아니오
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8050-b8d2-f3a33e049851" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 금융중개기관의 전문성이 부족하다는 점. / / 최근의
+              금융중개기관의 전문성이 부족하다고 간주하기는 어려움. 그리고
+              금융중개기관이 전문성에 바탕을 둔 컨설팅을 해주더라도
+              시장참여자들이 여러 취약점들을 갖고 있으면 현명한 금융거래 활동을
+              하기 어려움.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8067-b868-eb69e252cdc8" class="bulleted-list">
+          <li style="list-style-type: disc">
+            금융시장과 시장 참여자들이 지혜롭지 않을 수 있는 이유로 보기 가장
+            어려운 것은?<br />① 금융시장은 투기적 자금 흐름에 노출되어 있고,
+            시장 참여자들은 군집행동 경향을 보인다는 점.<br />② 금융시장
+            참여자들은 일시적 유행과 변덕에 취약하다는 점.<br />③ 금융중개기관의
+            전문성이 부족하다는 점.<br />④ 금융시장 참여자들의 시계가 너무
+            짧다는 점.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8013-b3ba-e958ab250e57" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">7주차</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80df-8964-f8cf40e0ab2e" class="bulleted-list">
+          <li style="list-style-type: disc">7주차</li>
+        </ul>
+        <ul id="29670133-dd5d-809f-a5d7-c260788b260c" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 펀드는 투자포트폴리오의 운용성과에 따라서 수익이 만들어지는데
+              원금의 손실이 발생할 가능성은 없다.
+            </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8065-a0e6-f8913491c23a" class="bulleted-list">
+          <li style="list-style-type: disc">
+            펀드(집합투자증권)에 관한 설명 중 옳지 않은 것은?<br />① 펀드는 2명
+            이상의 불특정 다수의 투자자로부터 자금을 모아서 다양한 자산에
+            분산투자하여 그 결과를 각 투자자에게 돌려주는 상품이다.<br />②
+            펀드는 규모의 경제 효과에 의해서 비용의 절감이 가능하다는 장점이
+            있다.<br />③ 펀드는 투자포트폴리오의 운용성과에 따라서 수익이
+            만들어지는데 원금의 손실이 발생할 가능성은 없다.<br />④ 펀드는
+            소액으로 분산투자가 가능하다는 장점이 있다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80ee-94e3-c51656a66a13" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">상장지수펀드 </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8045-a618-c48ac653500a" class="bulleted-list">
+          <li style="list-style-type: disc">
+            특정지수의 변동 또는 특정 자산의 가격변동과 수익률이 연계되도록
+            설계된 펀드로서 증권거래소에서 상장되어 주식처럼 거래되는 상품은?
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8063-ba7d-e4176bae3d74" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">파생상품 </span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80cb-ba75-c2db9e165818" class="bulleted-list">
+          <li style="list-style-type: disc">
+            주식, 채권, 외화, 원자재 등 기초자산의 가치변동에 따라 가격이
+            결정되는 금융상품으로 선물 또는 옵션의 형태로 많이 거래되는 것은?
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80ba-baf1-dc56b3b4949d" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked"
+              >③ 소액의 개인투자자도 대규모 자금이 요구되는 부동산 투자를
+              간접적으로 할 수 있게 해준다.</span
+            >
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80fa-bef7-e04378055fe8" class="bulleted-list">
+          <li style="list-style-type: disc">
+            다음 중 선물(future)의 기능과 거리가 먼 것은?<br />① 미래의 가격변동
+            리스트를 헤지할 수 있다.<br />② 현물시장의 유동성 확대에 기여할 수
+            있다.<br />③ 소액의 개인투자자도 대규모 자금이 요구되는 부동산
+            투자를 간접적으로 할 수 있게 해준다.<br />④ 장래의 가격에 대한
+            정보를 제공해준다.
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8077-b1e7-e8410b319f57" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">② 아니오</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-80cf-85f1-cd30a2603ed8" class="bulleted-list">
+          <li style="list-style-type: disc">
+            콜옵션 매입자는 만기 시점에 기초자산의 가격이 행사가격에 콜옵션
+            프리미엄을 가산한 가격인 손익분기점 이하이면 이익이 발생한다.<br />①
+            예<br />② 아니오
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8047-a957-e30286b6a2f2" class="to-do-list">
+          <li>
+            <div class="checkbox checkbox-off"></div>
+            <span class="to-do-children-unchecked">① 예</span>
+            <div class="indented"></div>
+          </li>
+        </ul>
+        <ul id="29670133-dd5d-8078-abd9-cca401f27b52" class="bulleted-list">
+          <li style="list-style-type: disc">
+            스왑(swap)계약이란 두 당사자가 갖고 있는 미래의 서로 다른 자금흐름을
+            일정기간 동안 서로 교환하기로 계약하는 거래를 말한다..<br />① 예<br />②
+            아니오
+          </li>
+        </ul>
+        <p id="29670133-dd5d-805b-a9a3-d80ce4a1d28e" class=""></p>
+      </div>
+    </article>
+    <span class="sans" style="font-size: 14px; padding-top: 2em"></span>
+  </body>
+</html>
