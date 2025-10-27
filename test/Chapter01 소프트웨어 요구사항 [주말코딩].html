@@ -1,0 +1,712 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter01 소프트웨어 요구사항 [주말코딩]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(134, 131, 126, 1);
+	fill: rgba(134, 131, 126, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29970133-dd5d-80bb-85a2-e491e2c88ba3" class="page sans"><header><h1 class="page-title">Chapter01 소프트웨어 요구사항 [주말코딩]</h1><p class="page-description"></p></header><div class="page-body"><h3 id="29970133-dd5d-800e-8fef-fc5afa5f0143" class=""><strong>1. 요구사항 확인</strong></h3><ul id="29970133-dd5d-8038-a0be-e702d90d4fe9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">분석 → 구체화 → 명세화 → 이식</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8021-9cf8-f6bfee0120e5" class="bulleted-list"><li style="list-style-type:disc">소프트웨어 제공 과정 순서</li></ul><ul id="29970133-dd5d-807d-af7f-f7460cfe4ef2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">피드백, 용기, 존중, 단순성, 소통</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8087-b1de-f80909b77b28" class="bulleted-list"><li style="list-style-type:disc">XP의 5가지 핵심 가치</li></ul><ul id="29970133-dd5d-807e-9b0c-c0b2597e2a1c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스크럼 개발 프로세스의 반복적 접근 방식 순서</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8017-bd47-cdae57b9db4b" class="bulleted-list"><li style="list-style-type:disc">백로그 → 스프린트 계획 회의 → 스프린트 → 일일 스크럼 회의 → 스프린트 검토 회의 → 스프린트 회고 회의</li></ul><ul id="29970133-dd5d-8034-89bb-c9235822ac32" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">현행 시스템 파악 절차 1단계</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8004-b681-fed13a19610a" class="bulleted-list"><li style="list-style-type:disc">시스템 구성 파악 → 시스템 기능 파악 → 시스템 인터페이스 현황 파악</li></ul><ul id="29970133-dd5d-8066-b3bf-ddbdb1a76686" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">현행 시스템 파악 절차 2단계</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8050-b697-c79dfe310c8f" class="bulleted-list"><li style="list-style-type:disc">아키텍처 파악 → 소프트웨어 구성 파악</li></ul><ul id="29970133-dd5d-802e-b566-e91af1b3b72d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">현행 시스템 파악 절차 3단계</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80a4-96ed-d2163b42720d" class="bulleted-list"><li style="list-style-type:disc">시스템 하드웨어 현황 파악 → 네트워크 구성 파악</li></ul><ul id="29970133-dd5d-80cd-bddc-e3f71f959af6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">시스템 정의서, 시스템 요구사항 명세서,<br/>소프트웨어 요구사항 명세서</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8039-a11e-c2b225da856d" class="bulleted-list"><li style="list-style-type:disc">애플리케이션 개발 단계에서 요구사항을 분석한<br/>뒤 요구사항을 명세하는 명세 3종류는?</li></ul><h3 id="29970133-dd5d-8012-8546-c5dae7782924" class=""><strong>2. 구조적/객체지향 다이어그램 구성</strong></h3><ul id="29970133-dd5d-8080-b414-d04dbd5e99f2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">클래스 </span><div class="indented"></div></li></ul><ul id="29970133-dd5d-805c-a287-ccc60b476d8d" class="bulleted-list"><li style="list-style-type:disc">구조적 다이어그램 작성 구성 중 시스템을 구성하는 클래스 사이의 관계를 표현하는 요소는 무엇인지 쓰시오</li></ul><ul id="29970133-dd5d-8072-ab61-c71336e5cda9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">패키지</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-809f-9459-c3e14c9cb814" class="bulleted-list"><li style="list-style-type:disc">구조적 다이어그램 작성 구성 중 클래스나 유스케이스 등 여러 모델 요소를 그룹화하여 패키지를 구성하고, 그 패키지 사이의 관계를 표현하는 요소는 무엇인지 쓰시오</li></ul><ul id="29970133-dd5d-8061-bb43-e78f824558fe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">복합체 구조</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80f0-b91d-df24d1512184" class="bulleted-list"><li style="list-style-type:disc">구조적 다이어그램 작성 구성 중 복합 구조의 클래스와 컴포넌트 내부 구조를 표현하는 요소는 무엇인지 쓰시오</li></ul><ul id="29970133-dd5d-809b-aab2-e6e615db151f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">객체 </span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80d4-90da-f9bd5e08b26f" class="bulleted-list"><li style="list-style-type:disc">구조적 다이어그램 작성 구성 중 객체 정보를 보여주며 럼바우 객체지향 분석 기법에서 활용되는 요소는 무엇인지 쓰시오</li></ul><ul id="29970133-dd5d-80e0-b471-deff90c6bccb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">컴포넌트 </span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80a3-8076-c1e822d9d9f5" class="bulleted-list"><li style="list-style-type:disc">구조적 다이어그램 작성 구성 중 컴포넌트 구조 사이의 관계를 표현하는 요소는 무엇인지 쓰시오</li></ul><ul id="29970133-dd5d-8064-8cac-fcd7161b5055" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">배치 </span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80f3-91f0-cea81ef0d78f" class="bulleted-list"><li style="list-style-type:disc">구조적 다이어그램 작성 구성 중 소프트웨어, 하드웨어, 네트워크를 포함한 실행 시스템의 물리 구조를 표현하는 요소는 무엇인지 쓰시오</li></ul><p id="29970133-dd5d-8009-bee5-cfdd035bb216" class="">6-2. 럼바우 객체지향 분석 (최종 확정 포맷)</p><ul id="29970133-dd5d-80a1-9416-c0783b1e5056" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">객체 모델링 (Object Modeling)</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8056-b955-fda946cc1495" class="bulleted-list"><li style="list-style-type:disc">럼바우 OOA에서 시스템 객체를 찾고 객체들 간의 관계를 정의하며, &#x27;정보 모델링&#x27;이라고도 불리는 모델링 단계를 쓰시오</li></ul><ul id="29970133-dd5d-8005-a6eb-efefba788b20" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">객체 다이어그램</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8010-9023-e30f9ab22086" class="bulleted-list"><li style="list-style-type:disc">럼바우 OOA의 객체 모델링 결과물로 나오는 다이어그램을 쓰시오</li></ul><ul id="29970133-dd5d-8065-9c8f-d3237c185c19" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">동적 모델링 (Dynamic Modeling)</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-805f-9010-f38a51328a32" class="bulleted-list"><li style="list-style-type:disc">럼바우 OOA에서 시간의 흐름에 따른 객체들 사이의 제어 흐름이나 동작 순서 등 동적인 행위를 표현하는 모델링 단계를 쓰시오</li></ul><ul id="29970133-dd5d-803e-9684-e645a75207bf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">상태 다이어그램</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-803b-b702-eeb31f8e5480" class="bulleted-list"><li style="list-style-type:disc">럼바우 OOA의 동적 모델링 결과물로 나오는 다이어그램을 쓰시오</li></ul><ul id="29970133-dd5d-801f-ac19-f51170ac8e8f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">기능 모델링 (Functional Modeling)</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80ff-a0e1-dda7ea99a0d0" class="bulleted-list"><li style="list-style-type:disc">럼바우 OOA에서 프로세스들의 자료 흐름을 중심으로 처리 과정을 표현하는 모델링 단계를 쓰시오</li></ul><ul id="29970133-dd5d-805d-b724-e2a7b05238c5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DFD (자료흐름도)</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8015-8089-cc4067365737" class="bulleted-list"><li style="list-style-type:disc">럼바우 OOA의 기능 모델링 결과물로 나오는 다이어그램을 쓰시오</li></ul><ul id="29970133-dd5d-8038-b5c2-c27c969d37f2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">객체 모델링 → 동적 모델링 → 기능 모델링</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-808f-b7f8-fe4f06975b13" class="bulleted-list"><li style="list-style-type:disc">럼바우 객체지향 분석의 3단계 모델링 순서를 순서대로 쓰시오</li></ul><p id="29970133-dd5d-80de-9678-cb4c2f95fb47" class="">
+</p><h3 id="29970133-dd5d-806d-ab00-ea186affa522" class=""><strong>3. UML 다이어그램 및 확장</strong></h3><ul id="29970133-dd5d-8091-9d9d-ebfc1bf7d948" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">유스케이스</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80c5-84a1-d24e64cba455" class="bulleted-list"><li style="list-style-type:disc">UML 다이어그램 유형 중 <strong>사용자 관점</strong>에서 <strong>시스템 행위</strong> 표현 (사용자의 요구를 분석하여 시스템의 기능을 명세)</li></ul><ul id="29970133-dd5d-8007-a7c0-da805eb115c2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">활동</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-804a-bc66-fc64c0e66dd5" class="bulleted-list"><li style="list-style-type:disc">UML 다이어그램 유형 중 업무 처리 과정이나<strong> 연산이 수행되는 과정</strong>을 표현</li></ul><ul id="29970133-dd5d-80af-93ae-eb561611cba9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">클래스</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8045-8e19-e557ce2690f1" class="bulleted-list"><li style="list-style-type:disc">UML 다이어그램 유형 중 구조 다이어그램과 같으며,<strong> 모델링 공간에 객체의 정적인 면을 중심</strong>으로 표현</li></ul><ul id="29970133-dd5d-80af-ae29-e1582ca29e99" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">상태 머신</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-806a-b72d-d0460d85c7b6" class="bulleted-list"><li style="list-style-type:disc">UML 다이어그램 유형 중 객체의 <strong>생명주기 </strong>표현</li></ul><ul id="29970133-dd5d-807d-afcc-c7bc27ed0cc1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">순차</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-804e-ae28-d71d927fba1b" class="bulleted-list"><li style="list-style-type:disc">UML 다이어그램 유형 중 <strong>시간 흐름</strong>에 따른 객체 사이의 <strong>상호작용 </strong>표현</li></ul><ul id="29970133-dd5d-80fd-9eda-e5877e2e919a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">통신</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80f5-b6db-ec4ae16b27fc" class="bulleted-list"><li style="list-style-type:disc">UML 다이어그램 유형 중<strong> 객체 사이의 관계</strong>를 중심으로 상호작용 표현</li></ul><ul id="29970133-dd5d-80c3-ab30-c3329f321480" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">상호작용 개요</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80eb-9043-d3dbc1725b43" class="bulleted-list"><li style="list-style-type:disc">UML 다이어그램 유형 중 상호작용 다이어그램들의<strong> 제어 흐름</strong> 표현</li></ul><ul id="29970133-dd5d-8054-8392-f255732fc1e5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">타이밍</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-804d-9b30-c3e854500511" class="bulleted-list"><li style="list-style-type:disc">UML 다이어그램 유형 중 객체 <strong>상태 변화와 시간 제약</strong>을 명확하게 표현</li></ul><ul id="29970133-dd5d-80f2-a8e8-dcd9ce675557" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스테레오타입, 태그된 값, 제약조건</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80e2-97f7-f5d72b3de533" class="bulleted-list"><li style="list-style-type:disc">UML 확장 메커니즘 3가지</li></ul><ul id="29970133-dd5d-80d1-ac1c-fcdcddfdf76d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스테레오타입</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8005-b845-fa01e6c8498a" class="bulleted-list"><li style="list-style-type:disc">UML에서 표현하는 기본 기능 외의 추가적인 기능을 표현하는 확장 메커니즘으로, include, extend, interface 등의 종류가 있음</li></ul><p id="29970133-dd5d-80d3-a462-f22b163bb107" class="">
+</p><h3 id="29970133-dd5d-80fc-97e7-c3ab172372b8" class="">9. 유스케이스 다이어그램</h3><ul id="29970133-dd5d-8041-85a2-fee99bd7dc18" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">사용자와 다른 외부 시스템들이 향후 개발될 시스템을 이용해 수행할 수 있는 기능을 ‘사용자의 관점’에서 기술한 것</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8013-8a68-d997a5a88574" class="bulleted-list"><li style="list-style-type:disc">유스케이스 다이어그램의 정의</li></ul><ul id="29970133-dd5d-80d7-96cf-c4a222043cab" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">시스템, 액터, 유스케이스, 관계</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80eb-bb28-e895245b2176" class="bulleted-list"><li style="list-style-type:disc">유스케이스 다이어그램의 4가지 주요 구성요소</li></ul><h3 id="29970133-dd5d-80d0-b933-dee3188b739d" class="">10. 디자인 패턴</h3><ul id="29970133-dd5d-8028-9d9c-de9ce63386cb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">생성패턴</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80e4-8baf-ce817fc2784d" class="bulleted-list"><li style="list-style-type:disc">객체를 만들 때 생성 목적으로 사용되는 디자인 패턴 그룹</li></ul><ul id="29970133-dd5d-80e4-8321-d5896297d543" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">생성 패턴에 속하는 디자인 패턴 5가지</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8084-bf9d-ed4b70e64f96" class="bulleted-list"><li style="list-style-type:disc">추상팩토리, 빌더, 팩토리메서드, 프로토타입, 싱글턴</li></ul><ul id="29970133-dd5d-8051-a901-f45372923317" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">소프트웨어 구조를 짤 때 사용되는 디자인 패턴 그룹</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-807c-b9a8-e2badde06a85" class="bulleted-list"><li style="list-style-type:disc">구조패턴</li></ul><ul id="29970133-dd5d-801a-8141-eec3bb4ae7ea" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">어댑터, 브릿지, 컴포지트, 데코레이터, 퍼사드, 플라이웨이트, 프록시</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-808b-b338-f8b5c45c8a1b" class="bulleted-list"><li style="list-style-type:disc">구조 패턴에 속하는 디자인 패턴 7가지</li></ul><ul id="29970133-dd5d-8049-aae1-c9786873b6fe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">행위패턴</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8072-99cc-f8b0af2050fa" class="bulleted-list"><li style="list-style-type:disc">객체들이 어떻게 움직일지 정의할 때 사용되는 디자인 패턴 그룹</li></ul><ul id="29970133-dd5d-806a-8c57-c8fe54e63631" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스테이트, 스트레티지, 템플릿메서드, 메멘토, 옵서버, 커맨드, 인터프리터, 책임연쇄, 비지터(visitor), 이터레이터, 미디에이터</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-803b-b482-c9061d3c3a5e" class="bulleted-list"><li style="list-style-type:disc">행위 패턴에 속하는 디자인 패턴 11가지</li></ul><h3 id="29970133-dd5d-8044-b247-e318f3c9a9f9" class="">11. 비용 산정 모형 분류</h3><ul id="29970133-dd5d-8017-93bd-e673f5c416b2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">전문가의 경험적 지식을 통한 문제 해결 및 미래 예측을 위한 하향식 산정 기법</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80f9-b3fa-efcdb384fe40" class="bulleted-list"><li style="list-style-type:disc">델파이 기법</li></ul><ul id="29970133-dd5d-8008-8840-c70cf932b2d5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">원시 코드 라인 수의 낙관치, 중간치, 비관치를 측정하여 예측치를 구해 비용을 산정하는 상향식 산정 방법</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80c8-a646-c6dfaa669e3d" class="bulleted-list"><li style="list-style-type:disc">LoC (코드 라인 수)</li></ul><ul id="29970133-dd5d-8072-89ec-e91dd29e0e31" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">보헴(Boehm)이 제안한 모형으로 프로그램 규모에 따라 비용을 산정하는 상향식 산정 방법</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80c1-bac5-d948200efff8" class="bulleted-list"><li style="list-style-type:disc">COCOMO</li></ul><ul id="29970133-dd5d-80e0-b6fd-f736887a3dd2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">한 사람이 1개월 간 할 수 있는 일의 양을 기준으로 비용을 산정하는 상향식 산정 방법</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-803d-8262-e701d61e5938" class="bulleted-list"><li style="list-style-type:disc">Man Month</li></ul><h3 id="29970133-dd5d-806f-93b4-e12915ad9ff0" class="">12. 소프트웨어 아키텍처 4+1 뷰</h3><ul id="29970133-dd5d-80aa-b29e-f7b74b4d4781" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">유스케이스 뷰</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8013-92c3-cdb61c7883e5" class="bulleted-list"><li style="list-style-type:disc">아키텍처를 도출하고 설계하는 작업을 주도하는 뷰</li></ul><p id="29970133-dd5d-80b6-988b-f3495c60cec0" class="">
+</p><ul id="29970133-dd5d-80ce-8d48-caaa8eb866a1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">논리 뷰</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80cd-898e-ff8e4fe07187" class="bulleted-list"><li style="list-style-type:disc">설계 모델의 추상화, 주요 설계 패키지와 서브 시스템, 클래스 식별을 담당하는 뷰</li></ul><ul id="29970133-dd5d-807c-a609-f95db8ba4ace" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">프로세스 뷰</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80cd-8ca6-ed99060578a0" class="bulleted-list"><li style="list-style-type:disc">성능이나 가용성 같은 비기능적 요구사항을 고려하는 뷰</li></ul><p id="29970133-dd5d-8006-8414-faee8a8c3eb6" class="">
+</p><ul id="29970133-dd5d-80d6-86c7-daa7e8d71240" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">구현 뷰</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80bb-b7ee-c9b1c3dc6b34" class="bulleted-list"><li style="list-style-type:disc">개발 환경 안에서 정적인 소프트웨어 모듈의 구성을 표현하는 뷰</li></ul><p id="29970133-dd5d-8031-9cac-da03f26eab0b" class="">
+</p><ul id="29970133-dd5d-8044-a1ab-c2eba4f4e9d7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">배포 뷰</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8035-a0a4-e54619f0eddb" class="bulleted-list"><li style="list-style-type:disc">물리적인 노드의 구성과 상호연결 관계를 배포 다이어그램으로 표현하는 뷰</li></ul><h3 id="29970133-dd5d-8075-bbfb-f7f46c7f0679" class="">13. 플랫폼 성능 특성 분석</h3><ul id="29970133-dd5d-80ad-968d-fd4405a15f25" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">응답시간, 가용성, 사용률</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80c4-88dc-e18a8a58a3e5" class="bulleted-list"><li style="list-style-type:disc">플랫폼 성능 특성 분석 항목 3가지</li></ul><h3 id="29970133-dd5d-801b-80f7-cb79bcfd4959" class="">14. CMMI 5단계</h3><ul id="29970133-dd5d-809c-b7fa-cfb65089b146" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">초기 단계 → 관리 단계 → 정의 단계 → 정량적 관리 단계 → 최적화 단계</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-80ef-963e-f42d7e41e3c2" class="bulleted-list"><li style="list-style-type:disc">CMMI의 5단계를 초기 단계부터 순서대로 쓰시오</li></ul><h3 id="29970133-dd5d-8028-a280-f80e60b17bc1" class="">15. 소프트웨어 아키텍처 평가 및 설계 기술</h3><ul id="29970133-dd5d-80ce-9e92-e3bfec477672" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SAAM, ATAM, CBAM, ADR, ARID<br/><br/>SAAM(Software Architecture Analysis Method)<br/>ATAM(Architecture Trade-off Analysis Method)<br/>CBAM(Cost Benefit Analysis Method)<br/>ADR(Active Design Review)<br/>ARID(Active Review for Intermediate Designs)</span><div class="indented"></div></li></ul><ul id="29970133-dd5d-8093-954b-f82c056e147a" class="bulleted-list"><li style="list-style-type:disc">소프트웨어 아키텍처의 평가 및 설계에 사용되는 5가지 방법론 및 기술의 약어를 모두 쓰시오</li></ul><p id="29970133-dd5d-8076-b09b-f87fbc41906f" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
