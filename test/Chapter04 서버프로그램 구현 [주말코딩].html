@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter04 서버프로그램 구현 [주말코딩]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29a70133-dd5d-80c4-b8d1-ec68fe49858d" class="page sans"><header><h1 class="page-title">Chapter04 서버프로그램 구현 [주말코딩]</h1><p class="page-description"></p></header><div class="page-body"><h3 id="29a70133-dd5d-80a1-a0e4-de0849f19edc" class="">1. 개발 언어 선정 기준</h3><ul id="29a70133-dd5d-801b-89eb-f5022c99b174" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">적정성, 효율성, 이식성, 친밀성, 범용성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80fc-b3bd-cfe36157b2e5" class="bulleted-list"><li style="list-style-type:disc">개발 언어를 선정할 때 고려해야 하는 5가지 주요 기준은 무엇인지 쓰시오</li></ul><h3 id="29a70133-dd5d-80d5-855e-ed3365de4a74" class="">2. 소프트웨어 아키텍처 설계 과정</h3><ul id="29a70133-dd5d-8089-855b-ed0395bb5efc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">설계 목표 설정 → 시스템 타입 결정 → 아키텍처 패턴 적용 → 서브 시스템 구체화 → 검토</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8015-9783-cb4d5f7e3950" class="bulleted-list"><li style="list-style-type:disc">소프트웨어 아키텍처의 설계 과정을 순서대로 쓰시오</li></ul><h3 id="29a70133-dd5d-8060-a95a-d1a63c214784" class="">3. 아키텍처 패턴</h3><ul id="29a70133-dd5d-80ba-956b-e0ebfaf75b77" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">레이어 패턴</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80ef-91ef-fbfcd2b457db" class="bulleted-list"><li style="list-style-type:disc">시스템을 계층으로 구분하여 구성하는 고전적인 방법의 아키텍처 패턴은?</li></ul><ul id="29a70133-dd5d-8058-9a98-d6e3e9516115" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">클라이언트-서버 패턴</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8018-bfc0-e22f2e1a85ef" class="bulleted-list"><li style="list-style-type:disc">하나의 서버 컴포넌트와 다수의 클라이언트 컴포넌트로 구성되는 아키텍처 패턴은?</li></ul><ul id="29a70133-dd5d-80f0-aafd-f41dcd79f9d3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">파이프-필터 패턴</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80c5-90b9-d2b12629a2de" class="bulleted-list"><li style="list-style-type:disc">데이터 스트림 절차의 각 단계를 필터로 캡슐화하여 파이프를 통해 전송하는 아키텍처 패턴은?</li></ul><ul id="29a70133-dd5d-8092-852d-e2f3650351dd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">모델-뷰-컨트롤러 패턴 (MVC)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8060-8a82-d8cfa4de22d2" class="bulleted-list"><li style="list-style-type:disc">서브 시스템을 모델, 뷰, 컨트롤러로 구조화하는 패턴으로, 애플리케이션의 개발 효율성과 유지보수성을 높이는 패턴은?</li></ul><ul id="29a70133-dd5d-801a-9480-ee5a7b89d182" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">마스터-슬레이브 패턴, 브로커 패턴, 피어투피어 패턴, 이벤트 버스 패턴, 블랙보드 패턴</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80ad-8d5e-ee67b7959d81" class="bulleted-list"><li style="list-style-type:disc">주요 4가지 패턴 외에 기타 아키텍처 패턴의 종류를 5가지 이상 쓰시오</li></ul><h3 id="29a70133-dd5d-807f-a03e-ed700cbaf5e9" class="">4. 객체 지향 분석 방법론</h3><ul id="29a70133-dd5d-8077-84ef-c024db48ac17" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">럼바우 방법</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8079-9409-dbe9a4730ea3" class="bulleted-list"><li style="list-style-type:disc">모든 소프트웨어 구성 요소를 그래픽 표기법을 이용하여 모델링하는 기법 (객체모델링, 동적모델링, 기능모델링 순으로 이뤄짐)은?</li></ul><ul id="29a70133-dd5d-80e8-abce-dbbe3695bc24" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">부치 방법</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80cd-a081-f8094fc38a07" class="bulleted-list"><li style="list-style-type:disc">미시적 개발 프로세스와 거시적 개발 프로세스를 모두 사용하는 객체 지향 분석 방법론은?</li></ul><ul id="29a70133-dd5d-803f-b691-c6e8b4fdb006" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">자콥슨 방법</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8014-8583-c2bfe115eb3b" class="bulleted-list"><li style="list-style-type:disc">유스케이스를 강조하여 사용하는 객체 지향 분석 방법론은?</li></ul><ul id="29a70133-dd5d-8084-8c4f-dfb177911b32" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Coad &amp; Yourdon 방법</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80b1-9afa-f01fb3eb00c2" class="bulleted-list"><li style="list-style-type:disc">E-R 다이어그램을 사용하여 객체의 행위를 모델링하는 객체 지향 분석 방법론은?</li></ul><ul id="29a70133-dd5d-80aa-81f5-fc21ebea570b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Wirfs-Brock 방법</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80cc-b46e-ccf1fb96668e" class="bulleted-list"><li style="list-style-type:disc">분석과 설계 간의 구분이 없으며 고객 명세서를 평가해서 설계 작업까지 연속적으로 수행하는 객체 지향 분석 방법론은?</li></ul><h3 id="29a70133-dd5d-803f-af98-d730e5331cb4" class="">5. 소프트웨어 아키텍처 설계 기본 원리</h3><ul id="29a70133-dd5d-80d7-999a-fdacea33e198" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">모듈화</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80ac-b0ae-dee624fcde20" class="bulleted-list"><li style="list-style-type:disc">소프트웨어 성능 향상, 시스템의 수정 및 재사용, 유지 관리 등이 용이하도록 시스템의 기능들을 모듈 단위로 나누는 것은?</li></ul><ul id="29a70133-dd5d-80c7-b68e-f57008a0dc29" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">추상화</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8052-8e37-f97dc5747ed4" class="bulleted-list"><li style="list-style-type:disc">문제의 전체적이고 포괄적인 개념을 설계한 후 차례로 세분화하여 구체화시켜 나가는 것은?</li></ul><ul id="29a70133-dd5d-806e-80b1-cd69a185f2e0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">단계적 분해</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-805a-a2c3-d1c94b0ed606" class="bulleted-list"><li style="list-style-type:disc">문제를 상위의 중요 개념으로부터 하위의 개념으로 구체화시키는 분할 기법은?</li></ul><ul id="29a70133-dd5d-8049-a390-f35efa74865d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">정보 은닉</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80f9-b30e-ea997fcb1486" class="bulleted-list"><li style="list-style-type:disc">한 모듈 내부에 포함된 절차와 자료들의 정보가 감추어져 다른 모듈이 접근하거나 변경하지 못하도록 하는 기법은?</li></ul><h3 id="29a70133-dd5d-8049-b743-e3528732b6e4" class="">6. 모듈의 독립성 (결합도/응집도)</h3><ul id="29a70133-dd5d-8039-ade9-e1ab4d167cf3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">결합도는 약하게, 응집도는 높게</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8050-b762-fb1834722a3e" class="bulleted-list"><li style="list-style-type:disc">모듈의 독립성(재사용, 유지 관리 용이)을 높이기 위한 모듈의 결합도와 응집도 조건을 쓰시오</li></ul><ul id="29a70133-dd5d-80b7-892c-c6b5ac2c3892" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">결합도 (Coupling)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80df-a051-f8281cc514ef" class="bulleted-list"><li style="list-style-type:disc">모듈 간에 상호 의존하는 정도 또는 두 모듈 사이의 연관 관계를 의미하는 것은?</li></ul><ul id="29a70133-dd5d-8080-999f-d39c33057099" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">응집도 (Cohesion)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8039-995d-ff7e4fd738cb" class="bulleted-list"><li style="list-style-type:disc">모듈의 내부 요소들이 서로 연관되어 있는 정도를 의미하는 것은?</li></ul><h3 id="29a70133-dd5d-8087-a097-d8a1a72aa4b3" class="">7. 결합도 (Coupling) 순서 및 종류</h3><ul id="29a70133-dd5d-80f5-9743-c8210fbaba53" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">내용 결합도 → 공통 결합도 → 외부 결합도 → 제어 결합도 → 스탬프 결합도 → 자료 결합도</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-801a-8318-d3dd72ec73cd" class="bulleted-list"><li style="list-style-type:disc">결합도가 강한 순서(내공외제스자)대로 쓰시오</li></ul><ul id="29a70133-dd5d-8058-8480-e7873dc744c4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">내용 결합도 (Content)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80f0-9eb7-fe0ddb1045e2" class="bulleted-list"><li style="list-style-type:disc">한 모듈이 다른 모듈의 내부 기능 및 내부 자료를 직접 참조하거나 수정하는 결합도는?</li></ul><ul id="29a70133-dd5d-802a-99e4-f3d0e64b50e7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">공통 결합도 (Common)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80c2-a006-fb5afc64849b" class="bulleted-list"><li style="list-style-type:disc">공유되는 공통 데이터 영역(전역 변수)을 여러 모듈이 사용할 때의 결합도는?</li></ul><ul id="29a70133-dd5d-802d-94e3-c738acaac4b8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">외부 결합도 (External)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8017-a78d-c548b5970a32" class="bulleted-list"><li style="list-style-type:disc">어떤 모듈에서 선언한 데이터 변수를 외부의 다른 모듈에서 참조할 때의 결합도는?</li></ul><ul id="29a70133-dd5d-8073-bef4-e79ab9358d86" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제어 결합도 (Control)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8067-9dad-dccb28f5baca" class="bulleted-list"><li style="list-style-type:disc">어떤 모듈이 다른 모듈 내부의 논리적인 흐름을 제어하기 위해 제어 요소(flag)를 전달하는 결합도는?</li></ul><ul id="29a70133-dd5d-80e3-9295-f202f5f0c4bf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스탬프 결합도 (Stamp)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80c4-97df-d688e8e40377" class="bulleted-list"><li style="list-style-type:disc">모듈 간의 인터페이스로 배열이나 오브젝트 포인터 등 동일한 자료 구조가 전달될 때의 결합도는?</li></ul><ul id="29a70133-dd5d-8091-bcc2-d451d8abf461" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">자료 결합도 (Data)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-806d-956c-e2933d5a2544" class="bulleted-list"><li style="list-style-type:disc">모듈 간의 인터페이스가 자료 요소로만 구성되는 (가장 약한) 결합도는?</li></ul><h3 id="29a70133-dd5d-80d6-98cf-c670d16418c3" class="">8. 응집도 (Cohesion) 순서 및 종류</h3><ul id="29a70133-dd5d-8074-9e8d-d2b9734187e2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">기능적 응집도 → 순차적 응집도 → 교환적 응집도 → 절차적 응집도 → 시간적 응집도 → 논리적 응집도 → </span><div class="indented"></div></li></ul><p id="29a70133-dd5d-80fb-a7d7-dee8b1bd6a49" class="">우연적 응집도</p><ul id="29a70133-dd5d-80cd-a19c-f40a72e540b9" class="bulleted-list"><li style="list-style-type:disc">응집도가 강한 순서(기순교절시논우)대로 쓰시오</li></ul><ul id="29a70133-dd5d-80fe-94c2-e002e8575565" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">기능적 응집도 (Functional)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80c4-9009-f4c0fb8b594b" class="bulleted-list"><li style="list-style-type:disc">모듈 내부 기능 요소들이 단일 문제와 연관되어 수행되는 (가장 강한) 응집도는?</li></ul><ul id="29a70133-dd5d-8018-8aaf-d05827c141dd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">순차적 응집도 (Sequential)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8088-a444-c527e94b8cbd" class="bulleted-list"><li style="list-style-type:disc">모듈 내 하나의 활동으로 나온 출력 데이터를 그 다음 활동의 입력 데이터로 사용하는 응집도는?</li></ul><ul id="29a70133-dd5d-8030-9df1-c94d066bd430" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">교환적 응집도 (Communication)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8045-ae7a-c7342da481df" class="bulleted-list"><li style="list-style-type:disc">동일한 입력과 출력을 사용해 서로 다른 기능을 수행하는 구성 요소가 모인 응집도는?</li></ul><ul id="29a70133-dd5d-80ab-90f5-f5875ea27beb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">절차적 응집도 (Procedural)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80d1-a57a-c90c29514faa" class="bulleted-list"><li style="list-style-type:disc">모듈 안의 구성 요소들이 기능을 순차적으로 수행할 경우의 응집도는?</li></ul><ul id="29a70133-dd5d-8094-afef-e9a24e934d44" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">시간적 응집도 (Temporal)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8046-801a-cf8469b14a8d" class="bulleted-list"><li style="list-style-type:disc">특정 시간에 처리되는 몇 개의 기능을 모아 하나의 모듈로 작성할 경우의 응집도는?</li></ul><ul id="29a70133-dd5d-8070-b5ae-d256d6a4611a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">논리적 응집도 (Logical)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80e6-8885-e0ca694f7d8e" class="bulleted-list"><li style="list-style-type:disc">유사한 성격을 갖거나 특정 형태로 분류되는 처리 요소들로 하나의 모듈을 형성하는 응집도는?</li></ul><ul id="29a70133-dd5d-80eb-93fd-e5cde7b3fd40" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">우연적 응집도 (Coincidental)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-807a-aab9-f74dc455727b" class="bulleted-list"><li style="list-style-type:disc">서로 관련 없는 요소들로 하나의 모듈을 구성하는 (가장 약한) 응집도는?</li></ul><h3 id="29a70133-dd5d-801b-9789-c9c3fbf8e6ad" class="">9. 프로세스 간 통신 (IPC)</h3><ul id="29a70133-dd5d-8079-8444-e55019c25eeb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Shared memory</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80f0-b63f-c389f4fd9195" class="bulleted-list"><li style="list-style-type:disc">공유 가능한 메모리를 구성하여 다수의 프로세스가 통신하는 IPC 대표 메소드는?</li></ul><ul id="29a70133-dd5d-8021-a1b0-d3d66bb89f89" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Socket</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80ee-9231-c85ee2eea3a1" class="bulleted-list"><li style="list-style-type:disc">네트워크 소켓을 이용하여 네트워크를 경유하는 프로세스 간에 통신하는 IPC 대표 메소드는?</li></ul><ul id="29a70133-dd5d-809b-be1e-cdf58534d24c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Semaphores</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80c3-9bb1-d0920b1f76e8" class="bulleted-list"><li style="list-style-type:disc">공유 자원에 대한 접근 제어를 통해 통신하는 IPC 대표 메소드는?</li></ul><ul id="29a70133-dd5d-8078-bab1-db4883d3fc01" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Pipes &amp; Named Pipe</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8075-a1b7-ca0ea8bdc2c4" class="bulleted-list"><li style="list-style-type:disc">&#x27;Pipe&#x27;라고 불리는 선입선출 형태로 구성된 메모리를 여러 프로세스가 공유하여 통신하는 IPC 대표 메소드는?</li></ul><ul id="29a70133-dd5d-806d-9ea2-fc2512a83586" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Message Queueing</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8045-ab0a-f1833732e622" class="bulleted-list"><li style="list-style-type:disc">메시지가 발생하면 이를 전달하는 방식으로 통신하는 IPC 대표 메소드는?</li></ul><h3 id="29a70133-dd5d-801d-8736-d40fad10a735" class="">10. 서버 개발 과정 (MVC)</h3><ul id="29a70133-dd5d-809f-937a-ee07d3230bd9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DTO/VO (Data Transfer Object/Value Object)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-808e-bf63-e7539f2bd2d0" class="bulleted-list"><li style="list-style-type:disc">서버 개발 과정에서 데이터 교환을 위해 사용할 객체를 만드는 과정은?</li></ul><ul id="29a70133-dd5d-8062-91f0-e83d3c1dcdf8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SQL</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8029-b451-de636119f126" class="bulleted-list"><li style="list-style-type:disc">서버 개발 과정에서 데이터 삽입/변경/삭제 등의 작업을 수행할 문을 생성하는 과정은?</li></ul><ul id="29a70133-dd5d-80d6-9517-f367f85a5c19" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DAO (Data Access Object)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-802c-9f5e-fe5107e04ac5" class="bulleted-list"><li style="list-style-type:disc">서버 개발 과정에서 데이터베이스에 접근하고 SQL을 활용하여 데이터를 실제로 조작하는 코드를 구현하는 과정은?</li></ul><ul id="29a70133-dd5d-805a-b985-dbd53d94aa20" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Service</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80a9-b8d4-c1ed3ff20c7f" class="bulleted-list"><li style="list-style-type:disc">서버 개발 과정에서 사용자의 요청에 응답하기 위한 로직을 구현하는 과정은?</li></ul><ul id="29a70133-dd5d-807a-addb-e6fd53eba7d4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Controller</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80ed-9000-e1bd68cec529" class="bulleted-list"><li style="list-style-type:disc">서버 개발 과정에서 사용자의 요청에 적절한 서비스를 호출하여 그 결과를 사용자에게 반환하는 코드를 구현하는 과정은?</li></ul><h3 id="29a70133-dd5d-801f-8e7d-dadf8f755ef0" class="">11. 소프트웨어 재사용을 위한 공통 모듈화</h3><ul id="29a70133-dd5d-800d-8024-c47b11e7ca00" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">분할과 정복 (Divide &amp; Conquer)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80b2-8ab5-e370bbdb9586" class="bulleted-list"><li style="list-style-type:disc">복잡한 문제를 분해해서 모듈 단위로 해결하는 소프트웨어 재사용을 위한 공통 모듈화 기법은?</li></ul><ul id="29a70133-dd5d-8074-8b34-ef0aeca1ae3c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">자료 추상화</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-805f-8736-da03eee65e71" class="bulleted-list"><li style="list-style-type:disc">함수 내의 자료 구조 표현 내역을 숨기고 인터페이스를 통해 접근하도록 하는 소프트웨어 재사용을 위한 공통 모듈화 기법은?</li></ul><ul id="29a70133-dd5d-802c-850c-d0533f99f6b6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">모듈 독립성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8075-9cfa-da97abac5f19" class="bulleted-list"><li style="list-style-type:disc">각 모듈의 결합도를 줄이고 응집도를 높여 재사용성을 높이는 공통 모듈화 기법은?</li></ul><ul id="29a70133-dd5d-80d7-a474-eabe98fec56a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">정보 은닉</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8073-8113-f42568b10c96" class="bulleted-list"><li style="list-style-type:disc">중요한 정보나 노출 가능성이 큰 모듈을 은닉하는 소프트웨어 재사용을 위한 공통 모듈화 기법은?</li></ul><h3 id="29a70133-dd5d-804e-b2ef-c72bb5954790" class="">12. MVC 패턴 설명</h3><ul id="29a70133-dd5d-808e-9025-d27966a8d983" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">MVC (Model-View-Controller)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80f0-a006-ec5cf799bb9c" class="bulleted-list"><li style="list-style-type:disc">애플리케이션을 데이터/비즈니스 로직 담당, 사용자 인터페이스 담당, 둘 사이를 연결하는 요소로 분리하여 개발의 효율성과 유지보수성을 높이는 패턴은?</li></ul><ul id="29a70133-dd5d-80cd-a8aa-e285198edf2d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Model</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-805b-9111-d9f060369dd6" class="bulleted-list"><li style="list-style-type:disc">MVC 패턴에서 데이터와 비즈니스 로직을 담당하며, 데이터를 관리하고 애플리케이션의 상태를 유지하는 요소는?</li></ul><ul id="29a70133-dd5d-8000-bb06-e861af7fb392" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">View</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8015-aa5f-c72f8fcc5551" class="bulleted-list"><li style="list-style-type:disc">MVC 패턴에서 사용자 인터페이스(데이터 표시, 버튼, 텍스트 필드 등)를 담당하는 요소는?</li></ul><ul id="29a70133-dd5d-80a9-9bc5-d29c80773e8f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Controller</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-807b-b5a5-f8cb49cde513" class="bulleted-list"><li style="list-style-type:disc">MVC 패턴에서 사용자의 입력을 처리하고 모델을 업데이트하며 뷰를 업데이트하는, 모델과 뷰 사이를 연결하는 역할을 하는 요소는?</li></ul><ul id="29a70133-dd5d-80e6-a336-ea31215a0142" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">배치 프로그램</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8060-a539-d668987b3423" class="bulleted-list"><li style="list-style-type:disc">일정 스케줄마다 돌아가면서 일괄처리하는 프로그램은?</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

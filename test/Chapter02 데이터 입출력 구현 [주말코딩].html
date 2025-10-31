@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter02 데이터 입출력 구현 [주말코딩]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29a70133-dd5d-80dc-84e5-d455221908e9" class="page sans"><header><h1 class="page-title">Chapter02 데이터 입출력 구현 [주말코딩]</h1><p class="page-description"></p></header><div class="page-body"><p id="29a70133-dd5d-8021-a23f-c27856069e4c" class=""><strong>데이터베이스 실기 플래시카드 (전체 목록)</strong><br/><br/><strong><br/>1. 데이터베이스 구조 및 스키마</strong></p><ul id="29a70133-dd5d-80b4-aeae-df938933c9b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스키마</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8067-89c7-d15696b71ba3" class="bulleted-list"><li style="list-style-type:disc">데이터베이스의 구조와 제약 조건에 관한 전반적인 명세를 기술한 것을 의미하는 용어는?</li></ul><ul id="29a70133-dd5d-8067-afac-f4a13383e45d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">외부 스키마</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8047-835b-de95cfe095b1" class="bulleted-list"><li style="list-style-type:disc">사용자나 응용 프로그래머가 각 개인의 입장에서 필요로 하는 데이터베이스의 논리적 구조를 정의한 스키마는?</li></ul><ul id="29a70133-dd5d-8046-8808-d1c5ad87dd91" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">개념 스키마</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-801f-80ac-fbae39822255" class="bulleted-list"><li style="list-style-type:disc">데이터베이스의 전체적인 논리적 구조로, 조직 전체의 데이터베이스로 하나만 존재하며 사용자들의 데이터를 종합한 것을 의미하는 스키마는?</li></ul><ul id="29a70133-dd5d-8011-9467-eac657aef1c1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">내부 스키마</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80db-a97c-dae53596a4e9" class="bulleted-list"><li style="list-style-type:disc">물리적 저장장치 입장에서 본 데이터베이스 구조로, 실제로 저장될 레코드의 형식이나 물리적 순서 등을 나타내는 스키마는?<br/><strong><br/>2. 릴레이션 구성 요소 (기출)</strong></li></ul><ul id="29a70133-dd5d-8010-80d8-d75875c39e2f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">튜플</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-807d-bd63-c0488b272924" class="bulleted-list"><li style="list-style-type:disc">릴레이션을 구성하는 각각의 행으로, 그 수를 카디널리티 또는 기수라고 하며 레코드와 같은 의미인 것은?</li></ul><ul id="29a70133-dd5d-8069-a146-c842810395de" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">카디널리티 (기수)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-802f-a27f-ee96d0b0690a" class="bulleted-list"><li style="list-style-type:disc">릴레이션을 구성하는 각각의 행(튜플)의 수로, 특정 데이터 집합의 유니크한 값의 개수를 나타내는 지표는?</li></ul><ul id="29a70133-dd5d-80e1-af95-ca9b7b99ad7f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">차수 (디그리)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8021-8832-ed5b2c54c900" class="bulleted-list"><li style="list-style-type:disc">한 릴레이션에 들어있는 애트리뷰트(속성)의 수를 의미하는 것은?</li></ul><ul id="29a70133-dd5d-8062-822c-d652af22474f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">속성 (애트리뷰트)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8060-ad12-cb56939080d4" class="bulleted-list"><li style="list-style-type:disc">하나의 릴레이션이 표현하는 개체에 저장하고 싶은 정보의 단위를 뜻하는 것은?</li></ul><ul id="29a70133-dd5d-80f1-8035-da5ec3c9c717" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">릴레이션 인스턴스 (외연)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-806e-9760-e92b8335bd41" class="bulleted-list"><li style="list-style-type:disc">어느 한 시점에서 릴레이션의 내용(상태), 즉 저장된 데이터 전체를 의미하는 것은?</li></ul><ul id="29a70133-dd5d-8009-acb7-d05c9734d50a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">도메인</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80dd-be37-ce3349e87e7e" class="bulleted-list"><li style="list-style-type:disc">하나의 애트리뷰트가 취할 수 있는 같은 타입의 원자들의 집합을 의미하는 것은?<br/><strong><br/>3. 관계 대수 및 연산자</strong></li></ul><ul id="29a70133-dd5d-8049-b4d1-d76f7bb2bf64" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">합집합 (∪)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80e5-a60d-e426848b477d" class="bulleted-list"><li style="list-style-type:disc">두 릴레이션의 튜플의 합집합을 구하는 일반 집합 연산자는?</li></ul><ul id="29a70133-dd5d-80d2-84f3-fca08edcffc3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">교집합 (∩)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80fe-9f03-ff358603f05d" class="bulleted-list"><li style="list-style-type:disc">두 릴레이션의 튜플의 교집합을 구하는 일반 집합 연산자는?</li></ul><ul id="29a70133-dd5d-8089-b341-fe1f25c3a58a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">차집합 (–)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80ad-8371-d447340d3c15" class="bulleted-list"><li style="list-style-type:disc">두 릴레이션의 튜플의 차집합을 구하는 일반 집합 연산자는?</li></ul><ul id="29a70133-dd5d-80de-91b1-cd61bbdaa607" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">교차곱 (×)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-803e-8792-ce5454c612d8" class="bulleted-list"><li style="list-style-type:disc">두 릴레이션의 튜플들의 순서쌍을 구하는 일반 집합 연산자는?</li></ul><ul id="29a70133-dd5d-8032-98d2-c1403cd8142e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">선택 (Select, $\sigma$)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8023-b9ea-c550f31687c6" class="bulleted-list"><li style="list-style-type:disc">조건을 만족하는 튜플의 부분집합을 구해서 새로운 릴레이션을 만들며, 행(가로)에 해당하는 튜플을 구하는 수평 연산은?</li></ul><ul id="29a70133-dd5d-80e0-866c-f868dbb9ba52" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">프로젝트 (Project, $\pi$)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-802a-8644-da703f46b085" class="bulleted-list"><li style="list-style-type:disc">속성 리스트에 제시된 속성 값만을 추출해 새로운 릴레이션을 만들며, 열(세로)에 해당하는 속성을 추출하고 중복을 제거하는 수직 연산은?</li></ul><ul id="29a70133-dd5d-807e-b2ce-d790a7553b1d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">조인 (Join, $\bowtie$)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80e7-b789-c1dad0b24a98" class="bulleted-list"><li style="list-style-type:disc">공통 속성을 중심으로 두 개 릴레이션을 하나로 합쳐서 새로운 릴레이션을 만드는 연산은?</li></ul><ul id="29a70133-dd5d-8050-9b09-c524cf1ff22d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">디비전 (Division, $\div$)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80a7-81ec-d0a6f5dbcaa2" class="bulleted-list"><li style="list-style-type:disc">R(X)와 S(Y) 두 릴레이션이 있을 때, R의 속성이 S의 속성값을 모두 가진 튜플에서 S가 가진 속성을 제외한 속성만을 구하는 연산은?<br/><strong><br/>4. 정규형 과정 (도부이결다조)</strong></li></ul><ul id="29a70133-dd5d-8070-a053-e9092beb386b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">비정규형 → 제1정규형</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-802a-b624-dc48fd3ab624" class="bulleted-list"><li style="list-style-type:disc">도메인이 원자값(원자성)이 되도록 정규화하는 과정은?</li></ul><ul id="29a70133-dd5d-8085-a2f3-cebb161ab784" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제1정규형 → 제2정규형</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8015-b89a-c0c753a8f213" class="bulleted-list"><li style="list-style-type:disc">부분적 함수 종속을 제거하여 정규화하는 과정은?</li></ul><ul id="29a70133-dd5d-80aa-9ec5-ee3eb7d5d257" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제2정규형 → 제3정규형</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-805e-b1d1-d4629b786dee" class="bulleted-list"><li style="list-style-type:disc">이행적 함수 종속을 제거하여 정규화하는 과정은?</li></ul><ul id="29a70133-dd5d-801a-9cce-c664d80a3509" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제3정규형 → BCNF</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-805a-815b-c39be6aa617d" class="bulleted-list"><li style="list-style-type:disc">결정자이면서 후보키가 아닌 것을 제거하여 정규화하는 과정은?</li></ul><ul id="29a70133-dd5d-80f8-a429-d8f07e64de9b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">BCNF → 제4정규형</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8089-b7e5-fc1c2ba65eb0" class="bulleted-list"><li style="list-style-type:disc">다치 종속을 제거하여 정규화하는 과정은?</li></ul><ul id="29a70133-dd5d-8006-b424-c590fa952ae6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제4정규형 → 제5정규형</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8009-a583-ec7ba61b2010" class="bulleted-list"><li style="list-style-type:disc">조인 종속성을 이용하여 정규화하는 과정은?<br/><strong><br/>5. 관계형 데이터베이스 제약 조건 (무결성)</strong></li></ul><ul id="29a70133-dd5d-8064-8e40-fb294bf53327" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">개체 무결성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8022-b9d1-d2388d8b7a21" class="bulleted-list"><li style="list-style-type:disc">기본 테이블의 기본키를 구성하는 어떤 속성도 Null 값이나 중복값을 가질 수 없다는 규정은?</li></ul><ul id="29a70133-dd5d-801e-bed8-d757bc3e709d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">참조 무결성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8051-9bad-f1c1bf52340f" class="bulleted-list"><li style="list-style-type:disc">외래키 값은 Null이거나 참조 릴레이션의 기본키 값과 동일해야 한다는 규정은?</li></ul><ul id="29a70133-dd5d-8098-84b0-c3db51745a60" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">도메인 무결성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80c9-83de-c48a561074ae" class="bulleted-list"><li style="list-style-type:disc">주어진 속성 값이 정의된 도메인에 속한 값이어야 한다는 규정은?</li></ul><ul id="29a70133-dd5d-8013-9168-e3d4497efd08" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">사용자 정의 무결성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-804a-9744-d563d30f59b4" class="bulleted-list"><li style="list-style-type:disc">속성 값들이 사용자가 정의한 제약 조건에 만족되어야 한다는 규정은?</li></ul><ul id="29a70133-dd5d-80db-84aa-eb2938804aaa" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">NULL 무결성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80f5-92e3-f5375c8c59db" class="bulleted-list"><li style="list-style-type:disc">릴레이션의 특정 속성 값이 Null이 될 수 없도록 하는 규정은?</li></ul><ul id="29a70133-dd5d-80ed-8b01-c1172a2409fc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">관계 무결성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80dd-bf7d-fe4f4a2cace1" class="bulleted-list"><li style="list-style-type:disc">릴레이션의 튜플 삽입 가능 여부 또는 릴레이션 간 튜플 관계의 적절성 여부를 지정한 규정은?<br/><strong><br/>6. 반정규화</strong></li></ul><ul id="29a70133-dd5d-8094-9aa1-e6e3100df21b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">반정규화</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8017-8014-c1a8ca8dc71b" class="bulleted-list"><li style="list-style-type:disc">시스템의 성능 향상과 개발/운영의 편의성을 높이기 위해 정규화된 데이터 모델을 의도적으로 통합, 중복, 분리하여 정규화 원칙을 위배하는 행위는?<br/><strong><br/>7. 시스템 카탈로그</strong></li></ul><ul id="29a70133-dd5d-80f9-b6b4-c495537a842e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">시스템 카탈로그 (데이터 사전)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-800d-8611-c6cf4183687d" class="bulleted-list"><li style="list-style-type:disc">DBMS 그 자체에 관련이 있는 다양한 객체에 관한 정보를 포함하는 시스템 데이터베이스로, 좁은 의미로 데이터 사전이라고도 불리는 것은?<br/><strong><br/>8. 트랜잭션의 특성 (ACID)</strong></li></ul><ul id="29a70133-dd5d-8054-bd14-ebda81a671f6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">원자성 (Atomicity)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80b9-b16b-e6b6930c756f" class="bulleted-list"><li style="list-style-type:disc">트랜잭션의 연산은 데이터베이스에 모두 반영되거나 전혀 반영되지 않아야 하는 트랜잭션의 특성은?</li></ul><ul id="29a70133-dd5d-8060-9ce5-c78382407aa1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">일관성 (Consistency)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-802b-9df9-f228f280ed5b" class="bulleted-list"><li style="list-style-type:disc">트랜잭션이 성공적으로 완료되면 언제나 일관성 있는 데이터베이스 상태로 변환되는 트랜잭션의 특성은?</li></ul><ul id="29a70133-dd5d-809d-8f69-ef9a020e6bbc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">독립성/격리성 (Isolation)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-807e-8fdc-e5ed7619ce89" class="bulleted-list"><li style="list-style-type:disc">둘 이상의 트랜잭션이 동시에 실행될 때, 어느 하나의 트랜잭션 실행 중에는 다른 트랜잭션의 연산이 끼어들 수 없도록 하는 트랜잭션의 특성은?</li></ul><ul id="29a70133-dd5d-8005-8e38-f142ee7babf2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">지속성/영속성 (Durability)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-805e-abe6-c6b5f8505b52" class="bulleted-list"><li style="list-style-type:disc">성공적으로 완료된 트랜잭션의 결과는 시스템이 고장 나더라도 영구적으로 반영되어야 하는 트랜잭션의 특성은?<br/><strong><br/>9. 접근 통제 기술</strong></li></ul><ul id="29a70133-dd5d-8014-8b2d-fdfdd91582c0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">임의 접근 통제 (DAC)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8008-a8e3-d78cb8981f6d" class="bulleted-list"><li style="list-style-type:disc">데이터에 접근하는 사용자의 신원에 따라 접근 권한을 부여하는 접근 통제 기술은?</li></ul><ul id="29a70133-dd5d-8093-b61e-c762b3687b75" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">강제 접근 통제 (MAC)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80e6-840d-ca6b53af0e7a" class="bulleted-list"><li style="list-style-type:disc">주체와 객체의 등급을 비교하여 접근 권한을 부여하는 접근 통제 기술은?</li></ul><ul id="29a70133-dd5d-8010-8330-e089f6025003" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">역할 기반 접근 통제 (RBAC)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-801a-a2ea-f4a0f342d8d2" class="bulleted-list"><li style="list-style-type:disc">사용자의 역할에 따라 접근 권한을 부여하는 접근 통제 기술은?<br/><strong><br/>10. 파티션</strong></li></ul><ul id="29a70133-dd5d-807c-a3ff-d5ed4b0ae294" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">파티션</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80d1-b264-e0242711a4b3" class="bulleted-list"><li style="list-style-type:disc">대용량의 테이블이나 인덱스를 작은 논리적 단위로 나누는 것을 의미하는 용어는?</li></ul><ul id="29a70133-dd5d-80aa-8cea-cd501d179707" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">범위 분할</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80cc-a458-fe4c517a4fbd" class="bulleted-list"><li style="list-style-type:disc">지정한 열의 기준으로 데이터를 분할하는 파티션 방식은?</li></ul><ul id="29a70133-dd5d-80d6-82a6-ed2c988b01ee" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">해시 분할</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8002-b435-ed0b97a7eb87" class="bulleted-list"><li style="list-style-type:disc">해시 함수를 적용한 결과값에 따라 데이터를 분할하는 파티션 방식은?</li></ul><ul id="29a70133-dd5d-80ca-ad5b-f9a2335fe2db" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">조합 분할</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80f8-a498-fb332357ddcb" class="bulleted-list"><li style="list-style-type:disc">범위 분할로 분할한 다음 해시 함수를 적용하여 다시 분할하는 방식의 파티션은?<br/><strong><br/>11. 분산 데이터베이스 목표 (투명성)</strong></li></ul><ul id="29a70133-dd5d-80c6-9f2f-fc7602c7df49" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">위치 투명성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80d7-8092-e0014dc8abd7" class="bulleted-list"><li style="list-style-type:disc">데이터베이스의 실제 위치를 알 필요 없이 논리적인 명칭만으로 액세스할 수 있는 분산 데이터베이스의 목표는?</li></ul><ul id="29a70133-dd5d-80be-a78b-c3967f6908da" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">중복 투명성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8019-a898-c86cae2d7ee4" class="bulleted-list"><li style="list-style-type:disc">동일 데이터가 여러 곳에 중복되어 있더라도 사용자는 마치 하나의 데이터만 존재하는 것처럼 사용하는 분산 데이터베이스의 목표는?</li></ul><ul id="29a70133-dd5d-8046-951b-e9d345da9360" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">병행 투명성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8034-b53f-d0f9294b0521" class="bulleted-list"><li style="list-style-type:disc">다수의 트랜잭션들이 동시에 실현되더라도 그 트랜잭션의 결과는 서로 영향을 받지 않는 분산 데이터베이스의 목표는?</li></ul><ul id="29a70133-dd5d-8006-90f3-d00ca853d7b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">장애 투명성</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80c6-94ee-d33d913a7a71" class="bulleted-list"><li style="list-style-type:disc">트랜잭션, 네트워크, 컴퓨터, DBMS 장애에도 불구하고 트랜잭션을 정확하게 처리하는 분산 데이터베이스의 목표는?<br/><strong><br/>12. 클러스터</strong></li></ul><ul id="29a70133-dd5d-8009-9790-f9665b754390" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">클러스터</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8044-904b-d39e7a51f9fa" class="bulleted-list"><li style="list-style-type:disc">데이터 액세스의 효율을 향상시키기 위해 동일한 성격의 데이터를 동일한 데이터 블록에 저장하는 물리적인 방법은?<br/><strong>13. 데이터 모델 구성 요소</strong></li></ul><ul id="29a70133-dd5d-8023-9c4d-de5309bbd618" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">구조</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80f3-bea3-f370213169db" class="bulleted-list"><li style="list-style-type:disc">논리적으로 표현된 개체 타입들 간의 관계로서 데이터 구조 및 정적 성질을 표현하는 데이터 모델의 구성 요소는?</li></ul><ul id="29a70133-dd5d-803f-bb4f-d12eb375944b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">연산</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8090-abdd-d44f14dce61e" class="bulleted-list"><li style="list-style-type:disc">데이터베이스에 저장된 실제 데이터를 처리하는 작업에 대한 명세로, 데이터베이스를 조작하는 도구인 데이터 모델의 구성 요소는?</li></ul><ul id="29a70133-dd5d-807c-913c-fe9a2e9460cc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제약 조건</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8091-8c09-f670fc6877b1" class="bulleted-list"><li style="list-style-type:disc">데이터베이스에 저장될 수 있는 실제 데이터의 논리적인 제약 조건을 의미하는 데이터 모델의 구성 요소는?<br/><strong><br/>14. 함수적 종속성</strong></li></ul><ul id="29a70133-dd5d-8044-ba2f-d104ded295b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">함수적 종속성 (Functional Dependency)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80c2-80c0-f7cb227478fb" class="bulleted-list"><li style="list-style-type:disc">속성 X를 이용하여 속성 Y를 식별할 수 있을 때, &#x27;속성 Y가 속성 X에 함수적으로 종속된다&#x27;고 말하는 것을 의미하는 용어는?</li></ul><ul id="29a70133-dd5d-809c-9212-e173f138453d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">완전 함수 종속</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8076-8021-c45207a67c4f" class="bulleted-list"><li style="list-style-type:disc">함수적 종속성의 종류 중 하나는?</li></ul><ul id="29a70133-dd5d-804e-9874-da284321ea49" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">부분 함수 종속</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8099-b307-c5d6be0f3c0d" class="bulleted-list"><li style="list-style-type:disc">함수적 종속성의 종류 중 하나는?<br/><strong><br/>15. SQL 분류</strong><br/></li></ul><ul id="29a70133-dd5d-8001-8c74-c0e4a114399c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DDL (Data Definition Language)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8031-9195-dea1187b59c0" class="bulleted-list"><li style="list-style-type:disc">SQL 명령어 중 CREATE, ALTER, DROP, RENAME, TRUNCATE 등을 포함하는 분류는?</li></ul><ul id="29a70133-dd5d-80ba-9f6c-fe51c4c61f4a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DML (Data Manipulation Language)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8033-bece-c85d6521c3a6" class="bulleted-list"><li style="list-style-type:disc">SQL 명령어 중 SELECT, INSERT, UPDATE, DELETE 등을 포함하는 분류는?</li></ul><ul id="29a70133-dd5d-80bc-9460-dadffca3e121" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DCL (Data Control Language)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-806a-a632-f15c99ecb591" class="bulleted-list"><li style="list-style-type:disc">SQL 명령어 중 GRANT, REVOKE 등을 포함하는 분류는?</li></ul><ul id="29a70133-dd5d-80a6-8fea-d1bf61d225e5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">TCL (Transaction Control Language)</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-800f-89c5-dc83145cdd5f" class="bulleted-list"><li style="list-style-type:disc">SQL 명령어 중 COMMIT, ROLLBACK, SAVEPOINT 등을 포함하는 분류는?</li></ul><ul id="29a70133-dd5d-800d-b64a-f2f046b1182e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">GRANT</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-80a7-a0cf-fc9b0422ad03" class="bulleted-list"><li style="list-style-type:disc">SQL에서 특정 사용자(kim, lee 등)에게 데이터베이스 객체(student 테이블 등)에 대한 접근 권한을 부여하는 명령어를 쓰시오</li></ul><ul id="29a70133-dd5d-801a-b0aa-c24e2dcce89c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">REVOKE</span><div class="indented"></div></li></ul><ul id="29a70133-dd5d-8033-8fc2-fbaf5502af7f" class="bulleted-list"><li style="list-style-type:disc">SQL에서 특정 사용자에게 부여했던 데이터베이스 객체에 대한 접근 권한을 회수하는 명령어를 쓰시오</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

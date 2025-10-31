@@ -1,0 +1,707 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Section11 소프트웨어 보완 암기</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29d70133-dd5d-8088-aff6-d0b65414e028" class="page sans"><header><h1 class="page-title">Section11 소프트웨어 보완 암기</h1><p class="page-description"></p></header><div class="page-body"><h2 id="29d70133-dd5d-8055-9bcd-dc2f2da2a600" class="">📝 소프트웨어 보안 암기용 플래시카드 (용어 암기형)</h2><hr id="29d70133-dd5d-80b6-b0b0-e91c27c3c00b"/><ul id="29d70133-dd5d-805e-bf4a-f1940ed4b19f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SYN 플러딩 (SYN Flooding)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80f3-913e-e3d631716787" class="bulleted-list"><li style="list-style-type:disc">  TCP 프로토콜의 구조적 문제를 이용한 공격으로, 서버의 동시 가용 사용자 수를 SYN 패킷을 보내 점유하여 다른 사용자가 서버를 사용 불가능하게 하는 서비스 거부 공격입니다.</li></ul><ul id="29d70133-dd5d-80c9-8229-f5c4726388bb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">UDP 플러딩 (UDP Flooding)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8083-b494-edb61f3a6c3b" class="bulleted-list"><li style="list-style-type:disc">  대량의 UDP 패킷을 만들어 임의의 포트 번호로 전송해 응답 메시지를 생성하게 함으로써 자원을 고갈시키고 네트워크 대역폭을 소모하여 정상적인 트래픽을 방해하는 공격입니다.</li></ul><ul id="29d70133-dd5d-800b-a418-d20c5765fb23" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스머프 (Smurf Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8050-a705-e994eac45490" class="bulleted-list"><li style="list-style-type:disc">  출발지 주소를 공격 대상의 IP로 설정하여 브로드캐스팅을 통해 네트워크를 마비시키는 공격으로, 피해자는 네트워크 과부하로 인해 정상적인 서비스를 제공할 수 없게 됩니다.</li></ul><ul id="29d70133-dd5d-8026-9001-d46f213d6572" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">죽음의 핑 (Ping of Death)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8089-a86c-ff3521d67605" class="bulleted-list"><li style="list-style-type:disc">  ICMP 패킷을 원래보다 훨씬 크게 만들어 많은 부하를 일으켜 정상적인 서비스를 막아 시스템을 충돌시키거나 다운시켜 서비스 거부를 초래하는 공격입니다.</li></ul><ul id="29d70133-dd5d-80d7-a74f-db54ab6edb34" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">랜드 어택 (Land Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-804d-a14b-e9a61d2fd67e" class="bulleted-list"><li style="list-style-type:disc">  출발지와 목적지의 IP를 동일하게 설정하여 패킷을 보내 시스템이 스스로에게 패킷을 보내며 과부하에 빠져 가용성을 침해하는 공격입니다.</li></ul><ul id="29d70133-dd5d-8026-b6f3-c99fe108d0f8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">티어 드롭 (Teardrop Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8016-8901-fa31b0bb7dd2" class="bulleted-list"><li style="list-style-type:disc">  IP Fragment Offset 값을 중첩되도록 조작하여 시스템이 조각난 패킷을 재조립할 수 없어 충돌을 일으키고 시스템 기능을 마비시키는 공격입니다.</li></ul><ul id="29d70133-dd5d-80dd-901b-c4b799099c74" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">봉크 / 보잉크 (Bonk/Boink Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80d8-abc4-e9386a2ee0af" class="bulleted-list"><li style="list-style-type:disc">  오류 제어를 이용한 공격으로, 패킷 재전송과 재조립 과정에서 과부하를 발생시켜 시스템의 리소스를 소모하고 정상적인 서비스를 방해하는 공격입니다.</li></ul><ul id="29d70133-dd5d-8094-a349-dc653ed551b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DDoS (Distributed Denial of Service)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-808b-8a5d-cc1c608a57c6" class="bulleted-list"><li style="list-style-type:disc">  여러 대의 공격자를 분산 배치하여 동시에 특정 노드에 엄청난 접속과 요청을 보내 공격하는 기법입니다.</li></ul><ul id="29d70133-dd5d-80c0-b085-e3aa3fea70db" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스피어피싱 (Spear Phishing)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8070-8bb8-ed90c704c64c" class="bulleted-list"><li style="list-style-type:disc">  특정 대상을 선정하여 일반적인 이메일로 위장한 메일을 보내서 개인정보를 탈취하는 개인화된 메시지 기반의 공격입니다.</li></ul><ul id="29d70133-dd5d-8033-9ba0-c9d00b3a6bb4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스미싱 (Smishing)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8090-920d-e2225f228094" class="bulleted-list"><li style="list-style-type:disc">  SMS와 피싱의 합성어로, 문자 메시지를 통해 악성 링크나 전화를 유도하여 개인정보를 탈취하는 공격입니다.</li></ul><ul id="29d70133-dd5d-80f4-9705-dad7a3371a2f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">큐싱 (Qshing)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80b2-ac48-e319c233887f" class="bulleted-list"><li style="list-style-type:disc">  QR 코드와 피싱의 합성어로, QR 코드를 통해 악성 웹사이트로 유도하여 개인정보를 탈취하는 공격입니다.</li></ul><ul id="29d70133-dd5d-8028-94f9-e54d6289c3a8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">봇넷 (Botnet)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8066-96c3-cf593b42636c" class="bulleted-list"><li style="list-style-type:disc">  악성 프로그램에 감염된 다수의 컴퓨터들이 네트워크로 연결된 상태를 의미하며, 공격자는 이를 통해 DDoS 공격이나 스팸 메일 발송 등의 악성 활동을 수행합니다.</li></ul><ul id="29d70133-dd5d-8056-a2b6-de2f57f8ec9f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">APT 공격 (Advanced Persistent Threat Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80c4-8f00-dfcd2fc87d4e" class="bulleted-list"><li style="list-style-type:disc">  특정 타깃을 목표로 다양한 수단을 사용하여 장기간에 걸쳐 민감한 정보를 수집하고 탈취하는 지속적이고 지능적인 맞춤형 공격입니다.</li></ul><ul id="29d70133-dd5d-8084-9108-d282c0e3efd5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">공급망 공격 (Supply Chain Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8067-b83a-f5b6e7b7d42c" class="bulleted-list"><li style="list-style-type:disc">  소프트웨어 개발사의 네트워크에 침투하여 악의적 코드를 삽입해 사용자가 소프트웨어를 설치하거나 업데이트할 때 자동적으로 감염되도록 하는, 신뢰된 소프트웨어 배포 경로를 악용하는 공격입니다.</li></ul><ul id="29d70133-dd5d-807c-95dc-ebb962df052f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제로데이 공격 (Zero-Day Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-803c-ae4c-fad2dde8f89d" class="bulleted-list"><li style="list-style-type:disc">  보안 취약점이 공표되어 패치가 개발되기 전에 이를 악용하여 이루어지는 보안 공격입니다.</li></ul><ul id="29d70133-dd5d-805c-acc5-e7ef495c431d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">웜 (Worm)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8088-9596-c04336741a9d" class="bulleted-list"><li style="list-style-type:disc">  스스로를 복제하여 네트워크 등을 통해 전파되는 악성 소프트웨어 컴퓨터 프로그램으로, 네트워크 대역폭을 소모하고 시스템을 감염시킵니다.</li></ul><ul id="29d70133-dd5d-8079-b0ef-dff31df5a8cb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">악성 봇 (Malicious Bot)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8002-9a9d-fe952b601ab9" class="bulleted-list"><li style="list-style-type:disc">  자동화된 작업을 수행하는 악성 소프트웨어로, 봇넷의 일부로 작동하며 스팸 발송, 정보 수집, DDoS 공격 등 다양한 악의적인 목적에 사용됩니다.</li></ul><ul id="29d70133-dd5d-8064-92e4-e532ef964503" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">사이버 킬체인 (Cyber Kill Chain)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-802f-9b8a-f436972b75cc" class="bulleted-list"><li style="list-style-type:disc">  사이버 공격의 단계를 체계적으로 분석한 모델로, 공격자들의 전술을 이해하고 탐지, 방어, 대응의 각 단계에서 방어 전략을 수립하는 데 사용됩니다.</li></ul><ul id="29d70133-dd5d-8076-8ad4-cb9ebd7a4ca4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">랜섬웨어 (Ransomware)<br/>-  악성 코드의 한 종류로, 감염된 시스템 파일들을 암호화하여 인질처럼 잡고 몸값을 요구하는 공격입니다.</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ff-9542-db867e046ca4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스니핑 (Sniffing)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8082-842c-dd3d0ab4c6d8" class="bulleted-list"><li style="list-style-type:disc">  직접 공격을 가하지 않고 네트워크 상의 데이터를 몰래 들여다보는 수동적 공격기법으로, 이를 통해 민감한 정보를 탈취할 수 있습니다.</li></ul><ul id="29d70133-dd5d-8029-b234-d4dd5ae9e027" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">네트워크 스니퍼 (Network Sniffer)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8009-8392-ddf612ac0d8f" class="bulleted-list"><li style="list-style-type:disc">  네트워크 트래픽을 분석하여 구성 요소의 취약점을 파악하고 데이터 패킷을 캡처하고 분석하는 공격 도구입니다.</li></ul><ul id="29d70133-dd5d-8049-bab0-c78a2f1cd5f4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">패스워드 크래킹 (Password Cracking)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8059-b2e6-e831fe35cc32" class="bulleted-list"><li style="list-style-type:disc">  암호를 해독하여 불법적으로 접근하는 공격 기법입니다.</li></ul><ul id="29d70133-dd5d-8040-856d-d6707d5e61ab" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">사전 크래킹 (Dictionary Cracking)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8017-8c5c-d3069b791231" class="bulleted-list"><li style="list-style-type:disc">  ID와 패스워드가 될 가능성이 있는 단어를 파일로 만들어 대입하며 암호를 크랙하는 방법입니다.</li></ul><ul id="29d70133-dd5d-803d-86a2-c45cd2a9aec8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">무차별 크래킹 (Brute Force Cracking)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8072-8f27-d8ba68158c9a" class="bulleted-list"><li style="list-style-type:disc">  무작위로 모든 가능한 패스워드를 시도하여 알아내는 공격입니다.</li></ul><ul id="29d70133-dd5d-80bf-a96a-ddf1cb8fa749" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">패스워드 하이브리드 공격 (Password Hybrid Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8098-b03b-d71289aca725" class="bulleted-list"><li style="list-style-type:disc">  사전 공격과 무차별 공격을 결합하여 사전 단어에 다양한 변형을 적용하여 암호를 해독하는 방법입니다.</li></ul><ul id="29d70133-dd5d-80d2-a875-d2091d252937" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">레인보우 테이블 공격 (Rainbow Table Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-808e-bf6c-d9c947e6d018" class="bulleted-list"><li style="list-style-type:disc">  패스워드 별로 해시 값을 만들어 테이블에 모아 두고 크래킹하고자 하는 해시 값을 테이블에서 검색하여 역으로 패스워드를 찾는, 해시 값을 미리 계산하여 빠르게 암호를 해독하는 공격기법입니다.</li></ul><ul id="29d70133-dd5d-8025-b3d8-e7f449f875da" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">IP 스푸핑 (IP Spoofing)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80f8-8231-d1b84526c50d" class="bulleted-list"><li style="list-style-type:disc">  침입자가 인증된 시스템처럼 속여 정보를 빼내 타깃에 전송하는, 출발지 IP 주소를 위조하여 신뢰를 얻는 공격입니다.</li></ul><ul id="29d70133-dd5d-8087-9de0-dbce922a8b10" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ARP 스푸핑 (ARP Spoofing)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-800b-b1fe-c3d7d2086855" class="bulleted-list"><li style="list-style-type:disc">  공격자가 특정 호스트의 MAC 주소를 자신의 주소로 위조한 ARP Reply를 만들어 희생자에게 지속적으로 전송하여 스니핑하는, 로컬 네트워크에서 패킷을 가로채는 공격 기법입니다.</li></ul><ul id="29d70133-dd5d-809c-b933-d2917136f8d4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ICMP Redirect 공격 (ICMP Redirect Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ef-8995-d77bb07f73b0" class="bulleted-list"><li style="list-style-type:disc">  네트워크의 3계층에서 스니핑 시스템을 네트워크의 다른 라우터로 인식하게 하여 패킷의 흐름을 바꾸는, 라우팅 테이블을 조작하는 공격 기법입니다.</li></ul><ul id="29d70133-dd5d-8098-9c1b-d3216b9d0c9f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">트로이 목마 (Trojan Horse)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8016-b2e4-d7bd52842d3b" class="bulleted-list"><li style="list-style-type:disc">  악성 루틴이 숨어 있는 프로그램을 정상적인 프로그램처럼 보이게 하여 사용자가 이를 실행하면 악성 코드가 작동하도록 하는 공격입니다.</li></ul><ul id="29d70133-dd5d-80a3-833f-fa9771f12c65" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">중간자 공격 (Man-in-the-Middle Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80bf-9d23-c9b407eddef5" class="bulleted-list"><li style="list-style-type:disc">  공격자가 통신하는 두 당사자 사이에 몰래 끼어들어 정보를 도청하거나 조작하는 공격입니다.</li></ul><ul id="29d70133-dd5d-8055-ba6f-e82c42351b65" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SQL 인젝션 (SQL Injection)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8086-85e1-d4d1492b3568" class="bulleted-list"><li style="list-style-type:disc">  공격자가 웹 애플리케이션의 입력 필드에 SQL 명령어를 삽입하여 데이터베이스를 조작하고 민감한 정보를 탈취하거나 데이터 손상을 초래하는 공격입니다.</li></ul><ul id="29d70133-dd5d-8085-a0a9-ea71a2668ab2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">크로스 사이트 스크립팅 (XSS, Cross-Site Scripting)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80e7-82e1-dc82111ef78f" class="bulleted-list"><li style="list-style-type:disc">  공격자가 웹 페이지에 악성 스크립트를 삽입하여 다른 사용자가 해당 페이지를 열 때 실행되도록 하는 공격으로, 사용자의 세션 정보를 탈취하거나 피싱 공격에 사용될 수 있습니다.</li></ul><ul id="29d70133-dd5d-8099-a385-cbf04a6ce47f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">크로스 사이트 요청 위조 (CSRF, Cross-Site Request Forgery)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-808f-b1c3-c6aae428d584" class="bulleted-list"><li style="list-style-type:disc">  공격자가 사용자의 권한을 도용하여 원하지 않는 행동을 수행하도록 만드는 공격으로, 사용자가 공격자가 만든 웹 페이지를 방문하면 해당 페이지는 사용자의 세션을 이용해 요청을 보냅니다.</li></ul><ul id="29d70133-dd5d-808f-be39-c9914c1c0d31" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">디렉토리 트래버설 (Directory Traversal)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80d8-9cec-c955f867080b" class="bulleted-list"><li style="list-style-type:disc">  공격자가 웹 애플리케이션의 파일 시스템 구조를 탐색하고, 보호된 디렉토리와 파일에 접근할 수 있도록 하는 공격으로, 민감한 파일을 열람하거나 시스템에 악성 파일을 업로드할 수 있습니다.</li></ul><ul id="29d70133-dd5d-8011-a56c-d9fa4bdfc06f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">파일 업로드 공격 (File Upload Attack)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8001-a6c0-db251ba10f26" class="bulleted-list"><li style="list-style-type:disc">  공격자가 악성 코드를 포함한 파일을 서버에 업로드하여 서버를 감염시키고 제어를 장악하거나 데이터를 탈취하는 공격입니다.</li></ul><ul id="29d70133-dd5d-80e6-a95b-d01b22130597" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">오픈 리다이렉트 (Open Redirect)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80e4-8ddf-cc80453631ca" class="bulleted-list"><li style="list-style-type:disc">  공격자가 웹 애플리케이션의 URL 리다이렉션 기능을 악용하여 사용자를 악성 사이트로 유도하는 피싱 공격과 결합될 수 있는 공격입니다.</li></ul><ul id="29d70133-dd5d-8098-ba8c-db8dfd4016a5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인젝션 (Injection)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8019-a477-c99d2dceb05b" class="bulleted-list"><li style="list-style-type:disc">  웹 애플리케이션에 악의적인 코드나 명령어를 삽입하여 실행하는 공격으로, SQL 인젝션, LDAP 인젝션 등이 이에 해당하며 시스템의 무결성을 해칠 수 있습니다.</li></ul><ul id="29d70133-dd5d-8036-82a1-c90f0d4b5c30" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">서버 측 요청 위조 (SSRF, Server-Side Request Forgery)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80aa-990b-d951c6b8e1df" class="bulleted-list"><li style="list-style-type:disc">  공격자가 서버를 속여 내부 시스템이나 다른 서버로 요청을 보내도록 하는 공격으로, 내부 네트워크 정보를 탐색하거나 민감한 데이터를 탈취할 수 있습니다.</li></ul><ul id="29d70133-dd5d-801b-bfb6-e1d6207c872f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인증 우회 (Authentication Bypass)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80de-8114-d52cc7204b7c" class="bulleted-list"><li style="list-style-type:disc">  공격자가 보안 메커니즘을 무력화하여 시스템에 불법적으로 접근하는 공격으로, 취약한 로그인 절차나 인증 시스템의 결함을 이용합니다.</li></ul><ul id="29d70133-dd5d-8036-bb5c-fb1cb32d194d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DAC (Discretionary Access Control), 임의 접근 제어</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80c3-9b08-c80db7937d92" class="bulleted-list"><li style="list-style-type:disc">  접근 권한을 리소스 소유자가 임의로 설정하는 방식으로, 소유자는 자원에 대한 읽기, 쓰기 등의 권한을 다른 사용자에게 부여할 수 있습니다.</li></ul><ul id="29d70133-dd5d-8051-88f0-c2ffc5dc0413" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">MAC (Mandatory Access Control), 강제 접근 제어</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80a8-9f4a-f6251e4e350c" class="bulleted-list"><li style="list-style-type:disc">  시스템이 중앙에서 정의한 정책에 따라 접근 권한을 부여하는 방식으로, 사용자와 리소스에 보안 레벨이 할당되며, 사용자는 자신보다 낮거나 같은 보안 레벨의 리소스에만 접근할 수 있습니다.</li></ul><ul id="29d70133-dd5d-809a-87f5-fbb982a0cea7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RBAC (Role-Based Access Control), 역할 기반 접근 제어</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8091-b55b-f824300c92ad" class="bulleted-list"><li style="list-style-type:disc">  사용자에게 직접 권한을 부여하는 대신, 역할을 통해 권한을 부여하는 방식으로, 사용자는 하나 이상의 역할을 가질 수 있으며 역할에 따라 권한이 결정됩니다.</li></ul><ul id="29d70133-dd5d-80ee-a63b-ed5d949c81fe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DES (Data Encryption Standard)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8054-aa2d-e2628832da99" class="bulleted-list"><li style="list-style-type:disc">  1975년 미국 연방 표준국(NIST)에서 발표한 대칭 키 방식의 블록 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-806f-a7da-dd74233cf68c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">AES (Advanced Encryption Standard)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8077-ab88-c1fab928e3ed" class="bulleted-list"><li style="list-style-type:disc">  2001년 미국 표준 기술 연구소(NIST)에서 발표된 알고리즘으로, DES의 상위 호환인 대칭 키 방식의 블록 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-80a8-8575-d3ca2ea31d2c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SEED</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-809d-aa68-feece4de400a" class="bulleted-list"><li style="list-style-type:disc">  1999년 한국인터넷진흥원(KISA)에서 개발한 대칭 키 방식의 블록 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-806b-9f78-e18eecb815f6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ARIA</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8043-b0cb-fef5fd0a3430" class="bulleted-list"><li style="list-style-type:disc">  2004년 국가정보원과 산학연구협회가 개발한 대칭 키 방식의 블록 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-80b6-958a-ecd3aac45601" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">IDEA (International Data Encryption Algorithm)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-808b-aeb9-cf1fab65134b" class="bulleted-list"><li style="list-style-type:disc">  DES를 대체하기 위해 스위스 연방기술 기관에서 개발한 대칭 키 방식의 블록 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-8026-8072-c98f146cb153" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RC4</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8079-9c0c-cc539878257a" class="bulleted-list"><li style="list-style-type:disc">  대칭 키 방식의 스트림 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-80ca-8f91-fa4023e0b921" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">LFSR (Linear Feedback Shift Register)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-809f-a433-eed092e95d27" class="bulleted-list"><li style="list-style-type:disc">  선형 되먹임 시프트 레지스터로 계산하는 대칭 키 방식의 스트림 암호화 방식입니다.</li></ul><ul id="29d70133-dd5d-805c-83ac-c189d9a05063" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SEAL</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80b4-bf41-f71e97988b82" class="bulleted-list"><li style="list-style-type:disc">  대칭 키 방식의 스트림 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-8012-88f0-ee7562ce0a6c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RSA (Rivest-Shamir-Adleman)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80bb-aee4-d2191a241891" class="bulleted-list"><li style="list-style-type:disc">  1977년 3명의 MIT 수학 교수가 고안한 소인수 분해 기반의 비대칭 키 방식의 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-80f8-8247-c03799a9dfcd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ECC (Elliptic Curve Cryptography)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8018-9e26-f64e7f743472" class="bulleted-list"><li style="list-style-type:disc">  RSA 암호 방식의 대안으로 타원 곡선 암호 알고리즘을 사용하는 비대칭 키 방식입니다.</li></ul><ul id="29d70133-dd5d-8071-8cbd-c0297f40aa79" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ElGamal</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8004-a3ce-f7a2733277f3" class="bulleted-list"><li style="list-style-type:disc">  이산대수의 계산이 어려운 문제를 기본 원리로 하는 비대칭 키 방식의 암호화 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-8048-ab7f-ef0a1aee9661" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">디피-헬만 (Diffie-Hellman)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8089-afdc-f694cea34648" class="bulleted-list"><li style="list-style-type:disc">  최초의 공개키 알고리즘으로, 이산대수를 기반으로 하는 비대칭 키 방식입니다.</li></ul><ul id="29d70133-dd5d-808f-b062-d2de52b7b059" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">MD5 (Message-Digest Algorithm 5)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8009-8d07-c964658a41c8" class="bulleted-list"><li style="list-style-type:disc">  MD4를 개선한 알고리즘으로, 프로그램이나 파일의 무결성 검사에 사용되는 해시 암호 방식입니다.</li></ul><ul id="29d70133-dd5d-809d-8386-fe2706b7cf5a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SHA-1 (Secure Hash Algorithm 1)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ac-842b-eabdb56df3fd" class="bulleted-list"><li style="list-style-type:disc">  NSA에서 미 정부 표준으로 지정한 해시 알고리즘으로, DSA에서 사용되어 해시 값을 생성합니다.</li></ul><ul id="29d70133-dd5d-8024-af26-f23a7948b394" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SHA-256/384/512</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ff-a5b4-d6adcbebd9b9" class="bulleted-list"><li style="list-style-type:disc">  다양한 비트 길이를 사용하는 SHA 계열의 해시 암호 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-801c-85a2-e5e2b176110b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">HAS-160</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-808f-88fe-c00620c4ab7e" class="bulleted-list"><li style="list-style-type:disc">  국내 표준 서명 알고리즘을 위해 개발된 해시 함수로, MD5와 SHA-1의 장점을 결합한 알고리즘입니다.</li></ul><ul id="29d70133-dd5d-8034-bfe8-df082c42d767" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">방화벽 (Firewall)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8027-86b2-c9a526c7c5ce" class="bulleted-list"><li style="list-style-type:disc">  기업 내부와 외부 간의 트래픽을 모니터링하여 시스템 접근을 허용하거나 차단하는 네트워크 보안의 기본적인 방어 시스템입니다.</li></ul><ul id="29d70133-dd5d-802b-852a-e6e6f8f51f79" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">웹 방화벽 (WAF; Web Application Firewall)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8036-84ac-dba599f700e0" class="bulleted-list"><li style="list-style-type:disc">  웹 애플리케이션의 보안을 강화하기 위해 HTTP/HTTPS 트래픽을 모니터링하고 필터링하여 SQL 인젝션, XSS 등 웹 기반 공격을 차단하는 방화벽입니다.</li></ul><ul id="29d70133-dd5d-8066-9975-edb7c8e69d4f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">네트워크 접근 제어 (NAC; Network Access Control)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80c0-8fed-cd62984aa082" class="bulleted-list"><li style="list-style-type:disc">  단말기가 내부 네트워크에 접속을 시도할 때 이를 제어하고 통제하는 솔루션으로, 승인된 기기만이 네트워크에 접속할 수 있도록 합니다.</li></ul><ul id="29d70133-dd5d-8071-bb48-e32bbb2a96f7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">침입 탐지 시스템 (IDS; Intrusion Detection System)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-803a-8666-c5ab2fb46bbd" class="bulleted-list"><li style="list-style-type:disc">  네트워크 이벤트를 모니터링하고, 침입을 실시간으로 탐지하여 비정상적인 활동을 식별하고 경고를 제공하는 시스템입니다.</li></ul><ul id="29d70133-dd5d-801a-8183-ff02bbeb9f6d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">침입 방지 시스템 (IPS; Intrusion Prevention System)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-809f-92fd-dc85e342d366" class="bulleted-list"><li style="list-style-type:disc">  네트워크에 대한 공격이나 침입을 실시간으로 차단하는 시스템으로, IDS 기능을 포함하며 자동으로 위협을 차단합니다.</li></ul><ul id="29d70133-dd5d-807a-a6b2-d98017abe098" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">무선 침입 방지 시스템 (WIPS; Wireless Intrusion Prevention System)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8078-92a4-c603c2bfa0fc" class="bulleted-list"><li style="list-style-type:disc">  무선 단말기의 접속을 자동으로 탐지하고, 비인가 무선 접속을 차단하여 무선 네트워크 보안을 강화하는 시스템입니다.</li></ul><ul id="29d70133-dd5d-802a-b62b-f51333fcaf3e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">통합 보안 시스템 (UTM; Unified Threat Management)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80f0-bc4a-fe2b8a2f4bec" class="bulleted-list"><li style="list-style-type:disc">  다양한 보안 장비의 기능을 하나로 통합한 장비로, 방화벽, IDS/IPS, 안티바이러스 등 여러 보안 기능을 제공하여 관리 효율성을 높입니다.</li></ul><ul id="29d70133-dd5d-8042-bc42-e195f67c85c2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">가상사설망 (VPN; Virtual Private Network)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8039-ad0f-cf2eff230bfa" class="bulleted-list"><li style="list-style-type:disc">  인터넷과 같은 공중망을 통해 인증, 암호화, 터널링 기술을 활용하여 마치 전용망을 사용하는 효과를 가지는 보안 솔루션으로, 원격지 사용자와 안전한 통신을 가능하게 합니다.</li></ul><ul id="29d70133-dd5d-8068-acf8-cdc040fee1b8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">IPSec (Internet Protocol Security)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-809a-bde4-ff6e0028ab55" class="bulleted-list"><li style="list-style-type:disc">  IP 계층에서 무결성과 인증을 보장하는 인증 헤더와 기밀성을 보장하는 암호화를 이용한 IP 보안 프로토콜로, 인증, 암호화, 키 관리 프로토콜로 구성되어 있습니다.</li></ul><ul id="29d70133-dd5d-806e-bf3a-c02f50ac2952" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SSL/TLS</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ec-a96c-f9a104c61053" class="bulleted-list"><li style="list-style-type:disc">  전송계층과 응용계층 사이에서 클라이언트와 서버 간의 웹 데이터 암호화, 상호 인증 및 전송 시 데이터 무결성을 보장하는 보안 프로토콜로, HTTPS의 기반이 됩니다.</li></ul><ul id="29d70133-dd5d-80ff-a95d-dbdc6dda1f0f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">S-HTTP (Secure Hypertext Transfer Protocol)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8061-9c83-ec598264d286" class="bulleted-list"><li style="list-style-type:disc">  웹상에서 네트워크 트래픽을 암호화하는 주요 방법으로, 클라이언트와 서버 간 전송되는 모든 메시지를 각각 암호화해 전송하는 기술입니다.</li></ul><p id="29d70133-dd5d-8068-825c-da2617b48ad3" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

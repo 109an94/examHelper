@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter01 소프트웨어 구현 [꿈꾸는라이언]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29d70133-dd5d-803f-8a60-d6a42beaa759" class="page sans"><header><h1 class="page-title">Chapter01 소프트웨어 구현 [꿈꾸는라이언]</h1><p class="page-description"></p></header><div class="page-body"><ul id="29d70133-dd5d-80db-9b3f-d4c2b2a69fea" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">소프트웨어 개발 프레임워크 (Software Development Framework)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8035-aaf7-e5d3644863bf" class="bulleted-list"><li style="list-style-type:disc">  개발해야 할 애플리케이션 일부분이 이미 내장된 클래스 라이브러리에 구현되어 있어, 동일 로직 반복을 최소화하고 재사용성, 생산성, 유지보수성을 향상시키며 프레임워크가 애플리케이션 흐름을 제어하는 (제어의 역흐름) 기반 구조입니다.</li></ul><ul id="29d70133-dd5d-80d0-9f21-ed36399eaa8b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스프링 프레임워크 (Spring Framework)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8049-8d9f-f2d195fcfc1c" class="bulleted-list"><li style="list-style-type:disc">  JAVA 플랫폼을 위한 오픈소스 경량형 프레임워크로, 동적 웹사이트 개발과 전자정부 표준 프레임워크의 기반으로 널리 사용됩니다.</li></ul><ul id="29d70133-dd5d-8072-b28e-c4174369c791" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">전자정부 프레임워크</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80c1-a69f-d5283f7a1538" class="bulleted-list"><li style="list-style-type:disc">  우리나라 공공 부문 정보화 사업 시 효율적인 정보 시스템 구축을 지원하기 위해 필요한 기능과 아키텍처를 제공하는 프레임워크입니다.</li></ul><ul id="29d70133-dd5d-8073-bbf0-eae5bf9022e1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">닷넷 프레임워크 (.NET Framework)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80f2-a2d5-cac138d24e1c" class="bulleted-list"><li style="list-style-type:disc">  MS에서 개발한 Windows 프로그램 개발을 위한 프레임워크로, 공통 언어 런타임(CLR)이라는 가상 머신 상에서 작동합니다.</li></ul><ul id="29d70133-dd5d-8091-bcc1-ebeb7ec2c603" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">API (Application Programming Interface)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80f1-badc-c91af719b57e" class="bulleted-list"><li style="list-style-type:disc">  소프트웨어 간의 인터페이스로, 서로 다른 소프트웨어/서비스 간 상호작용을 용이하게 하며 운영체제나 프로그래밍 언어의 기능을 프로그램에서 사용 가능하도록 구현한 것입니다.</li></ul><ul id="29d70133-dd5d-8000-9d8c-e432b931a43e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Fan-in</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ca-8db5-ecec5b4bda20" class="bulleted-list"><li style="list-style-type:disc">  자신을 사용하는 모듈의 수입니다. 값이 높으면 재사용성 측면에서 설계가 우수하지만, 단일 장애점 발생 가능성이 높아 집중적인 관리와 테스트가 필요합니다.</li></ul><ul id="29d70133-dd5d-8061-b416-ca7ffc9d3af0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Fan-out</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8011-93fe-e8a149149b46" class="bulleted-list"><li style="list-style-type:disc">  자신이 사용하는 모듈의 수입니다. 값이 높으면 불필요한 호출 가능성이 있어 단순화가 필요합니다.</li></ul><ul id="29d70133-dd5d-8015-ac13-e32155361f64" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">응집도 (Cohesion)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8076-b17f-f8638f162c1e" class="bulleted-list"><li style="list-style-type:disc">  개별 모듈이 독립적인 기능으로 정의되어 있는 정도로, 응집도가 높을수록 모듈의 품질이 향상됩니다.</li></ul><ul id="29d70133-dd5d-80f4-b8ab-c3c5e6774c15" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">기능적 응집도 (Function Cohesion)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80d3-b1a0-e2ee92582079" class="bulleted-list"><li style="list-style-type:disc">  모듈 내부의 모든 기능 요소가 <strong>단일 문제와 연관</strong>되어 수행되는 가장 응집도가 높은 형태입니다.</li></ul><ul id="29d70133-dd5d-8047-a57a-cc00da98ba6d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">순차적 응집도 (Sequential Cohesion)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8013-936e-ffc2755afa88" class="bulleted-list"><li style="list-style-type:disc">  모듈 내 한 활동의 <strong>출력 데이터</strong>를 다음 활동의 <strong>입력 데이터</strong>로 사용하는 응집도 형태입니다.</li></ul><ul id="29d70133-dd5d-8011-8c5e-eafb3c92cdb3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">통신적 응집도 (Communication Cohesion)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8088-bc23-d47d52f1f194" class="bulleted-list"><li style="list-style-type:disc">  <strong>동일한 입/출력</strong>을 사용하여 서로 다른 기능을 수행하는 응집도 형태입니다.</li></ul><ul id="29d70133-dd5d-80a1-89bc-dab3063cf849" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">절차적 응집도 (Procedural Cohesion)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80b1-a749-d74ab49b1587" class="bulleted-list"><li style="list-style-type:disc">  모듈 내 구성 요소들이 다수 관련 기능을 <strong>순차적으로</strong> 수행하는 응집도 형태입니다.</li></ul><ul id="29d70133-dd5d-8050-b4ae-fd804e24037f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">시간적 응집도 (Temporal Cohesion)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8015-b3ae-f4a80ad7e76f" class="bulleted-list"><li style="list-style-type:disc">  <strong>특정 시간 내 처리</strong>되는 기능들을 모아 하나의 모듈로 작성하는 응집도 형태입니다.</li></ul><ul id="29d70133-dd5d-80e0-b96f-fca5d32e36b5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">논리적 응집도 (Logical Cohesion)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8028-83c7-c6d6cc16cff3" class="bulleted-list"><li style="list-style-type:disc">  <strong>유사한 성격의 처리 요소</strong>들로 하나의 모듈이 형성되는 응집도 형태입니다.</li></ul><ul id="29d70133-dd5d-80cf-8d24-f76044f880e8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">우연적 응집도 (Coincidental Cohesion)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8070-88f9-c50a2a8bf821" class="bulleted-list"><li style="list-style-type:disc">  각 구성 요소들이 <strong>서로 관련 없는 요소</strong>로만 구성된, 가장 응집도가 낮은 형태입니다.</li></ul><ul id="29d70133-dd5d-8048-9288-dd5bda9a5dcc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">결합도 (Coupling)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80bf-91a0-e63a930220d2" class="bulleted-list"><li style="list-style-type:disc">  개별 모듈 간 상호 의존하는 정도로, 결합도가 낮을수록 모듈의 품질이 향상됩니다.</li></ul><ul id="29d70133-dd5d-807e-bb7b-cdb93d8cf3e9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">내용 결합도 (Content Coupling)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-807b-a19d-e37570ee1f00" class="bulleted-list"><li style="list-style-type:disc">  한 모듈이 다른 모듈의 <strong>내부 기능 및 자료를 직접 참조/수정</strong>하는 가장 결합도가 높은 형태입니다.</li></ul><ul id="29d70133-dd5d-808e-8461-f9d7e11f958e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">공통/공유 결합도 (Common/Share Coupling)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80e5-a63c-eb44ebfbcaf2" class="bulleted-list"><li style="list-style-type:disc">  <strong>공유되는 공통 데이터</strong> (전역 변수 등)를 여러 모듈이 사용하여 상호 의존하는 결합도 형태입니다.</li></ul><ul id="29d70133-dd5d-80d5-aaa7-fa9484b553fe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">외부 결합도 (External Coupling)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80af-b654-facdbe59d33d" class="bulleted-list"><li style="list-style-type:disc">  한 모듈에서 선언한 데이터를 <strong>외부의 다른 모듈에서 참조</strong>하는 결합도 형태입니다.</li></ul><ul id="29d70133-dd5d-80fe-adf5-e1da120a94ef" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제어 결합도 (Control Coupling)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8096-9f51-f14319cf93cb" class="bulleted-list"><li style="list-style-type:disc">  한 모듈이 다른 모듈의 상세한 처리 절차를 알고 있어 <strong>처리 방식의 제어 요소</strong>도 함께 전달하는 결합도 형태입니다.</li></ul><ul id="29d70133-dd5d-80c0-9fe1-c36ea54b9c6d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스탬프 결합도 (Stamp Coupling)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8031-a462-f9635366f253" class="bulleted-list"><li style="list-style-type:disc">  두 모듈이 <strong>동일한 자료 구조</strong> (배열, 오브젝트)를 조회하여, 자료 구조 포맷 변화 시 조회하고 있는 모든 모듈에 영향을 주는 결합도 형태입니다.</li></ul><ul id="29d70133-dd5d-801f-abcf-e1748e0a0bb1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">자료 결합도 (Data Coupling)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-800f-81ca-c1820fa502bf" class="bulleted-list"><li style="list-style-type:disc">  모듈 간의 인터페이스가 <strong>자료 요소로만 구성</strong>되어, 가장 결합도가 낮은 형태입니다.</li></ul><ul id="29d70133-dd5d-80fd-821a-f61f51beb865" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">모듈의 독립성 (Modularity Independence)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-808f-ba0f-f0dd09a5463b" class="bulleted-list"><li style="list-style-type:disc">  모듈 간 과도한 상호작용을 막고 하나의 독립적 기능만을 수행하도록 하는 성질로, <strong>높은 응집도와 낮은 결합도</strong>를 가질 때 높아집니다.</li></ul><ul id="29d70133-dd5d-804e-a412-c3e7457ce181" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">객체 (Object)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8002-8ab5-fab4ab08cead" class="bulleted-list"><li style="list-style-type:disc">  고유 식별자를 가지고 하나의 독립된 존재로, 상태(속성값)와 행위(연산, Method)로 정의되는 객체지향의 기본 요소입니다.</li></ul><ul id="29d70133-dd5d-80e8-9c52-d135f0b7acf3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">클래스 (Class)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8049-a242-e1c7a2bcaeb3" class="bulleted-list"><li style="list-style-type:disc">  공통 속성과 연산(행위)을 갖는 객체들의 집합이자 데이터 추상화 단위입니다.</li></ul><ul id="29d70133-dd5d-8037-ab13-df3b1a3c80ad" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인스턴스 (Instance)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8035-9a0e-ef55c1d64cd8" class="bulleted-list"><li style="list-style-type:disc">  클래스에 속한 각각의 객체를 의미합니다.</li></ul><ul id="29d70133-dd5d-8057-9ddf-f9b5bc8546d7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">추상화 (Abstraction - 객체지향)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8087-8dc2-d77b005d1614" class="bulleted-list"><li style="list-style-type:disc">  객체의 공통적인 속성과 기능을 추출하여 정의하고 불필요한 세부 내용은 숨겨, 유연한 설계와 유지보수가 용이하도록 하는 객체지향의 원리입니다.</li></ul><ul id="29d70133-dd5d-8070-8df4-c55db8d8603a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">캡슐화 (Encapsulation)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80b7-9375-c2746a36936f" class="bulleted-list"><li style="list-style-type:disc">  데이터와 데이터 처리 함수를 하나로 묶어 세부 내용을 외부 접근으로부터 숨기는 (정보 은닉) 객체지향의 원리입니다.</li></ul><ul id="29d70133-dd5d-802b-b380-f770cc8ebac3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">상속 (Inheritance)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8093-b8b8-d62389ad9fc8" class="bulleted-list"><li style="list-style-type:disc">  상위 클래스의 속성과 연산을 하위 클래스가 물려받아 재사용성을 높이는 객체지향의 원리입니다.</li></ul><ul id="29d70133-dd5d-8029-9da0-d4005555f304" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">다형성 (Polymorphism)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8085-8f24-fa2c5ff43e0b" class="bulleted-list"><li style="list-style-type:disc">  하나의 메시지에 각 객체별 고유 특성에 따라 여러 형태의 응답을 할 수 있도록 하는 객체지향의 원리입니다.</li></ul><ul id="29d70133-dd5d-800f-8bc5-dbf46a8b67a6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">오버라이딩 (Overriding)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ca-88df-ee82454b003f" class="bulleted-list"><li style="list-style-type:disc">  상위 클래스로부터 상속받은 메서드를 하위 클래스에서 <strong>메서드 이름, 매개변수, 반환 타입은 동일하게</strong> 유지하면서 재정의하는 다형성의 한 방법입니다.</li></ul><ul id="29d70133-dd5d-80d1-8c08-fb8b0ddf0fca" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">오버로딩 (Overloading)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8004-a7ba-cce16ce2cf13" class="bulleted-list"><li style="list-style-type:disc">  <strong>메서드 이름은 동일</strong>하나 <strong>매개변수 개수 또는 타입</strong>을 다르게 지정하여 여러 기능을 수행하도록 하는 다형성의 한 방법입니다.</li></ul><ul id="29d70133-dd5d-8018-b9b3-e356c26377b4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">단일 책임 원칙 (SRP, Single Responsibility Principle)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80bf-96ae-ed61c26e384d" class="bulleted-list"><li style="list-style-type:disc">  객체지향 설계 5대 원칙(SOLID) 중 하나로, 모든 클래스나 객체는 <strong>하나의 책임만</strong>을 가져야 하며 완전한 캡슐화를 지향해야 한다는 원칙입니다.</li></ul><ul id="29d70133-dd5d-802e-9ccf-db58060db883" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">개방 폐쇄의 원칙 (OCP, Open Closed Principle)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-803d-a4e0-f78dd573ba49" class="bulleted-list"><li style="list-style-type:disc">  객체지향 설계 5대 원칙(SOLID) 중 하나로, 소프트웨어 요소는 **확장에는 개방(Open)**되고 **수정에는 폐쇄(Close)**되어야 한다는 원칙입니다.</li></ul><ul id="29d70133-dd5d-80f0-b1d8-d732256af903" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">리스코프 교체 원칙 (LSP, Liskov Substitution Principle)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-801b-a0ba-ecd10d5ee056" class="bulleted-list"><li style="list-style-type:disc">  객체지향 설계 5대 원칙(SOLID) 중 하나로, 상위 클래스의 행동 규약을 하위 클래스가 위반하면 안 되며, 자식 클래스는 언제나 부모 클래스를 대체할 수 있어야 한다는 원칙입니다.</li></ul><ul id="29d70133-dd5d-8086-9de7-e5ae0bcd1aae" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인터페이스 분리 원칙 (ISP, Interface Segregation Principle)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-806d-bd6f-fe2ddd46655b" class="bulleted-list"><li style="list-style-type:disc">  객체지향 설계 5대 원칙(SOLID) 중 하나로, 클라이언트가 <strong>비사용 메서드에 의존하지 않도록</strong> 인터페이스를 작게 분리해야 한다는 원칙입니다.</li></ul><ul id="29d70133-dd5d-8035-aea3-c6ea15a7e7c5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">의존성 역전 원칙 (DIP, Dependency Inversion Principle)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ce-9be5-de3de3681d0d" class="bulleted-list"><li style="list-style-type:disc">  객체지향 설계 5대 원칙(SOLID) 중 하나로, 의존관계 수립 시 <strong>변화하기 쉬운 구체적인 것 대신</strong> 변화하기 어려운 <strong>추상성이 높은 상위 클래스</strong>에 의존해야 한다는 원칙입니다.</li></ul><ul id="29d70133-dd5d-806d-9523-e2f9a6d6c7f7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">디자인 패턴 (Design Pattern)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8031-8368-d8a1aef8bcfe" class="bulleted-list"><li style="list-style-type:disc">  객체지향 프로그래밍 설계 시 자주 발생하는 문제에 대한 <strong>반복적 해결 방법</strong>을 정의한 참조 모델입니다.</li></ul><ul id="29d70133-dd5d-8009-9836-f30d69c37ee2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Abstract Factory 패턴 (생성 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-809f-a405-f42fee6b544d" class="bulleted-list"><li style="list-style-type:disc">  구체적인 클래스에 의존하지 않고, 서로 연관되거나 의존적인 객체들이 조합된 <strong>인터페이스</strong>를 제공하는 생성 패턴입니다.</li></ul><ul id="29d70133-dd5d-80c7-803d-d3957bbb811a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Builder 패턴 (생성 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-801f-a6b9-e62b84abc0ab" class="bulleted-list"><li style="list-style-type:disc">  객체 생성 단계를 캡슐화하고 분리하여 객체를 조립하며 생성하고, <strong>동일한 객체 생성 절차</strong>에서 <strong>서로 다른 표현 결과</strong>를 제공할 수 있는 생성 패턴입니다.</li></ul><ul id="29d70133-dd5d-8005-a984-f09b91929023" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Factory Method 패턴 (생성 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8048-94d8-e15529f2b2eb" class="bulleted-list"><li style="list-style-type:disc">  상위 클래스에서 객체 생성 인터페이스를 정의하지만, <strong>실제 인스턴스를 만드는 클래스는 서브 클래스에서 결정</strong>하도록 분리하는 생성 패턴입니다.</li></ul><ul id="29d70133-dd5d-8037-9a0b-e227df368aeb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Prototype 패턴 (생성 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8059-b2fb-dc10e14a85e7" class="bulleted-list"><li style="list-style-type:disc">  <strong>원본/원형 객체를 복제</strong>하는 방식으로 객체를 생성하는 생성 패턴입니다.</li></ul><ul id="29d70133-dd5d-8031-a7b6-ebaff9e95cad" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Singleton 패턴 (생성 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80d9-b546-efb522f9966b" class="bulleted-list"><li style="list-style-type:disc">  클래스에서 <strong>하나의 객체만 생성 가능</strong>하며, 해당 객체를 어디서든 참조할 수 있도록 하는 생성 패턴입니다.</li></ul><ul id="29d70133-dd5d-8081-a2a1-e21ade05366f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Adapter 패턴 (구조 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-807c-b4cc-d1bcaeea9510" class="bulleted-list"><li style="list-style-type:disc">  <strong>비호환 인터페이스에 호환성을 부여</strong>하도록 변환하는 패턴으로, 기존 클래스를 감싸서 (Wrapper) 인터페이스를 변환합니다.</li></ul><ul id="29d70133-dd5d-809b-a931-f9e0396d835a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Bridge 패턴 (구조 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8028-a31b-cca5332c983c" class="bulleted-list"><li style="list-style-type:disc">  구현부에서 추상층을 분리하여 각각 <strong>독립적으로 변형/확장</strong> 가능하게 하는 구조 패턴입니다.</li></ul><ul id="29d70133-dd5d-8010-874c-d1e3906abb04" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Composite 패턴 (구조 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80c3-8d08-cc194b2a6582" class="bulleted-list"><li style="list-style-type:disc">  트리 구조로 부분/전체 계층을 표현하며, <strong>복합 객체와 단일 객체를 구분 없이</strong> 사용할 수 있도록 하는 구조 패턴입니다.</li></ul><ul id="29d70133-dd5d-80b6-9a92-d75f2d7e9270" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Decorator 패턴 (구조 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8007-9093-cb097527b9d3" class="bulleted-list"><li style="list-style-type:disc">  상속 사용 없이 객체 간 결합을 통해 객체 기능을 <strong>동적으로 추가/확장</strong>하는 구조 패턴입니다.</li></ul><ul id="29d70133-dd5d-8036-97cc-e32c11f52a66" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Façade 패턴 (구조 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ce-920f-e0eeb7d57102" class="bulleted-list"><li style="list-style-type:disc">  상위에 인터페이스를 구성하여 서브 시스템의 복잡한 기능을 <strong>단순한 인터페이스</strong>로 구현하는 구조 패턴입니다.</li></ul><ul id="29d70133-dd5d-801d-bbc5-c05205e03d52" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Flyweight 패턴 (구조 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ef-a3f1-c058d67800ac" class="bulleted-list"><li style="list-style-type:disc">  인스턴스를 공유하여 <strong>메모리를 절약</strong>하고 클래스를 경량화하는 구조 패턴입니다.</li></ul><ul id="29d70133-dd5d-8063-bd4a-c6e205aad4c2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Proxy 패턴 (구조 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80e5-b84b-c0b17dc4a86a" class="bulleted-list"><li style="list-style-type:disc">  접근이 힘든 객체를 연결하는 <strong>인터페이스 역할</strong> (대리 객체 수행)을 하는 구조 패턴입니다.</li></ul><ul id="29d70133-dd5d-80d4-ac5c-e923104a5b78" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Chain of Responsibility 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80e3-8965-eb8d2cefd61a" class="bulleted-list"><li style="list-style-type:disc">  처리가능한 객체가 둘 이상 존재하여 한 객체 내에서 처리 불가 시 <strong>다음 객체로 이관</strong>하여 처리되도록 하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-80c4-b11f-ff193bf9366b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Command 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8013-ad9b-f4271b8554f8" class="bulleted-list"><li style="list-style-type:disc">  요청 명령들을 추상/구체 클래스로 분리하여 <strong>단순화/캡슐화</strong>하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-80f1-9584-c30e11998ac5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Interpreter 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-808d-b03f-f59e1db343c8" class="bulleted-list"><li style="list-style-type:disc">  특정 <strong>언어에 문법 표현을 정의</strong>하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-8025-9592-c8ac5e3c81ff" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Iterator 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80c6-a535-e84494d35749" class="bulleted-list"><li style="list-style-type:disc">  컬렉션 객체의 내부 구조를 숨기고 <strong>요소들을 순차적으로 접근</strong>할 수 있도록 하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-80a7-b2f6-c509ac30be76" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Mediator 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80ff-b68b-dd31903d8ede" class="bulleted-list"><li style="list-style-type:disc">  객체들 간의 복잡한 상호작용을 캡슐화하여 별도의 객체로 정의한 후 <strong>중재</strong>하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-8000-9dd8-f6ecd0d82808" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Memento 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-801e-a730-fb3253f4465f" class="bulleted-list"><li style="list-style-type:disc">  객체를 이전의 <strong>특정 시점의 상태로 저장하고 복원</strong>하며 캡슐화를 유지하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-806d-b391-f9ba70e365e5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Observer 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-80d2-bfa2-c56bc416b656" class="bulleted-list"><li style="list-style-type:disc">  한 객체의 상태 변화 시 상속되어 있는 <strong>다른 객체들에 변화를 전달</strong>하여 일관성을 유지하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-8062-bbc6-f6a408232aa7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">State 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-801b-8705-c8e79bb9fd5d" class="bulleted-list"><li style="list-style-type:disc">  객체의 <strong>상태에 따라 동일한 동작</strong>을 다르게 처리하도록 하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-8016-86e8-d4ac771661f7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Strategy 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-8001-94b0-f372a4f776b7" class="bulleted-list"><li style="list-style-type:disc">  동일 계열 알고리즘을 개별적으로 <strong>캡슐화하여 상호 교환</strong>할 수 있도록 하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-80e7-b51b-c70eeb4ed481" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Template Method 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-801a-834e-f4b4c47b43fa" class="bulleted-list"><li style="list-style-type:disc">  여러 클래스에서 <strong>공통 사용 메서드</strong>를 상위 클래스에서 정의하고, 하위 클래스마다 다르게 구현해야 하는 <strong>세부 사항을 개별 구현</strong>하도록 하는 행위 패턴입니다.</li></ul><ul id="29d70133-dd5d-807c-9157-ef0f6243a128" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Visitor 패턴 (행위 패턴)</span><div class="indented"></div></li></ul><ul id="29d70133-dd5d-801c-b034-c7b4aaa55663" class="bulleted-list"><li style="list-style-type:disc">  각 클래스 데이터 구조로부터 <strong>처리/연산 기능을 분리</strong>하여 별도의 클래스를 만들고, 해당 클래스의 메서드가 각 클래스를 돌아다니며 특정 작업을 수행하도록 하여 객체 구조 변경 없이 새로운 연산 기능만 추가하는 행위 패턴입니다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
