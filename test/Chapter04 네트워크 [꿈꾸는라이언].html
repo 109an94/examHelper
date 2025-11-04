@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter04 네트워크 [꿈꾸는 라이언]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2a170133-dd5d-809b-aa65-ee76dd503520" class="page sans"><header><h1 class="page-title">Chapter04 네트워크 [꿈꾸는 라이언]</h1><p class="page-description"></p></header><div class="page-body"><h3 id="2a170133-dd5d-80d2-9245-e241800e71c0" class="">OSI 7계층 및 TCP/IP 4계층</h3><ul id="2a170133-dd5d-80bd-94ff-f2e7904394a7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">응용 계층 (Application Layer)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8014-ae5b-ce29e0187d91" class="bulleted-list"><li style="list-style-type:disc">응용 프로그램이 OSI 환경에 접속 가능한 서비스를 제공하는 계층이며, TCP/IP의 <strong>응용 계층</strong>에 해당합니다 (Ex. Telnet, HTTP, DNS).</li></ul><ul id="2a170133-dd5d-807e-8e09-cd539cffac2c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">표현 계층 (Presentation Layer)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8080-a33c-c7963be39b0e" class="bulleted-list"><li style="list-style-type:disc">응용 계층과 세션 계층 간의 코드/데이터 변환, 데이터 암호화/압축 등 <strong>데이터의 표현 방식</strong>을 정의하는 계층입니다.</li></ul><ul id="2a170133-dd5d-806e-ac87-ff16d342cba0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">세션 계층 (Session Layer)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-806a-b407-c1a94d010253" class="bulleted-list"><li style="list-style-type:disc">컴퓨터 간의 <strong>세션/연결을 생성, 유지, 종료</strong>하여 적절한 통신 상태를 유지하는 계층입니다.</li></ul><ul id="2a170133-dd5d-8011-8f3a-e97aabf2e744" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">전송 계층 (Transport Layer)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8031-ade8-c664b2482ccb" class="bulleted-list"><li style="list-style-type:disc"><strong>종단(END-to-END) 간</strong> 투명한 데이터 전송/전달을 담당하며, 주소 설정, 다중화, 오류 제어, 흐름 제어 등을 수행합니다. TCP/IP의 <strong>전송 계층</strong>에 해당합니다.</li></ul><ul id="2a170133-dd5d-8051-8714-d83c9e63010d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">네트워크 계층 (Network Layer)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8030-8322-fd83725c5b7d" class="bulleted-list"><li style="list-style-type:disc">개방 시스템 간 네트워크 연결을 관리하고, <strong>경로 설정 (Routing)</strong>, 트래픽 제어, 패킷 정보 전송 등을 담당합니다. TCP/IP의 <strong>인터넷 계층</strong>에 해당합니다.</li></ul><ul id="2a170133-dd5d-80cf-b235-fba93c0c21ba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">데이터 링크 계층 (Data Link Layer)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f2-a32b-f621482229b1" class="bulleted-list"><li style="list-style-type:disc">송/수신 간 속도 차이 해결을 위한 <strong>흐름 제어</strong> 기능, <strong>프레임 동기화</strong>, 오류 제어, <strong>물리적 주소 (MAC) 결정</strong> 등을 수행하며, 노드 간 프레임 전송을 담당하는 계층입니다. TCP/IP의 <strong>네트워크 액세스 계층</strong>에 해당합니다.</li></ul><ul id="2a170133-dd5d-80aa-86ae-d0356054462d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">물리 계층 (Physical Layer)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8086-9c7d-d67a72a48b43" class="bulleted-list"><li style="list-style-type:disc">전송에 필요한 기계적, 전기적, 기능적 특성을 정의하고, 데이터를 <strong>0과 1의 전기적 신호로 변환</strong>하는 최하위 계층입니다. TCP/IP의 <strong>네트워크 액세스 계층</strong>에 해당합니다.</li></ul><hr id="2a170133-dd5d-80f3-b9fe-f0e2e0647399"/><h3 id="2a170133-dd5d-805d-a653-d9b883fb0142" class="">HDLC 프로토콜</h3><ul id="2a170133-dd5d-80fa-94b0-e39bef04507b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">HDLC (High Level Data Link Control)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8002-aa46-f1fb5d8e9608" class="bulleted-list"><li style="list-style-type:disc">대표적인 <strong>데이터 링크 프로토콜</strong>로, <strong>비트 동기 방식</strong>을 사용하며 데이터 전송 제어, 흐름 제어, 오류 제어 등의 기능을 수행합니다.</li></ul><ul id="2a170133-dd5d-8060-acaf-fb0ca3b11184" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">정규 응답 모드 (NRM, Normal Response Mode)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-805a-8609-ea1e26e9866b" class="bulleted-list"><li style="list-style-type:disc">HDLC 전송 모드 중 **주국과 종국의 관계 (불균형)**를 가지며, <strong>종국이 데이터 전송 시 주국의 허락이 필요</strong>한 모드입니다.</li></ul><ul id="2a170133-dd5d-80b5-8926-e80688c1e7ca" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">비동기 균형 모드 (ABM, Asynchronous Balanced Mode)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8077-aee5-e71ae19bc239" class="bulleted-list"><li style="list-style-type:disc">HDLC 전송 모드 중 **대등한 혼합국 간의 관계 (균형)**를 가지며, <strong>양쪽에서 명령과 응답 모두 전송 가능</strong>한 모드입니다.</li></ul><ul id="2a170133-dd5d-80ef-8ade-f4e10de43adc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">정보 프레임 (Information Frame)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e3-91ac-db8c13bb4bee" class="bulleted-list"><li style="list-style-type:disc">HDLC 프레임 종류 중 <strong>제어부가 0으로 시작</strong>하며, <strong>사용자 데이터와 일부 제어 정보</strong>를 전달하는 프레임입니다. **송신용 순서 번호 (Seq)**와 **응답용 순서 번호 (Next)**를 포함합니다.</li></ul><ul id="2a170133-dd5d-8048-8507-cc2766691027" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">감독 프레임 (Supervisory Frame)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c1-b81a-d90526944295" class="bulleted-list"><li style="list-style-type:disc">HDLC 프레임 종류 중 <strong>제어부가 10으로 시작</strong>하며, <strong>확인 응답, 흐름 제어, 오류 제어</strong> 용도로 사용되고 <strong>Next 번호만 존재</strong>하는 프레임입니다.</li></ul><hr id="2a170133-dd5d-80d8-a52a-e6510d41dd83"/><h3 id="2a170133-dd5d-80ec-9b5a-c7a7b1f555bb" class="">네트워크 및 전송 계층 프로토콜</h3><ul id="2a170133-dd5d-80ec-bb38-c51f3bce382e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">IP (Internet Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b1-9de9-d1504843f2d5" class="bulleted-list"><li style="list-style-type:disc"><strong>비연결형 데이터그램 방식</strong>으로 전송할 데이터에 주소 지정 및 경로를 설정하며, <strong>헤더 체크섬만 제공</strong>하고 신뢰성을 보장하지 않는 네트워크 계층 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-803e-9d50-ff114d56d10a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ICMP (Internet Control Message Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e9-9d9f-f71de835fd76" class="bulleted-list"><li style="list-style-type:disc">IP와 함께 통신 간 <strong>오류 처리</strong>와 전송 경로 변경 등 <strong>제어 메시지를 관리</strong>하는 네트워크 계층 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-80ca-a20f-fcf54dbe4863" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ARP (Address Resolution Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-805f-adaa-c17b1db4d7c4" class="bulleted-list"><li style="list-style-type:disc"><strong>호스트의 IP 주소</strong>를 네트워크 접속 장비의 **물리적 주소 (MAC 주소)**로 변환하는 네트워크 계층 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-80c3-9f54-f5b00b66511f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RARP (Reverse Address Resolution Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8025-a575-e4f0de43956d" class="bulleted-list"><li style="list-style-type:disc">**물리적 주소 (MAC 주소)**를 <strong>IP 주소</strong>로 변환하는 기능을 수행하는 네트워크 계층 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-8043-9649-dd968fc3e936" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">NAT (Network Address Translation)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8059-a9f4-ffb7a65abe2c" class="bulleted-list"><li style="list-style-type:disc"><strong>사설 네트워크 IP 주소</strong>를 <strong>공인 IP 주소로 변환</strong>하여, 하나의 공인 IP 주소에서 다량의 가상 사설 IP 주소 할당 및 연결을 가능하게 하는 기술입니다.</li></ul><ul id="2a170133-dd5d-8021-8ad0-e043e3f7b1ad" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">TCP (Transmission Control Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e7-8f25-e4c75e734f91" class="bulleted-list"><li style="list-style-type:disc"><strong>양방향 서비스</strong>를 제공하며, 순서 제어, 오류 제어, 흐름 제어 기능으로 <strong>높은 신뢰성</strong>을 보장하는 전송 계층 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-8052-8ae7-f46fcfe1a82c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">UDP (User Datagram Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f0-8d47-e7843d32adda" class="bulleted-list"><li style="list-style-type:disc"><strong>비연결형 서비스</strong>를 제공하며, TCP 대비 <strong>단순한 헤더 구조</strong>로 오버헤드가 적고 <strong>전송 속도가 빠르며</strong> 신뢰성보다는 속도가 중요한 실시간 전송에 유리한 전송 계층 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-80b7-b8fd-ce764010aefc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RTCP (Real-time Control Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8005-9f85-c4802647df12" class="bulleted-list"><li style="list-style-type:disc">RTP 패킷의 <strong>전송 품질을 제어</strong>하며, 세션에 참여한 각 참여자들에게 주기적으로 제어 정보를 전송하는 전송 계층 프로토콜입니다.</li></ul><hr id="2a170133-dd5d-80a9-9d8b-c896ff897dcc"/><h3 id="2a170133-dd5d-80c2-a759-ed1974114934" class="">응용 계층 프로토콜</h3><ul id="2a170133-dd5d-809e-b527-cbf06456be75" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Telnet</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ff-894d-cf9d94e14479" class="bulleted-list"><li style="list-style-type:disc">다른 컴퓨터에 접속하여 <strong>원격 서비스</strong>를 제공하는 프로토콜로, <strong>가상의 터미널 기능</strong>을 수행하며 기본 포트 <strong>23번</strong>을 사용합니다.</li></ul><ul id="2a170133-dd5d-8060-b049-cfb1ddab617b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">FTP (File Transfer Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-801a-9e25-f99f664a2291" class="bulleted-list"><li style="list-style-type:disc">원격 파일 전송을 위한 프로토콜로, 컴퓨터와 인터넷 간 <strong>파일 전송 서비스</strong>를 제공하며 기본 포트 <strong>21번</strong>을 사용합니다.</li></ul><ul id="2a170133-dd5d-8086-92fe-f568b87682ff" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">HTTP (Hyper Text Transfer Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8092-ae67-f648c0ef73e2" class="bulleted-list"><li style="list-style-type:disc">WWW 내 <strong>HTML 문서</strong>를 송수신하기 위한 프로토콜로, GET과 POST 메서드를 통해 메시지를 주고받으며 기본 포트 <strong>80번</strong>을 사용합니다.</li></ul><ul id="2a170133-dd5d-80aa-b37b-f96cb2031f06" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SMTP (Simple Mail Transfer Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8085-8b04-d46b05a102eb" class="bulleted-list"><li style="list-style-type:disc"><strong>전자 우편 교환 서비스</strong>를 위한 프로토콜로, 기본 포트 <strong>25번</strong>을 사용합니다.</li></ul><ul id="2a170133-dd5d-80e6-86d2-e796e5df7b47" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DNS (Domain Name System)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8081-983f-c536b53b267f" class="bulleted-list"><li style="list-style-type:disc"><strong>도메인 네임</strong>을 <strong>IP 주소</strong>로 매핑(변환)하는 시스템입니다.</li></ul><ul id="2a170133-dd5d-80d9-b558-f140ca284424" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DHCP (Dynamic Host Configuration Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804b-8d5b-c57f569de8dd" class="bulleted-list"><li style="list-style-type:disc"><strong>IP 주소</strong> 및 TCP/IP 프로토콜의 기본 설정을 클라이언트에게 <strong>자동으로 제공</strong>하는 프로토콜입니다.</li></ul><hr id="2a170133-dd5d-8084-8059-c5369724ed32"/><h3 id="2a170133-dd5d-80e1-a854-f483a26f017b" class="">TCP/IP 헤더 구조 및 라우팅</h3><ul id="2a170133-dd5d-8085-9a81-ef450e0d861f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">TTL (Time to live)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80de-b0cd-e32ca2a764b1" class="bulleted-list"><li style="list-style-type:disc">IP 헤더 구조의 필드 중 하나로, 패킷이 네트워크를 통과할 수 있는 <strong>남은 라우터의 최대 개수</strong>를 나타냅니다.</li></ul><ul id="2a170133-dd5d-80cd-bc5c-fbe6ea0912c0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Sequence Number (일련 번호)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80a6-bc7d-c51b6a3f1b88" class="bulleted-list"><li style="list-style-type:disc">TCP 헤더 구조의 필드 중 하나로, 송신자가 지정한 <strong>순서 번호</strong>를 전달하여 원활한 <strong>흐름 제어</strong>를 목적으로 합니다.</li></ul><ul id="2a170133-dd5d-805f-a2de-c70fdcdd6e18" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Acknowledgment Number (확인 응답 번호)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80da-a562-d0da4ac92fe4" class="bulleted-list"><li style="list-style-type:disc">TCP 헤더 구조의 필드 중 하나로, 수신자로부터 송신자에게 <strong>다음번 데이터가 몇 번째인지</strong> 전달하는 번호입니다.</li></ul><ul id="2a170133-dd5d-8044-814e-f102c8c741dd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SYN 플래그 비트</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8055-9b20-cef49c14a671" class="bulleted-list"><li style="list-style-type:disc">TCP 플래그 중 하나로, **연결 동기화 (세션 연결 시작)**를 요청하는 비트입니다.</li></ul><ul id="2a170133-dd5d-80bc-a372-d02745cafcd8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">FIN 플래그 비트</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b8-a661-efbd3146f33d" class="bulleted-list"><li style="list-style-type:disc">TCP 플래그 중 하나로, <strong>연결 종료</strong>를 요청하는 비트입니다.</li></ul><ul id="2a170133-dd5d-80cf-922a-fe4048b8a18a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">가상 회선 방식 (Virtual Circuit)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-800f-92d0-f50900ab4421" class="bulleted-list"><li style="list-style-type:disc">패킷 교환 방식 중 <strong>전송 완료 전 논리적 통신 경로를 미리 설정</strong>하고, 별도의 가상 회선으로 송/수신 간 데이터를 전달하는 방식입니다.</li></ul><ul id="2a170133-dd5d-80c3-8e31-c16b5305ba9e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">데이터그램 방식 (Datagram)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8006-beef-e83f04d71291" class="bulleted-list"><li style="list-style-type:disc">패킷 교환 방식 중 <strong>연결 경로 사전 설정 없이</strong> 각 패킷을 순서에 무관하게 <strong>독립적으로 전송</strong>하는 방식입니다.</li></ul><ul id="2a170133-dd5d-8004-9eca-e5ddc3b1bde6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RIP (Routing Information Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8055-b330-d627c0d64301" class="bulleted-list"><li style="list-style-type:disc"><strong>거리 벡터 라우팅 프로토콜</strong>로, <strong>최대 15홉</strong>을 지원하며 <strong>Bellman-Ford 알고리즘</strong>을 사용하여 경로를 라우팅하는 IGP (Interior Gateway Protocol)입니다.</li></ul><ul id="2a170133-dd5d-80c0-95c8-c5ae61365fc2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">OSPF (Open Shortest Path First Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8053-94cf-e13ff154e47d" class="bulleted-list"><li style="list-style-type:disc"><strong>대규모 네트워크</strong>에 널리 사용되며, 실시간 노드 간 거리 및 <strong>링크 상태</strong>를 반영하여 <strong>Dijkstra 알고리즘</strong>을 사용하는 IGP (Interior Gateway Protocol)입니다.</li></ul><ul id="2a170133-dd5d-809a-ac85-e6a2f0fe8433" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">BGP (Border Gateway Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8078-8fbf-db51e45993ea" class="bulleted-list"><li style="list-style-type:disc"><strong>서로 다른 AS 간</strong> 라우팅 정보를 교환하는 **EGP (Exterior Gateway Protocol)**로, Path Vector 기반 라우팅을 수행합니다.</li></ul><ul id="2a170133-dd5d-807b-9325-f893ec5a1450" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">L2TP (Layer 2 Tunneling Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f9-aae4-d6892e6f99c6" class="bulleted-list"><li style="list-style-type:disc">VPN 관련 프로토콜 중 <strong>L2FP와 PPTP의 기능이 결합</strong>되었으며, 인터넷 내 두 지점 간 가상의 터널을 만들어 통신을 안전하게 전송하는 프로토콜입니다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

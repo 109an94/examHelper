@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter06 웹 용어02 [꿈꾸는 라이언]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2a170133-dd5d-804e-bde9-fc1f6edb5cea" class="page sans"><header><h1 class="page-title">Chapter06 웹 용어02 [꿈꾸는 라이언]</h1><p class="page-description"></p></header><div class="page-body"><h3 id="2a170133-dd5d-8078-a973-f54a14789e63" class="">SPICE (ISO 15504) 프로세스 능력 수준</h3><ul id="2a170133-dd5d-80d9-89cb-c9d3d6407ab8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SPICE (ISO 15504)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c7-b979-ed110dbdd8cc" class="bulleted-list"><li style="list-style-type:disc">소프트웨어 처리 <strong>개선 및 능력 평가 기준</strong>으로, 프로세스 성숙도를 <strong>6단계</strong>로 나누어 소프트웨어 조직의 프로세스 능력을 평가하는 모델입니다.</li></ul><ul id="2a170133-dd5d-806b-9f87-d44453c037c2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SPICE 수준 1 (불완전)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8022-b705-ccb31472c1d5" class="bulleted-list"><li style="list-style-type:disc">프로세스가 <strong>구현되지 않거나 목적 달성이 불가</strong>한 상태의 프로세스 능력 수준입니다.</li></ul><ul id="2a170133-dd5d-8005-9497-d3568c0a71c4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SPICE 수준 2 (수행)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-800a-9ffb-e2ea1800553d" class="bulleted-list"><li style="list-style-type:disc">프로세스의 <strong>목적은 달성</strong>하지만, 그 수행이 <strong>계획되거나 축적되지 않은</strong> 상태의 프로세스 능력 수준입니다.</li></ul><ul id="2a170133-dd5d-808a-a5be-ea09ad961327" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SPICE 수준 3 (관리)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e1-bed7-e80d94d8827e" class="bulleted-list"><li style="list-style-type:disc">프로세스 수행이 <strong>계획되고 관리</strong>되는 상태의 프로세스 능력 수준입니다.</li></ul><ul id="2a170133-dd5d-80ac-bbdd-c49f29a23ad7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SPICE 수준 4 (확립)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-805b-9f5a-c28f24663fa2" class="bulleted-list"><li style="list-style-type:disc"><strong>표준 프로세스</strong>를 이용하여 프로세스 수행이 계획되고 관리되는 상태의 프로세스 능력 수준입니다.</li></ul><ul id="2a170133-dd5d-806b-9a31-c5e7ce4f44a7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SPICE 수준 5 (예측 가능)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e1-b6d6-cb3fac07b0e2" class="bulleted-list"><li style="list-style-type:disc">표준 프로세스의 능력에 대해 <strong>정량적인 이해</strong>를 바탕으로 <strong>성능을 예측</strong>할 수 있는 상태의 프로세스 능력 수준입니다.</li></ul><ul id="2a170133-dd5d-809a-85dd-d6d8baaaf322" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SPICE 수준 6 (최적)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8042-9720-d2627e9ac33e" class="bulleted-list"><li style="list-style-type:disc">정의된 프로세스와 표준 프로세스가 <strong>지속적으로 개선</strong>되는 상태의 프로세스 능력 수준입니다.</li></ul><h3 id="2a170133-dd5d-8061-9a3d-c7797861954e" class="">URL 구성 요소</h3><ul id="2a170133-dd5d-80a5-837a-cb24e77950ee" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스킴 (Scheme)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-808b-9f7f-ef2b24aa33b9" class="bulleted-list"><li style="list-style-type:disc"><strong>사용할 프로토콜</strong>을 명시하는 URL 구성 요소입니다 (ex. <code>http</code>, <code>https</code>, <code>ftp</code>).</li></ul><ul id="2a170133-dd5d-80cc-9531-dd832d2ecf84" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">호스트 (Host)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b0-9b4c-c759e09c2edf" class="bulleted-list"><li style="list-style-type:disc">도메인명 또는 <strong>IP 주소</strong>를 나타내는 URL 구성 요소입니다.</li></ul><ul id="2a170133-dd5d-8045-ad6d-e15df0ee04b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">포트 (Port)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8052-9202-e940ebf83800" class="bulleted-list"><li style="list-style-type:disc"><strong>Socket (소켓)을 구분</strong>하는 역할을 하며, 생략 시 http는 80, https는 443으로 기본값 설정되는 URL 구성 요소입니다.</li></ul><ul id="2a170133-dd5d-8075-ad4c-e32622662f50" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">경로 (Path)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8010-83cb-f0f9b8a92550" class="bulleted-list"><li style="list-style-type:disc">호스트에서 제공하는 <strong>자원의 경로</strong>를 나타내는 URL 구성 요소입니다 (계층적 구조).</li></ul><ul id="2a170133-dd5d-8036-9fd3-c649d0c55ea1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">질의 (Query)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-802e-b50d-c52d92ace63d" class="bulleted-list"><li style="list-style-type:disc">Query parameter 또는 Query string으로 불리며, <strong>key=value 형태</strong>로 데이터를 전달하는 URL 구성 요소입니다 (ex. <code>?directoryNo=0&amp;currentPage=1</code>).</li></ul><ul id="2a170133-dd5d-804a-ab22-c35eed0c12c0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">프레그먼트 (Fragment)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f8-882b-c7fa64d2c14b" class="bulleted-list"><li style="list-style-type:disc">웹 문서 <strong>내부 북마크 기능</strong> (해시태그)을 하며, 스크롤 이동 없이 해당 위치로 바로 이동 가능하게 하는 URL 구성 요소입니다.</li></ul><ul id="2a170133-dd5d-800e-b579-cf0c6ae5a339" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Stack guard (스택 가드)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8053-ab2d-cfe2168043d5" class="bulleted-list"><li style="list-style-type:disc">Stack 상 일정 주소 번지에 프로그래머가 유도하는 <strong>Canary</strong>를 심고, 스택이 <strong>붕괴/변조된 경우</strong> Canary 체크 후 프로그램 실행을 비정상적으로 중단시키는 보안 기법입니다.</li></ul><ul id="2a170133-dd5d-8050-bf48-fbc4c9844158" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Docker (도커)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ed-8de0-c9a8fcce0b8e" class="bulleted-list"><li style="list-style-type:disc"><strong>컨테이너 기술을 자동화</strong>하여 쉽게 사용하는 <strong>오픈소스 프로젝트</strong>로, 소프트웨어 컨테이너 안에 응용 프로그램 배치 자동화 역할을 합니다.</li></ul><ul id="2a170133-dd5d-8038-aa3e-dbd47dee7e80" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Cipher Container (사이퍼 컨테이너)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c7-acab-c57f199b6708" class="bulleted-list"><li style="list-style-type:disc"><strong>JAVA</strong>에서 <strong>암호화/복호화 기능</strong>을 제공하는 컨테이너입니다.</li></ul><ul id="2a170133-dd5d-803e-aee3-c2bc593ddca7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Scytale (스키테일)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8069-8e84-e6e337a9328e" class="bulleted-list"><li style="list-style-type:disc">암호화 기법 중 <strong>문자열의 위치를 바꾸는</strong> 방법(전치 암호)을 사용하는 방식입니다.</li></ul><ul id="2a170133-dd5d-80ba-8df5-c258040e0400" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Tensor Flow (텐서플로우)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80a8-9915-da2b4e60dbd8" class="bulleted-list"><li style="list-style-type:disc">2015년 공개된 <strong>구글 브레인 팀</strong>의 <strong>기계 학습 오픈소스 SW Library</strong>입니다.</li></ul><ul id="2a170133-dd5d-8002-9cbc-eadaf7778286" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">One Seg (원 세그)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-807a-9317-dccafdca53ad" class="bulleted-list"><li style="list-style-type:disc">일본/브라질에 상용 중인 <strong>디지털 TV 방송 기술</strong>입니다.</li></ul><ul id="2a170133-dd5d-8017-bdba-c1c510d1508b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Foursquare (포스퀘어)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8028-b9fd-f0087d33479c" class="bulleted-list"><li style="list-style-type:disc"><strong>위치 기반 소셜 네트워크 서비스</strong>입니다.</li></ul><ul id="2a170133-dd5d-80e2-bf2a-fbbe075d519b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">PaaS-Ta (파스-타)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80db-a075-cabfa989287c" class="bulleted-list"><li style="list-style-type:disc"><strong>국내 IT 서비스 경쟁력 강화 목적</strong>으로 개발된 <strong>개방형 클라우드</strong>로, 인프라 제어, 관리/실행/개발/서비스/운영 환경으로 구성됩니다.</li></ul><ul id="2a170133-dd5d-8042-a2e2-ce116f1d2d40" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">VLAN (Virtual LAN)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e8-8a0f-c72fa225b2ef" class="bulleted-list"><li style="list-style-type:disc"><strong>물리적 배치와 상관없이 논리적으로 LAN을 구성</strong>하는 기술로, 접속된 장비들의 성능 향상 및 보안성 증대 효과가 있습니다.</li></ul><ul id="2a170133-dd5d-8094-bde0-ff44e2c7982f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SSO (Single Sign On)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8098-a16c-f67b4d55f6dc" class="bulleted-list"><li style="list-style-type:disc"><strong>한 번의 로그인</strong>으로 다른 사이트 로그인도 허용하는 시스템입니다.</li></ul><ul id="2a170133-dd5d-8085-9dec-d0f98e50a36e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">MQTT (Message Queuing Telemetry Transport)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ce-a2d5-c56eaa992b4b" class="bulleted-list"><li style="list-style-type:disc"><strong>TCP/IP 기반 네트워크</strong>에서 <strong>발행-구독 기반</strong>의 메시징 프로토콜로, 푸시 기술 기반의 <strong>경량 메시지 전송 프로토콜</strong>입니다.</li></ul><ul id="2a170133-dd5d-80cc-aa27-fdcaac87d6d3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Salt (솔트)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8052-a16f-dc37f3bf7a5b" class="bulleted-list"><li style="list-style-type:disc">동일한 패스워드들을 <strong>다른 암호 값으로 저장</strong>되도록 <strong>덧붙이는 무작위의 값</strong>입니다.</li></ul><ul id="2a170133-dd5d-803c-81d0-ed2b317f6672" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">N-screen (앤-스크린)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8008-8e73-cecaef59d7de" class="bulleted-list"><li style="list-style-type:disc"><strong>N개의 서로 다른 단말기</strong>에서 <strong>동일 콘텐츠를 자유롭게 이용</strong>하는 서비스입니다.</li></ul><ul id="2a170133-dd5d-807d-b0a2-d9986310a028" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ASLR (Address Space Layout Randomization)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e8-9be6-c3fd4e5c35b2" class="bulleted-list"><li style="list-style-type:disc">프로그램 실행마다 스택/힙/라이브러리 주소를 <strong>랜덤화</strong>하여 공격자로 하여금 <strong>메모리 상 주소 예측을 어렵게</strong> 하는 보안 기법입니다.</li></ul><ul id="2a170133-dd5d-809a-87cb-ff9146fb77c5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">라우터 (Router)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80dc-beba-e0fadc3ccbf9" class="bulleted-list"><li style="list-style-type:disc"><strong>서로 다른 네트워크 대역</strong>에 있는 호스트를 상호 간에 통신할 수 있도록 <strong>경로를 설정</strong>해 주는 네트워크 장비입니다.</li></ul><ul id="2a170133-dd5d-8063-94fc-f21670205b99" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nmap (Network Mapper)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8016-b938-d4ef15888fb3" class="bulleted-list"><li style="list-style-type:disc">서버에 <strong>열린 포트 정보</strong>를 스캐닝하여 <strong>보안 취약점을 찾는</strong> 도구입니다.</li></ul><ul id="2a170133-dd5d-809c-8bf3-fc30d5aec714" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Tripwire (트립와이어)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804f-9c5f-f0d8248fdb57" class="bulleted-list"><li style="list-style-type:disc">크래커가 침입하여 백도어를 만들거나 <strong>설정 파일을 변경했을 때</strong> 이를 <strong>분석</strong>하는 도구입니다.</li></ul><ul id="2a170133-dd5d-80fc-8017-f4f5736a65b1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Smart Grid (스마트 그리드)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8006-9ea4-c66c658202c5" class="bulleted-list"><li style="list-style-type:disc">정보 기술을 활용하여 <strong>전력망을 지능화, 고도화</strong>함으로써 고품질의 전력 서비스를 제공하고 에너지 이용 효율을 극대화하는 시스템입니다.</li></ul><ul id="2a170133-dd5d-806b-9716-f3271754c3d6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">서비스 지향 아키텍처 (SOA, Service Oriented Architecture)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8046-9e4d-eb72481e5078" class="bulleted-list"><li style="list-style-type:disc">표현, 업무 프로세스, 서비스 중간, 애플리케이션, 데이터 저장 등의 <strong>계층</strong>으로 구성되는 아키텍처입니다.</li></ul><ul id="2a170133-dd5d-802d-bda3-f34dec73daf4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Digital twin (디지털 트윈)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80d1-8131-c58753aec8bc" class="bulleted-list"><li style="list-style-type:disc"><strong>물리적 사물</strong>을 <strong>가상화</strong>하여 실제 자산의 특성 정보를 구현하고, 자산 최적화 및 생산성 증가를 도모하는 기술입니다.</li></ul><ul id="2a170133-dd5d-806e-bcbc-d00216bb9adf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Mashup (매시업)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8001-a38d-ccef94911da9" class="bulleted-list"><li style="list-style-type:disc">웹에서 제공하는 <strong>정보/서비스를 이용하여 새로운 SW를 제작</strong>하는 기법입니다.</li></ul><ul id="2a170133-dd5d-80e7-a755-d1387730beed" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Mesh Network (메시 네트워크)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f1-b266-f99f27c13bcf" class="bulleted-list"><li style="list-style-type:disc">특수 목적을 위한 네트워크 기술로, <strong>대규모 네트워크 생성에 최적화</strong>되어 노드들이 그물망처럼 연결되는 방식입니다.</li></ul><ul id="2a170133-dd5d-8090-bed6-f10a872628ec" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">PICONET (피코넷)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8059-b6bf-e1ed42c31d7d" class="bulleted-list"><li style="list-style-type:disc">여러 개의 독립된 통신장치가 <strong>블루투스 기술</strong> 등을 사용하여 <strong>통신망을 형성</strong>하는 무선 네트워크 기술입니다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

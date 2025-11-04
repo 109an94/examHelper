@@ -1,0 +1,707 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter05 정보보안 [꿈꾸는 라이언]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2a170133-dd5d-8001-a8e5-cdad8ce3a849" class="page sans"><header><h1 class="page-title">Chapter05 정보보안 [꿈꾸는 라이언]</h1><p class="page-description"></p></header><div class="page-body"><ul id="2a170133-dd5d-80dd-b5f7-f745aba17d08" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">기밀성 (Confidentiality)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b8-acae-f2bf982d7c6e" class="bulleted-list"><li style="list-style-type:disc">시스템 내 정보 자원을 <strong>인가된 사용자에게만 접근</strong>을 허용하여, 인가되지 않은 사용자에게는 정보가 노출되지 않도록 하는 정보보안의 3대 요소 중 하나입니다.</li></ul><ul id="2a170133-dd5d-806f-9498-ef3296066d08" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">무결성 (Integrity)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ed-926f-d15c0455db48" class="bulleted-list"><li style="list-style-type:disc">오직 <strong>인가된 사용자만이</strong> 시스템 내 정보를 <strong>수정</strong>할 수 있도록 하여, 정보의 정확성과 완전성을 보장하는 정보보안의 3대 요소 중 하나입니다.</li></ul><ul id="2a170133-dd5d-807a-990b-d1fd71da45df" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">가용성 (Availability)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-801d-b903-c6b3ba212856" class="bulleted-list"><li style="list-style-type:disc">인가된 사용자는 <strong>권한 범위 내에서 언제든지 자원에 접근</strong>할 수 있도록 보장하는 정보보안의 3대 요소 중 하나입니다.</li></ul><ul id="2a170133-dd5d-800c-a4a6-cece72cc048f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인증 (Authentication)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804e-9a50-db39dda8e258" class="bulleted-list"><li style="list-style-type:disc">사용자가 네트워크에 접속하기 전에 시스템에서 <strong>사용자의 신원을 확인</strong>하는 AAA(Triple-A)의 첫 번째 요소입니다.</li></ul><ul id="2a170133-dd5d-8051-9899-e4e5b8c00555" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">권한 부여 (Authorization)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e0-af70-d9df4033c06f" class="bulleted-list"><li style="list-style-type:disc">신원이 <strong>검증된 사용자</strong>에게 사용 가능한 <strong>접근 권한</strong>을 확인하고 허용하는 AAA(Triple-A)의 요소입니다.</li></ul><ul id="2a170133-dd5d-800d-88a8-c99a088c547c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">계정 관리 (Accounting)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8085-8184-d1bd14f3be04" class="bulleted-list"><li style="list-style-type:disc">사용자의 자원 사용에 대한 정보(과금, 감사, 보고서 등)를 <strong>수집</strong>하는 AAA(Triple-A)의 마지막 요소입니다.</li></ul><ul id="2a170133-dd5d-807a-babc-e2d86d37034f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DES (Data Encryption Standard)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8043-952d-ef440151a723" class="bulleted-list"><li style="list-style-type:disc">IBM에서 개발하여 미국 NBS에서 국가 표준으로 발표되었으며, <strong>블록 크기 64비트</strong>와 <strong>키 길이 56비트</strong>를 사용하고 16라운드로 구성된 양방향 암호화 방식입니다.</li></ul><ul id="2a170133-dd5d-80c8-9805-ce0360ae08c4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">AES (Advanced Encryption Standard)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8031-9346-d58410814dcb" class="bulleted-list"><li style="list-style-type:disc">미국 표준 기술 연구소(NIST)가 DES를 <strong>대체할 목적</strong>으로 발표했으며, <strong>키 길이 128/192/256비트</strong>를 사용하고 레인달(Rijndael) 기반의 SPN 암호 방식인 양방향 암호화 방식입니다.</li></ul><ul id="2a170133-dd5d-80f7-aaa4-f62fb66aae3b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SEED</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-807f-a8a9-dcf6dc9b3a26" class="bulleted-list"><li style="list-style-type:disc">한국에서 개발되었으며, <strong>128 및 256비트</strong>의 개인키를 사용하는 양방향 암호화 방식입니다.</li></ul><ul id="2a170133-dd5d-8087-a6db-e2b9db349036" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ARIA</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f0-bde8-c07031046156" class="bulleted-list"><li style="list-style-type:disc">국가보안기술연구소(NSRI) 주도로 개발되었으며, <strong>128/192/256비트</strong>의 키 길이를 사용하는 양방향 암호화 방식입니다.</li></ul><ul id="2a170133-dd5d-8055-bb75-df4698bb0342" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RC4</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8085-89f9-deca50be3e9d" class="bulleted-list"><li style="list-style-type:disc">Ron Rivest가 설계한 <strong>스트림 암호화</strong> 방식으로, 옥텟 단위 기반으로 동작합니다.</li></ul><ul id="2a170133-dd5d-805a-b136-dd40ae41bd99" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RSA (Rivest-Shamir-Adleman)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8053-bd1e-fc8fc2444ca3" class="bulleted-list"><li style="list-style-type:disc">MIT에서 공개키 암호화 방식으로 개발되었으며, <strong>소인수 분해</strong>의 어려움을 활용하는 비대칭키 양방향 암호화 방식입니다.</li></ul><ul id="2a170133-dd5d-80ce-84db-cd45406bc831" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Diffie-Hellman (디피-헬만)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8006-9692-c37ff9c6ce36" class="bulleted-list"><li style="list-style-type:disc">두 사용자가 사전에 어떤 비밀 교환 없이도 <strong>공통 키를 교환</strong>할 수 있도록 하는 최초의 공개키 알고리즘입니다.</li></ul><ul id="2a170133-dd5d-8061-9824-d766c54672a7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ECC (Elliptic Curve Cryptography)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80df-b0b9-e70d676806f5" class="bulleted-list"><li style="list-style-type:disc"><strong>타원 곡선 이론</strong>에 기반한 공개키 암호 방식입니다.</li></ul><ul id="2a170133-dd5d-8002-8ce4-c049668f7af2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">해시 함수 (Hash Function)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-801e-a3d0-c2ad61730cce" class="bulleted-list"><li style="list-style-type:disc">임의의 길이의 입력 데이터를 받아 <strong>고정된 길이의 해시값</strong>으로 변환하는 <strong>단방향 암호화</strong> 방식입니다.</li></ul><ul id="2a170133-dd5d-8052-b4a6-cd5393f974fa" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">중첩법 (Folding Method)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-802f-b461-d6f7d3ddf720" class="bulleted-list"><li style="list-style-type:disc">레코드 키를 여러 부분으로 나누고, 나눈 부분의 각 숫자를 <strong>더하거나 XOR 한 값</strong>을 홈 주소로 사용하는 해시 주소 결정 방식입니다.</li></ul><ul id="2a170133-dd5d-8092-93ae-d549595d1534" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제산법 (Division Method)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80a8-8194-fa4062639410" class="bulleted-list"><li style="list-style-type:disc">레코드 키를 해시표의 크기보다 큰 수 중에서 <strong>가장 작은 소수</strong>로 나눈 <strong>나머지</strong>를 홈 주소로 삼는 해시 주소 결정 방식입니다.</li></ul><ul id="2a170133-dd5d-8000-8729-c2eb29eaa3c2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Ping of Death (죽음의 핑)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8034-8265-e0bbf886010e" class="bulleted-list"><li style="list-style-type:disc">Ping 명령을 전송할 때 <strong>허용 범위 이상의 ICMP 패킷</strong>을 전송하여 대상 시스템의 네트워크를 마비시키는 서비스 거부 공격입니다.</li></ul><ul id="2a170133-dd5d-80ae-841d-d020d775a2df" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SYN Flooding (SYN 플러딩)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e5-bbe2-f1900a875602" class="bulleted-list"><li style="list-style-type:disc">ACK 패킷 신호를 고의로 누락한 채 <strong>SYN 패킷 신호만 전송</strong>하여 서버의 가용 사용자 수를 선점하고 연결 대기 큐를 가득 차게 만들어 다른 사용자의 접근을 차단하는 서비스 거부 공격입니다.</li></ul><ul id="2a170133-dd5d-80b9-ac76-e8bcd30e645e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Smurfing (스머핑)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8017-b3e5-ebda601fe512" class="bulleted-list"><li style="list-style-type:disc">IP와 ICMP 특성을 악용하여 <strong>엄청난 양의 데이터</strong>를 한 사이트에 집중적으로 보내 네트워크를 불능 상태로 만드는 서비스 거부 공격입니다.</li></ul><ul id="2a170133-dd5d-807a-b874-f3625f1a9d45" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">LAND Attack (랜드 어택)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80da-83ea-ecb93a1ef31e" class="bulleted-list"><li style="list-style-type:disc"><strong>송신 IP 주소와 수신 IP 주소를 모두 타겟 IP 주소</strong>로 하여 자기 자신에게 무한히 응답하게 하는 서비스 거부 공격입니다.</li></ul><ul id="2a170133-dd5d-80b3-bbea-fde4d3ac5a98" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Phishing (피싱)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8073-8528-fd6cf054ae78" class="bulleted-list"><li style="list-style-type:disc">악의적 사용자가 지인/유명인을 사칭하여 로그온한 사용자의 <strong>계정 정보 및 신용 정보를 탈취</strong>하는 공격입니다.</li></ul><ul id="2a170133-dd5d-80a2-b5e8-fe95b09464ab" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Evil twin attack (이블 트윈 공격)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8060-9c5b-f3de13b6926c" class="bulleted-list"><li style="list-style-type:disc">실제 존재하는 것과 <strong>동일한 이름의 가짜 무선 WIFI 신호</strong>를 송출하여 로그온한 사람들의 계정 정보나 신용 정보를 빼내는 기법입니다.</li></ul><ul id="2a170133-dd5d-80a8-bdc6-ffb1328b2061" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">방화벽 (Firewall)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8023-8604-c7c044c476df" class="bulleted-list"><li style="list-style-type:disc">내부에서 외부로 나가는 패킷은 통과시키고, 외부에서 내부로 유입되는 패킷은 <strong>인증된 패킷만 통과</strong>시키도록 하여 네트워크 접근을 제어하는 보안 솔루션입니다.</li></ul><ul id="2a170133-dd5d-8001-881c-fb1b22cb71c5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">웹 방화벽 (Web Firewall)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80d9-989d-d76cb311c69d" class="bulleted-list"><li style="list-style-type:disc">일반 방화벽이 탐지하기 어려운 <strong>SQL 삽입 공격, XSS 등 웹 기반 공격</strong>을 방어할 목적으로 웹 서버에 특화된 방화벽입니다.</li></ul><ul id="2a170133-dd5d-80df-b17c-d9cc205ad859" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">침입 탐지 시스템 (IDS, Intrusion Detection System)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80a8-b734-fdb22234e2a3" class="bulleted-list"><li style="list-style-type:disc">시스템의 <strong>비정상적인 사용/오용/남용</strong> 등을 <strong>실시간으로 탐지</strong>하고 경고하는 보안 솔루션입니다.</li></ul><ul id="2a170133-dd5d-802c-bcbe-dae36940a0d0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">침입 방지 시스템 (IPS, Intrusion Prevention System)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8039-a740-eadcd9ab3a3c" class="bulleted-list"><li style="list-style-type:disc">방화벽과 IDS의 기능을 통합하여 <strong>비정상적인 트래픽/패킷을 능동적으로 차단하고 격리</strong>하는 보안 솔루션입니다.</li></ul><ul id="2a170133-dd5d-804b-aae4-e77cbedbea02" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">VPN (Virtual Private Network)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b3-91cc-ff067977f6f2" class="bulleted-list"><li style="list-style-type:disc">공중 네트워크에 암호화 기술을 이용하여 사용자가 마치 <strong>자신의 전용 회선을 사용하는 것처럼</strong> 안전하게 통신하게 하는 가상 사설 통신망 솔루션입니다.</li></ul><ul id="2a170133-dd5d-80aa-a774-c8dd0f16d07d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">NAC (Network Access Control)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804e-b554-f6d2ce91ec77" class="bulleted-list"><li style="list-style-type:disc">네트워크에 접속하는 내부 PC의 <strong>MAC 주소</strong>를 IP 관리 시스템에 등록하여 <strong>일관된 보안 관리 기능</strong>을 제공하는 솔루션입니다.</li></ul><ul id="2a170133-dd5d-806f-8dd1-d969be86760d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SIEM (Security Information &amp; Event Management)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80fe-b8e9-c2de6c78e108" class="bulleted-list"><li style="list-style-type:disc">보안 경고의 <strong>실시간 분석</strong>을 제공하며, 로그 및 이벤트를 통합 관리하는 <strong>빅데이터 기반</strong>의 보안 솔루션입니다.</li></ul><ul id="2a170133-dd5d-80d0-8cf8-fd1d36c1f0fb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Sandbox (샌드박스)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8078-8eef-c03b4f003b0f" class="bulleted-list"><li style="list-style-type:disc">외부에서 유입된 프로그램이 <strong>보호된 영역</strong>에서 동작하여 시스템이 부정하게 조작되는 것을 막는 보안 형태입니다.</li></ul><ul id="2a170133-dd5d-8005-bf88-c814d2b39d77" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">FDS (Fraud Detection System)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80d6-b628-d060a966e5f3" class="bulleted-list"><li style="list-style-type:disc">금융 거래의 <strong>이상 거래를 탐지하고 차단</strong>하는 시스템입니다.</li></ul><p id="2a170133-dd5d-8050-b0bd-c7d48a418632" class="">
+</p><ul id="2a170133-dd5d-80ea-956d-ed62444d01e4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">LFSR (Linear Feedback Shift Register)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8009-82b4-e3c6f3a50a21" class="bulleted-list"><li style="list-style-type:disc"><strong>선형 연산</strong>을 통해 다음 상태를 생성하며, <strong>스트림 기반 난수 생성</strong>에 활용되는 암호화 방식입니다.</li></ul><ul id="2a170133-dd5d-8067-b974-eb8310a1c992" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">IDEA (International Data Encryption Algorithm)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c7-a9b6-c6ba98da93dc" class="bulleted-list"><li style="list-style-type:disc">스위스에서 개발되었으며 PES를 개선한 암호키로, <strong>64비트 블록</strong>과 <strong>128비트 키</strong>를 사용하는 양방향 암호화 알고리즘입니다.</li></ul><ul id="2a170133-dd5d-8034-a47d-fed7c6b57cd0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">LEA (Lightweight Encryption Algorithm)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b9-a4f2-cc58bc30a16f" class="bulleted-list"><li style="list-style-type:disc">국내 <strong>NSRI</strong>에서 개발되었으며, <strong>128비트의 데이터 블록</strong>을 암호화하는 경량 블록 암호화 알고리즘입니다.</li></ul><ul id="2a170133-dd5d-8096-89d4-ff8656ef5c9d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Skipjack</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8055-8ada-cc10a5ffdf13" class="bulleted-list"><li style="list-style-type:disc">미국 <strong>NSA</strong>가 개발했으며, <strong>64비트 입출력, 80비트의 키, 32라운드</strong>를 가지는 블록 암호화 알고리즘입니다.</li></ul><ul id="2a170133-dd5d-806c-abb4-c00812ec5765" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">템퍼프루핑 (Tamper Proofing)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-806c-87db-d82f675af300" class="bulleted-list"><li style="list-style-type:disc">소프트웨어의 <strong>위/변조 시</strong> 소프트웨어가 오작동하도록 만들어 악용을 방지하며, 해시 함수, 핑거프린트, 워터마킹 등 보안 요소를 생성하여 보호하는 기술입니다.</li></ul><ul id="2a170133-dd5d-80cf-8cd0-c01773494e89" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Trust Zone (트러스트 존)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8060-835a-e2bcebe5656a" class="bulleted-list"><li style="list-style-type:disc"><strong>독립적 보안 구역</strong>을 따로 두어 중요한 정보를 보호하는 <strong>하드웨어 기반</strong>의 보안 기술입니다.</li></ul><ul id="2a170133-dd5d-8096-9729-c957f929c6bb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">NAC (Network Access Control)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8002-b5c8-eb3e2eb9321d" class="bulleted-list"><li style="list-style-type:disc">네트워크에 접속하는 내부 PC의 <strong>MAC 주소</strong>를 IP 관리 시스템에 등록한 후, <strong>일관된 보안 관리 기능</strong>을 제공하는 솔루션입니다.</li></ul><ul id="2a170133-dd5d-80a9-8c59-da859fdeee4b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ESM (Enterprise Security Management)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8082-9220-f3ab843edd43" class="bulleted-list"><li style="list-style-type:disc">방화벽, IDS/IPS 등 상기 보안 솔루션에서 발생한 <strong>로그 기록을 통합하여 관리</strong>하고 <strong>종합적인 보안 관리 체계</strong>를 수립 가능하게 하는 솔루션입니다.</li></ul><ul id="2a170133-dd5d-8045-a71e-d58064fe4e5c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DLP (Data Loss Prevention)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8004-ba63-de5108d27862" class="bulleted-list"><li style="list-style-type:disc"><strong>내부 정보의 외부 유출을 방지</strong>하며, 사내 직원이 사용하는 시스템의 모든 정보를 탐지하고 통제하는 보안 솔루션입니다.</li></ul><ul id="2a170133-dd5d-804b-a3e7-e9addedc1697" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Switching Jamming (스위칭 재밍)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-809b-ad80-d68652b5b8b3" class="bulleted-list"><li style="list-style-type:disc"><strong>위조된 MAC 주소</strong>를 지속적으로 보내 스위치 MAC 주소 테이블을 혼란시켜 스위치가 <strong>더미 허브처럼 작동</strong>하도록 만드는 공격입니다.</li></ul><ul id="2a170133-dd5d-80f1-b63b-deac8cb05fa1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">TearDrop (티어드롭)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8039-a03e-ceec0bb4aa23" class="bulleted-list"><li style="list-style-type:disc"><strong>Fragment number 값</strong>을 변형하여 수신 측에서 패킷 조립 시 오류로 인한 <strong>과부하</strong>로 시스템 다운을 유도하는 서비스 거부 공격입니다.</li></ul><ul id="2a170133-dd5d-80b9-8c91-c0773e889933" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">UDP Flooding (UDP 플러딩)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804a-8215-cd66222af4e6" class="bulleted-list"><li style="list-style-type:disc"><strong>다량의 UDP 패킷</strong>을 전송하여 네트워크 자원을 고갈시키고 시스템 에러를 유발하는 서비스 거부 공격입니다.</li></ul><ul id="2a170133-dd5d-8081-a1f5-c066d1f2e407" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Ping Flooding (핑 플러딩)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8028-bfad-f9c3dfa077f9" class="bulleted-list"><li style="list-style-type:disc"><strong>과도한 ICMP 메시지</strong> 전송으로 인한 응답 과다로 시스템에 에러를 유발하는 서비스 거부 공격입니다.</li></ul><ul id="2a170133-dd5d-8061-8fdc-e474044615a4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">서비스 거부 공격 (DOS, Denial of Service)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8060-87da-f5eace8366ef" class="bulleted-list"><li style="list-style-type:disc"><strong>대량의 데이터</strong>를 한 곳의 서버에 집중적으로 전송하여 표적이 되는 서버의 <strong>정상적인 기능</strong>을 방해하는 공격 유형입니다.</li></ul><ul id="2a170133-dd5d-804d-8e51-d551b66182e7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">분산 서비스 거부 공격 (DDOS, Distributed Denial of Service)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e6-bc1f-f6c791d684a2" class="bulleted-list"><li style="list-style-type:disc"><strong>여러 대의 장비</strong> (Trinoo, TFN, Stacheldraht 등)에서 한 곳의 서버에 <strong>분산하여 서비스 공격</strong>을 수행하는 공격 유형입니다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

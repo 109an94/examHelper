@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter03 운영체제01 [꿈꾸는 라이언]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2a170133-dd5d-80fa-af19-c7cbf572cca5" class="page sans"><header><h1 class="page-title">Chapter03 운영체제01 [꿈꾸는 라이언]</h1><p class="page-description"></p></header><div class="page-body"><h3 id="2a170133-dd5d-805a-be93-fb402f586eac" class="">운영체제 종류 및 구성</h3><ul id="2a170133-dd5d-80ed-8081-dad251e3e9b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Windows (윈도우)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b9-b132-e306b4be2003" class="bulleted-list"><li style="list-style-type:disc">마이크로소프트사에서 개발한 운영체제입니다.</li></ul><ul id="2a170133-dd5d-80cb-809a-f4be76644a54" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">UNIX (유닉스)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b0-a8eb-ee9427426df6" class="bulleted-list"><li style="list-style-type:disc">미국 AT&amp;T 벨 연구소에서 개발한 운영체제로, <strong>커널</strong>과 <strong>쉘</strong>로 구성되어 있습니다.</li></ul><ul id="2a170133-dd5d-8035-a56b-e94d9417f530" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Linux (리눅스)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8015-ace8-e9209823d08f" class="bulleted-list"><li style="list-style-type:disc">리누스 토발즈가 <strong>유닉스를 기반</strong>으로 개발한 운영체제입니다.</li></ul><ul id="2a170133-dd5d-8074-9a21-fd4fb26829f6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Android (안드로이드)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-802a-869b-c44bbf4cb8a4" class="bulleted-list"><li style="list-style-type:disc">구글이 <strong>리눅스 커널 기반</strong>으로 개발한 개방형 모바일 운영체제입니다.</li></ul><ul id="2a170133-dd5d-8074-af15-d96fc2faf730" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">커널 (Kernel)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80d8-b081-ff68ff87dce3" class="bulleted-list"><li style="list-style-type:disc">유닉스 구성 요소 중 <strong>하드웨어를 보호</strong>하고 프로그램 및 하드웨어 간 <strong>인터페이스 역할</strong>을 하며, 프로세스 관리, 기억장치 관리, 파일 관리 등 <strong>OS의 핵심 기능</strong>을 수행하는 부분입니다.</li></ul><ul id="2a170133-dd5d-8033-b34a-eba27e4969a0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">쉘 (Shell)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-805e-be82-ff1f9f9a8052" class="bulleted-list"><li style="list-style-type:disc">유닉스 구성 요소 중 <strong>사용자의 명령을 인식/해석</strong>한 후 커널로 전달하여 명령을 수행하게 하는, <strong>시스템과 사용자 간의 인터페이스</strong> 역할을 하는 부분입니다.</li></ul><hr id="2a170133-dd5d-805f-8e9c-faf9e48e75c6"/><h3 id="2a170133-dd5d-8087-9b33-e8958c43f184" class="">주기억장치 및 기타 메모리</h3><ul id="2a170133-dd5d-805c-b95f-c1872e4f7909" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">RAM (Random Access Memory)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8063-826b-ee2280787380" class="bulleted-list"><li style="list-style-type:disc"><strong>휘발성</strong> 메모리로, 전원이 꺼지면 저장된 데이터가 사라지며, <strong>실행 중인 프로그램</strong>을 저장하는 데 사용되는 주기억장치입니다.</li></ul><ul id="2a170133-dd5d-80ca-8c08-f9edfa2befe9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SRAM (Static RAM)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-807b-9b0f-e1b945d4c4f9" class="bulleted-list"><li style="list-style-type:disc"><strong>빠른 속도</strong>와 <strong>낮은 집적도</strong>를 가지며, 재충전이 불필요하여 주로 <strong>캐시 메모리</strong>로 사용되는 휘발성 메모리입니다.</li></ul><ul id="2a170133-dd5d-8005-951f-cee1032b6976" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">DRAM (Dynamic RAM)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c7-a009-ce9aaf3a4539" class="bulleted-list"><li style="list-style-type:disc"><strong>느린 속도</strong>와 <strong>높은 집적도</strong>를 가지며, <strong>재충전이 필요</strong>하고 주로 <strong>주기억장치</strong>로 사용되는 휘발성 메모리입니다.</li></ul><ul id="2a170133-dd5d-8062-99b8-c03f199d305c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ROM (Read Only Memory)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8077-9690-c66144974893" class="bulleted-list"><li style="list-style-type:disc">전력 공급이 없어도 내용이 사라지지 않는 <strong>비휘발성</strong> 메모리이며, 하드웨어와 소프트웨어의 중간인 **펌웨어(Firmware)**로 활용됩니다.</li></ul><ul id="2a170133-dd5d-8066-a54d-cf414403d68d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">EPROM (Erasable Programmable ROM)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804d-acc9-f7924a2ef49a" class="bulleted-list"><li style="list-style-type:disc"><strong>자외선 신호</strong>를 이용하여 저장된 내용을 지우고 다시 기록할 수 있는 ROM입니다.</li></ul><ul id="2a170133-dd5d-8039-9667-efa7fe18ed66" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">EEPROM (Electrically Erasable Programmable ROM</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-806e-b0b7-f9205e9f8c83" class="bulleted-list"><li style="list-style-type:disc"><strong>전기 신호</strong>를 이용하여 저장된 내용을 지우고 다시 기록할 수 있는 ROM이며, <strong>플래시 메모리</strong>로 활용되어 BIOS ROM 업데이트 등에 사용됩니다.</li></ul><ul id="2a170133-dd5d-8009-abb6-f2bf2e2a8166" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">레지스터 (Register)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b4-a98a-fefd5bff95da" class="bulleted-list"><li style="list-style-type:disc"><strong>CPU 내부</strong>에서 처리할 명령어나 연산의 중간값 등을 일시적으로 저장하는 <strong>휘발성 메모리</strong>로, <strong>메모리 중 가장 빠른 속도</strong>를 가집니다.</li></ul><ul id="2a170133-dd5d-80ed-b7e8-f26dffae4314" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">캐시 메모리 (Cache Memory)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8081-8422-eba203d9b765" class="bulleted-list"><li style="list-style-type:disc"><strong>SRAM</strong>을 이용하여 <strong>CPU(빠름)와 주기억장치(느림) 사이의 속도 차이</strong>를 해결하는 메모리이며, 적중률이 높을수록 시스템 처리 속도가 증가합니다.</li></ul><ul id="2a170133-dd5d-8039-8f20-ea6b9a03aa85" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">가상 메모리 (Virtual Memory)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-807e-bdac-fb567c763aa6" class="bulleted-list"><li style="list-style-type:disc"><strong>보조 기억장치</strong>의 일부를 <strong>주기억장치처럼 사용</strong>하여 기억 용량을 확대하고, 큰 프로그램도 실행 가능하게 하는 메모리 관리 기술입니다.</li></ul><ul id="2a170133-dd5d-8096-8a43-d9946aeff45a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">버퍼 메모리 (Buffer Memory)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8029-8782-d85ba7c936f0" class="bulleted-list"><li style="list-style-type:disc">데이터를 일시적으로 저장해 두 장치 간의 <strong>데이터 전송 속도 차이</strong>를 해결하는 데 사용되는 메모리입니다.</li></ul><ul id="2a170133-dd5d-802d-b105-d1cdd7ca1bf0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">연상(연관) 메모리 (Associative Memory)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8047-8a7c-f964b2d20820" class="bulleted-list"><li style="list-style-type:disc"><strong>주소가 아닌 저장된 데이터의 내용</strong>의 일부를 이용하여 기억장치에 접근하고 데이터를 확인하는 메모리입니다.</li></ul><hr id="2a170133-dd5d-80ff-8265-efee77159c90"/><h3 id="2a170133-dd5d-80fc-8e08-c81a0f08e786" class="">기억장치 관리 전략</h3><ul id="2a170133-dd5d-801f-ae21-e0642cabfba3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">요구 반입 (Demand Fetch)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-800b-a0b6-cac4e0e1c680" class="bulleted-list"><li style="list-style-type:disc">특정 프로그램이나 데이터의 참조를 <strong>&#x27;요구&#x27;할 때</strong> 해당 데이터를 주기억장치에 적재하는 반입 전략입니다.</li></ul><ul id="2a170133-dd5d-807a-a531-d7472233229b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">예상 반입 (Anticipatory Fetch)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8000-a10f-e09f2380e66f" class="bulleted-list"><li style="list-style-type:disc">미래의 참조가 <strong>&#x27;예상&#x27;되는 데이터</strong>를 미리 주기억장치에 적재하는 반입 전략입니다.</li></ul><ul id="2a170133-dd5d-8034-a968-eccf8914ff79" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">최초 적합 (First Fit)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-800e-acc0-ef89fa93e91a" class="bulleted-list"><li style="list-style-type:disc">사용 가능한 분할 영역 중에서 크기가 충분한 <strong>&#x27;첫 번째&#x27; 분할 영역</strong>에 데이터를 배치하는 배치 전략입니다.</li></ul><ul id="2a170133-dd5d-80be-b864-e6a9684020b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">최적 적합 (Best Fit)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804e-931a-d7430a35745d" class="bulleted-list"><li style="list-style-type:disc">사용 가능한 분할 영역 중에서 데이터 크기와 가장 가까워 <strong>단편화를 &#x27;최소화&#x27;하는 분할 영역</strong>에 데이터를 배치하는 배치 전략입니다.</li></ul><ul id="2a170133-dd5d-80d7-ac8e-c84c07ab1c96" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">최악 적합 (Worst Fit)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-802d-80e9-edf581a2385e" class="bulleted-list"><li style="list-style-type:disc">사용 가능한 분할 영역 중에서 가장 큰 영역에 데이터를 배치하여 **단편화를 &#x27;최대화&#x27;**하는 배치 전략입니다.</li></ul><hr id="2a170133-dd5d-805a-9472-d7ae03244e83"/><h3 id="2a170133-dd5d-80d8-913f-f683bdbd73d9" class="">가상 기억장치 관리 기법</h3><ul id="2a170133-dd5d-802e-b115-ed3b07b75fe8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">페이징 기법 (Paging)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80cd-b359-cf6e1259d3ff" class="bulleted-list"><li style="list-style-type:disc">가상 기억장치의 프로그램 (페이지)과 주기억장치의 영역 (페이지 프레임)을 <strong>동일한 크기로 분할</strong>하여 배치 및 실행하는 기법입니다. (내부 단편화 발생 가능)</li></ul><ul id="2a170133-dd5d-80ea-bccb-d46cf26326d5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">세그먼테이션 기법 (Segmentation)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-802f-ab7d-ec14655a8a0e" class="bulleted-list"><li style="list-style-type:disc">가상 기억장치의 프로그램 (세그먼트)을 <strong>다양한 크기의 논리적 단위</strong>로 분할하여 주기억장치에 배치 및 실행하는 기법입니다. (외부 단편화 발생 가능)</li></ul><ul id="2a170133-dd5d-8034-9c45-e2a28e08c646" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">OPT (Optimal Replacement)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8061-91df-e362fae18c05" class="bulleted-list"><li style="list-style-type:disc">앞으로 <strong>가장 오랫동안 사용하지 않을 페이지</strong>를 교체하는 페이지 교체 알고리즘으로, 페이지 부재 횟수가 가장 적게 발생하는 <strong>최적의</strong> 알고리즘입니다.</li></ul><ul id="2a170133-dd5d-803c-bccf-edfc6b6e841a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">FIFO (First-In, First-Out)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-808e-99ca-e5688d1e2459" class="bulleted-list"><li style="list-style-type:disc">주기억장치에 <strong>가장 먼저 들어와 가장 오래 있었던 페이지</strong>를 교체하는 페이지 교체 알고리즘입니다.</li></ul><ul id="2a170133-dd5d-8046-b3a3-d64b7173fae1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">LRU (Least Recently Used)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8032-83c9-d061a4b474dd" class="bulleted-list"><li style="list-style-type:disc"><strong>최근에 가장 오랫동안 사용하지 않은 (가장 오래전에 사용된)</strong> 페이지를 교체하는 페이지 교체 알고리즘입니다.</li></ul><ul id="2a170133-dd5d-8030-bfb6-cdc54adaaa6b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">LFU (Least Frequently Used)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8092-952a-f86c3489c5bb" class="bulleted-list"><li style="list-style-type:disc"><strong>사용 빈도가 가장 적은 페이지</strong>를 교체하는 페이지 교체 알고리즘입니다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

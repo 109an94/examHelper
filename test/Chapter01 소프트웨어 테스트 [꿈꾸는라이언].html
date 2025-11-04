@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter01 소프트웨어 테스트 [꿈꾸는 라이언]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2a170133-dd5d-809d-b0ed-c8743660d648" class="page sans"><header><h1 class="page-title">Chapter01 소프트웨어 테스트 [꿈꾸는 라이언]</h1><p class="page-description"></p></header><div class="page-body"><ul id="2a170133-dd5d-80af-bd65-d27b7305ec29" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">결함 집중 (Defect Clustering)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80a4-9218-f087a261d53e" class="bulleted-list"><li style="list-style-type:disc"><strong>파레토 법칙</strong>에 따라 전체 결함의 **80%**가 **20%**의 모듈에서 집중적으로 발생한다는 소프트웨어 테스트 기본 원리입니다.</li></ul><ul id="2a170133-dd5d-8012-82b7-e1789a874f68" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">살충제 패러독스 (Pesticide Paradox)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8005-97db-f76bd3d84de5" class="bulleted-list"><li style="list-style-type:disc"><strong>동일한 테스트 케이스</strong>에 의한 반복 테스트는 더 이상 <strong>새로운 버그를 발견할 수 없다</strong>는 소프트웨어 테스트 기본 원리입니다.</li></ul><ul id="2a170133-dd5d-80e4-84a1-e3de2a38f148" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">오류-부재의 궤변 (Absence-of-errors Fallacy)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f7-80f5-c3ccfe7a16a1" class="bulleted-list"><li style="list-style-type:disc">소프트웨어에 결함이 없다 하더라도 <strong>사용자의 요구사항을 충족시키지 못하면</strong> 품질이 저하된다는 소프트웨어 테스트 기본 원리입니다.</li></ul><ul id="2a170133-dd5d-8058-9ed6-fa61e1f8f54b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">정적 테스트 (Static Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80a9-b545-f4ace38e8a47" class="bulleted-list"><li style="list-style-type:disc">프로그램을 <strong>실행하지 않고</strong> 명세서나 소스코드만을 분석하여 오류를 검사하는 테스트 방법입니다 (ex. 동료 검토, 워크 스루, 인스펙션).</li></ul><ul id="2a170133-dd5d-8005-a739-eebb85ad1e03" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">동적 테스트 (Dynamic Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8038-9b4d-db01dfb2d056" class="bulleted-list"><li style="list-style-type:disc">프로그램을 <strong>실제로 실행</strong>한 후 발생되는 오류를 검사하는 테스트 방법입니다 (ex. 화이트/블랙박스 테스트).</li></ul><ul id="2a170133-dd5d-80b2-ac04-ce36289d3539" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">명세 기반 테스트 (Specification-based Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80bc-bf3a-c5ed7746a16f" class="bulleted-list"><li style="list-style-type:disc">사용자의 <strong>요구사항에 대한 명세</strong>를 빠짐없이 테스트 케이스로 구현하는지 확인하는 테스트입니다 (ex. 동등 분할, 경계값 분석 등 블랙박스 테스트 기법).</li></ul><ul id="2a170133-dd5d-8066-aae4-de4faa7c0069" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">구조 기반 테스트 (Structure-based Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ed-80c7-cfba8e0ce480" class="bulleted-list"><li style="list-style-type:disc">소프트웨어의 <strong>내부 논리 흐름</strong>에 따라 테스트 케이스를 작성하고 확인하는 테스트입니다 (ex. 구문 기반, 결정 기반 등 화이트박스 테스트 기법).</li></ul><ul id="2a170133-dd5d-80ea-84d2-fbd37973e8db" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">회복 테스트 (Recovery Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80d4-9722-cf9177da7706" class="bulleted-list"><li style="list-style-type:disc">시스템에 인위적인 결함을 부여한 후 <strong>정상으로 회복되는 과정</strong>을 확인하는 목적 기반 테스트입니다.</li></ul><ul id="2a170133-dd5d-8065-a3a8-fab2a498b5f5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">안전 테스트 (Security Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8014-800c-c8327b836bda" class="bulleted-list"><li style="list-style-type:disc">외부의 불법 침입으로부터 시스템을 <strong>보호</strong>할 수 있는지 확인하는 목적 기반 테스트입니다.</li></ul><ul id="2a170133-dd5d-801c-982e-e1427fee6630" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">강도 테스트 (Stress Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f0-899d-f6b1c254198a" class="bulleted-list"><li style="list-style-type:disc"><strong>과부하</strong>가 걸렸을 때 소프트웨어가 정상적으로 구동되는지 확인하는 목적 기반 테스트입니다.</li></ul><ul id="2a170133-dd5d-807a-b6e0-c1c0811c9a50" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">회귀 테스트 (Regression Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8035-a0e5-ca6d29285d8f" class="bulleted-list"><li style="list-style-type:disc">소프트웨어 내 변경 또는 수정된 코드에 <strong>새로운 결함이 발생하지 않았음</strong>을 확인하는 목적 기반 테스트입니다.</li></ul><ul id="2a170133-dd5d-80e6-9998-d9497f0fc675" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">검증 (Verification)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8037-bb14-e041c86be114" class="bulleted-list"><li style="list-style-type:disc"><strong>개발자의 시각</strong>에서 <strong>제품의 생산 과정</strong>을 테스트하며, 제품이 명세서대로 만들어졌는지 확인하는 것입니다 (ex. 단위/통합/시스템 테스트).</li></ul><ul id="2a170133-dd5d-80d5-9b9d-ff716daca494" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">확인 (Validation)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8012-814d-c7324e6d9dd8" class="bulleted-list"><li style="list-style-type:disc"><strong>사용자의 시각</strong>에서 <strong>생산된 제품의 결과</strong>를 테스트하며, 제품이 사용자의 요구사항을 충족하는지 확인하는 것입니다 (ex. 인수 테스트).</li></ul><ul id="2a170133-dd5d-80a7-887e-e5c4f094b1e2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">화이트박스 테스트 (White Box Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8032-819e-e23a45c9b0c7" class="bulleted-list"><li style="list-style-type:disc">모듈 내부의 내용을 직접 볼 수 있으며, <strong>내부의 논리적인 모든 경로</strong>를 테스트하여 소스코드의 모든 문장을 한 번 이상 수행하는 구조 기반 테스트입니다.</li></ul><ul id="2a170133-dd5d-8087-a8d9-e652b9bd7ed5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">구문(문장) 커버리지 (Statement Coverage)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-807d-873f-e8c2397e61e5" class="bulleted-list"><li style="list-style-type:disc">프로그램 내 <strong>모든 명령문</strong>을 적어도 한 번 이상 수행하는지 확인하는 화이트박스 테스트의 검증 기준입니다.</li></ul><ul id="2a170133-dd5d-8037-b433-e1cfeaab4078" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">결정(분기) 커버리지 (Branch Coverage)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804b-8cdf-fd840068c0e5" class="bulleted-list"><li style="list-style-type:disc">프로그램 내 전체 결정의 <strong>분기</strong>가 적어도 한 번씩은 실행되어 <strong>참/거짓</strong> 결과를 수행하는지 확인하는 화이트박스 테스트의 검증 기준입니다.</li></ul><ul id="2a170133-dd5d-8026-ad84-e959634b21b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">조건 커버리지 (Condition Coverage)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-808a-99bd-faa8d6ff71a7" class="bulleted-list"><li style="list-style-type:disc">결정 명령문 내의 <strong>각 개별 조건식</strong>이 적어도 한 번은 <strong>참/거짓</strong> 결과를 수행하는지 확인하는 화이트박스 테스트의 검증 기준입니다.</li></ul><ul id="2a170133-dd5d-80d6-9eb2-c3c01b86dba3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">기초 경로 검사 (Base Path Testing)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80d4-8c79-f524313e05e8" class="bulleted-list"><li style="list-style-type:disc">대표적인 화이트박스 테스트 기법으로, 테스트 케이스 설계자가 <strong>절차적 설계의 논리적 복잡성을 측정</strong>하고 실행 경로의 기초를 정의하는 지침으로 사용하는 테스트 기법입니다.</li></ul><ul id="2a170133-dd5d-802f-b798-f0bbeaad1d3f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">블랙박스 테스트 (Black Box Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-808f-9733-f391faec2b72" class="bulleted-list"><li style="list-style-type:disc">모듈 내부의 내용을 알 수 없으며, 소프트웨어의 <strong>인터페이스</strong>에서 실시되어 각 기능이 완전히 작동되는 것을 입증하는 **&#x27;기능 테스트&#x27;**입니다.</li></ul><ul id="2a170133-dd5d-805f-a39e-e5039e49bb63" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">동치 분할 검사 (Equivalence Partition)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-803b-840f-fb06fa63bfaa" class="bulleted-list"><li style="list-style-type:disc">프로그램 입력 조건에 <strong>타당한 입력 자료와 타당하지 않은 입력 자료의 개수를 균등하게</strong> 진행하여 테스트 케이스를 선정하는 블랙박스 테스트 기법입니다.</li></ul><ul id="2a170133-dd5d-8024-a691-f12299db6590" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">경계값 분석 (Boundary Value Analysis)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c5-9fcc-c0ed0ec37286" class="bulleted-list"><li style="list-style-type:disc">입력 조건의 <strong>경계값</strong> (ex. 범위 구간의 양 끝: 이상/이하/초과/미만)을 테스트 케이스로 선정하는 블랙박스 테스트 기법입니다.</li></ul><ul id="2a170133-dd5d-80e8-945e-d53a5ec51522" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">오류 예측 검사 (Error Guessing)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8091-8c07-c6363a809d25" class="bulleted-list"><li style="list-style-type:disc">과거의 <strong>경험이나 확인자의 감각</strong>을 기반으로 잠재적 오류를 예측하고 테스트를 진행하는 블랙박스 테스트 기법입니다.</li></ul><ul id="2a170133-dd5d-801a-a2c2-f86f453578d0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">동료 검토 (Peer Review)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80af-bbbe-fcb244842e34" class="bulleted-list"><li style="list-style-type:disc"><strong>작성자가 내용 설명</strong> 후 동료들이 요구사항 명세서의 결함을 검토하는 요구사항 검증 기법입니다.</li></ul><ul id="2a170133-dd5d-80f9-b217-dd45d679a446" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">워크 스루 (Walk through)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-802f-9653-eb17998a99c3" class="bulleted-list"><li style="list-style-type:disc">요구사항 명세서를 <strong>미리 배포</strong>한 후 <strong>짧은 검토 회의</strong>를 진행하여 결함을 검토하는 요구사항 검증 기법입니다.</li></ul><ul id="2a170133-dd5d-807f-9097-eeccebaa141c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인스펙션 (Inspection)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b3-8388-e3521c2d6436" class="bulleted-list"><li style="list-style-type:disc"><strong>작성자를 제외</strong>한 다른 전문가들이 요구사항 명세서의 결함을 검토하는 요구사항 검증 기법입니다.</li></ul><ul id="2a170133-dd5d-8082-8b0a-c988e7187ad1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">단위 테스트 (Unit Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e1-bffd-eeb6e3d03336" class="bulleted-list"><li style="list-style-type:disc">소프트웨어의 <strong>최소 단위</strong> (모듈/컴포넌트)를 기반으로 진행되는 테스트로, 주로 구조 기반 테스트가 진행되며 기능성 테스트를 최우선으로 합니다.</li></ul><ul id="2a170133-dd5d-803d-8ba7-cd3968b62519" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">통합 테스트 (Integration Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-808a-ab05-c60302ba19c0" class="bulleted-list"><li style="list-style-type:disc">단위 테스트 후 <strong>모듈을 통합</strong>하는 과정에서 발생하는 오류 및 결함을 찾는 테스트 기법입니다.</li></ul><ul id="2a170133-dd5d-80ed-9a6d-da4192f32095" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">하향식 통합 테스트 (Top-down Integration Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8043-b467-ca9432be6310" class="bulleted-list"><li style="list-style-type:disc"><strong>상위 모듈에서 하위 모듈 방향</strong>으로 통합하며, 하위 모듈의 기능을 단순히 수행하는 **스텁 (Stub)**을 사용하는 통합 테스트 기법입니다.</li></ul><ul id="2a170133-dd5d-8061-87d1-d0bc8c7ef2c3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">상향식 통합 테스트 (Bottom-up Integration Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8035-975b-c39235098927" class="bulleted-list"><li style="list-style-type:disc"><strong>하위 모듈에서 상위 모듈 방향</strong>으로 통합하며, 테스트 드라이버와 **클러스터 (Cluster)**를 사용하고 스텁(Stub)은 사용하지 않는 통합 테스트 기법입니다.</li></ul><ul id="2a170133-dd5d-80cb-821e-faf41e6968ec" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">시스템 테스트 (System Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ed-a4c0-ff03915b7c39" class="bulleted-list"><li style="list-style-type:disc">개발된 소프트웨어가 <strong>컴퓨터 시스템 내</strong>에서 작용하는지 점검하며, 실제 사용 환경과 유사한 테스트 환경에서 기능적 및 비기능적 테스트를 모두 수행합니다.</li></ul><ul id="2a170133-dd5d-806c-8623-e75baff5df69" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인수 테스트 (Acceptance Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ec-814a-c63721cfdb24" class="bulleted-list"><li style="list-style-type:disc"><strong>사용자의 요구사항 충족 여부</strong>를 최종적으로 확인하는 테스트입니다.</li></ul><ul id="2a170133-dd5d-80a8-bbc5-d3f2661fbacb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">알파 테스트 (Alpha Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b3-b6a6-d130ae01a00a" class="bulleted-list"><li style="list-style-type:disc">인수 테스트의 일종으로, <strong>통제된 환경</strong>에서 사용자가 <strong>개발자와 함께</strong> 확인하는 테스트입니다.</li></ul><ul id="2a170133-dd5d-8094-968e-d469ba75e0a7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">베타 테스트 (Beta Test)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-807f-80ef-fb1d722f0feb" class="bulleted-list"><li style="list-style-type:disc">인수 테스트의 일종으로, <strong>통제되지 않은 환경</strong>에서 <strong>개발자 없이</strong> 여러 명의 사용자가 검증하는 테스트입니다.</li></ul><ul id="2a170133-dd5d-807d-9946-faf34a4231e6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">테스트 오라클 (Test Oracle)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-806c-8282-c5905f5eda0e" class="bulleted-list"><li style="list-style-type:disc">테스트 결과의 참/거짓을 판단하기 위해 사전에 정의된 <strong>참값</strong>을 대입하여 결과를 판정하는 도구입니다.</li></ul><ul id="2a170133-dd5d-8041-8988-f62649efbb77" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">테스트 드라이버 (Test Driver)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8060-b6d6-ec25d2f4302e" class="bulleted-list"><li style="list-style-type:disc">테스트 대상의 <strong>하위 모듈을 호출</strong>하고 모듈 테스트 수행 후의 결과를 도출하는 도구로, 주로 <strong>상향식 통합 테스트</strong>에서 사용됩니다.</li></ul><ul id="2a170133-dd5d-8026-8a88-f5aa53ca7862" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">테스트 스텁 (Test Stub)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8060-adc4-f96da5449c9b" class="bulleted-list"><li style="list-style-type:disc"><strong>제어 모듈이 호출하는 하위 모듈의 역할</strong>을 단순 수행하는 도구로, 주로 <strong>하향식 통합 테스트</strong>에서 사용됩니다.</li></ul><ul id="2a170133-dd5d-80bd-90ba-ecf78815d096" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">테스트 슈트 (Test Suites)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ac-8c95-c79b269a3517" class="bulleted-list"><li style="list-style-type:disc">시스템에 사용되는 <strong>테스트 케이스의 집합</strong> (컴포넌트/모듈)입니다.</li></ul><ul id="2a170133-dd5d-80e9-b5e4-d89fef79702b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">테스트 케이스 (Test Case)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-803d-987f-dae4a75e8974" class="bulleted-list"><li style="list-style-type:disc">사용자의 요구사항 준수 여부 확인을 위해 설계된 <strong>테스트 항목 명세서</strong> (입력값, 실행 조건, 기대 결과 등)입니다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

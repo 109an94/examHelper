@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter05 정보보안02 [꿈꾸는 라이언]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2a170133-dd5d-8090-95f4-eac548cc9cf2" class="page sans"><header><h1 class="page-title">Chapter05 정보보안02 [꿈꾸는 라이언]</h1><p class="page-description"></p></header><div class="page-body"><ul id="2a170133-dd5d-807b-8e38-e6dad8c18b13" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">침입 탐지 시스템 (IDS, Intrusion Detection System)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8006-80fe-cebaf032d6e1" class="bulleted-list"><li style="list-style-type:disc">시스템의 <strong>비정상적인 사용, 오용, 남용</strong> 등을 <strong>실시간으로 탐지</strong>하여 알리는 보안 시스템입니다.</li></ul><ul id="2a170133-dd5d-808c-93f4-cdf526f0354a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">오용 탐지 (Misuse Detection)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8087-a142-e7e7c1c478b4" class="bulleted-list"><li style="list-style-type:disc"><strong>사전에 정립되어 입력해 둔 공격 패턴</strong>을 감지할 경우 이를 통보하는 침입 탐지 시스템의 방식입니다.</li></ul><ul id="2a170133-dd5d-8028-ad72-c2353b6b7583" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">이상 탐지 (Anomaly Detection)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c3-9260-e3926d20b98f" class="bulleted-list"><li style="list-style-type:disc"><strong>평균적인 상태 기준</strong>에서 벗어난 <strong>비정상적인 행위</strong> 또는 자원의 사용을 감지할 경우 통보하는 침입 탐지 시스템의 방식입니다.</li></ul><ul id="2a170133-dd5d-8001-8407-c1194de92dbf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">HIDS (Host-based Intrusion Detection System)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8071-b709-f876b793b4bc" class="bulleted-list"><li style="list-style-type:disc"><strong>시스템 내부</strong>를 감시/분석하며, <strong>내부 변화</strong>를 실시간으로 감시하여 외부 침입자의 작업 기록 및 추적에 사용되는 IDS 종류입니다 (ex. OSSEC, AIDE).</li></ul><ul id="2a170133-dd5d-80d9-b12a-f2239f315924" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">NIDS (Network-based Intrusion Detection System)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8084-b7a9-d3a2d9a33d64" class="bulleted-list"><li style="list-style-type:disc"><strong>외부 침입</strong>을 감시/분석하며, <strong>네트워크 트래픽</strong>을 감시하여 침입을 탐지하는 IDS 종류입니다 (ex. Snort, Zeek).</li></ul><ul id="2a170133-dd5d-8033-836d-fa33f9562bf6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SSH (Secure SHell)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8000-af0c-d23849ea52ce" class="bulleted-list"><li style="list-style-type:disc">서로 연결된 컴퓨터 간 <strong>원격 명령 실행 및 셀 서비스</strong>를 수행하며, <strong>전송 데이터를 암호화</strong>하고 기본적으로 <strong>22번 포트</strong>를 사용하는 보안 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-801c-9780-f5e4eeab280a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SSL (Secure Socket Layer)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8006-be90-cbccb71634b6" class="bulleted-list"><li style="list-style-type:disc">웹 브라우저 서버 간 <strong>안전한 데이터 전송</strong>을 목적으로 하며, <strong>https</strong>로 시작하고 <strong>443번 포트</strong>를 사용하는 보안 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-8055-9d05-c11061952b74" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">TLS (Transport Layer Security)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-806a-b30f-c3a11d83e6de" class="bulleted-list"><li style="list-style-type:disc">인터넷 커뮤니케이션을 위한 <strong>개인 정보와 데이터 무결성</strong>을 제공하는 보안 프로토콜로, <strong>SSL의 개선 버전</strong>입니다.</li></ul><ul id="2a170133-dd5d-8086-a24d-fd1488ddfc4b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">IPSec (Internet Protocol Security)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-809e-8e81-d054c8762278" class="bulleted-list"><li style="list-style-type:disc"><strong>IP 네트워크 계층</strong>을 안전하게 보호하기 위한 보안 프로토콜로, **AH(Authentication Header)**와 **ESP(Encapsulating Security Payload)**라는 두 가지 보안 프로토콜을 사용합니다.</li></ul><ul id="2a170133-dd5d-8063-9db2-d029d81cb0f7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">TKIP (Temporal Key Integrity Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80de-880a-e14decc2fb18" class="bulleted-list"><li style="list-style-type:disc">WEP 취약성을 보완하기 위해 <strong>암호 알고리즘의 입력 키 길이를 128비트로 늘린</strong> 임시 키 무결성 프로토콜입니다.</li></ul><ul id="2a170133-dd5d-80b0-8e6f-dadb678c272c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">생략 오류 (Omission error)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8082-8feb-e17e619614a4" class="bulleted-list"><li style="list-style-type:disc">데이터 입력 시 <strong>한 자리를 빼놓고 기록</strong>하는 오류입니다 (ex. ABCD → ABD).</li></ul><ul id="2a170133-dd5d-80a5-8be4-c1563f96c97f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">필사 오류 (Transcription error)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8093-99b0-ef098cdb48c5" class="bulleted-list"><li style="list-style-type:disc">데이터 입력 시 <strong>임의의 한 자리를 잘못 기록</strong>하는 오류입니다 (ex. ABCD → ABFD).</li></ul><ul id="2a170133-dd5d-8025-9091-ebec00b86d3a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">전위 오류 (Transposition error)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8019-9c40-d468c7ccbf30" class="bulleted-list"><li style="list-style-type:disc">데이터 입력 시 <strong>좌우 자리를 바꾸어 기록</strong>하는 오류입니다 (ex. ABCD → ACBD).</li></ul><ul id="2a170133-dd5d-802a-bc50-f8127e79572a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ISMS (Information Security Management System)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ff-b15b-dfe2fa414e89" class="bulleted-list"><li style="list-style-type:disc"><strong>정보보호 관리 체계</strong>로, 정보 자산을 안전하게 보호하기 위한 보호 절차와 대책을 확보하고 조직에 맞는 정보보호 정책을 수립하는 활동입니다.</li></ul><ul id="2a170133-dd5d-8065-820b-e90e7051ec58" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">다크 데이터 (Dark Data)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-809b-a5ea-ca014459c1b4" class="bulleted-list"><li style="list-style-type:disc"><strong>특정 목적으로 수집</strong>되었으나 활용되지 않고 <strong>저장만 되어 있는 대량의 데이터</strong>입니다.</li></ul><ul id="2a170133-dd5d-8043-9364-f7b3df3a6927" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스캐어웨어 (Scareware)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-803b-a72e-fbf70a4f5830" class="bulleted-list"><li style="list-style-type:disc"><strong>가짜 바이러스 경고</strong>나 시스템 문제를 표시하여 사용자를 속여 돈을 지불하거나 특정 소프트웨어를 설치하도록 유도하는 악성 프로그램입니다.</li></ul><ul id="2a170133-dd5d-8004-831a-fd3b4e23c68e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">해킹 (Hacking)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80fa-a0cc-e74274ba5ebf" class="bulleted-list"><li style="list-style-type:disc">시스템에 침입하여 <strong>정보를 수정하거나 빼내는 행위</strong>입니다.</li></ul><ul id="2a170133-dd5d-8054-b1fa-f4387148bf1e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">크래킹 (Cracking)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80dd-850d-e354582622a5" class="bulleted-list"><li style="list-style-type:disc">시스템에 침입하여 <strong>정보를 파괴하거나 변경</strong>하는 행위입니다.</li></ul><ul id="2a170133-dd5d-80a4-9cb5-f4d05f63c0b4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">좀비 PC (Zombie PC)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8020-a1f3-e4238c3f29e2" class="bulleted-list"><li style="list-style-type:disc"><strong>악성코드에 감염</strong>되어 해커에게 조종당하며 다른 컴퓨터를 공격하는 데 사용되는 PC입니다.</li></ul><ul id="2a170133-dd5d-80d2-a4ce-fea9428bb573" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">C&amp;C 서버 (Command &amp; Control Server)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80dc-a243-e7260b3a8eaa" class="bulleted-list"><li style="list-style-type:disc">해커가 감염된 <strong>좀비 PC에 명령을 내리고</strong> 악성코드를 제어하기 위한 용도로 사용하는 서버입니다.</li></ul><ul id="2a170133-dd5d-80fe-964a-c5c44830df8c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">웜 (Worm)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8088-a073-ca31ae31ca19" class="bulleted-list"><li style="list-style-type:disc">다른 컴퓨터의 취약점을 이용하여 <strong>스스로 전파</strong>하거나 메일로 전파되며, <strong>독자적으로 실행 가능</strong>한 악성 소프트웨어입니다.</li></ul><ul id="2a170133-dd5d-801a-a529-fafa5c650571" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">바이러스 (Virus)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8089-aba2-cb833c2925d5" class="bulleted-list"><li style="list-style-type:disc">파일이나 메모리 영역에 **자신을 복제(기생)**하는 악성 프로그램으로, <strong>독자적으로 실행은 불가능</strong>합니다.</li></ul><ul id="2a170133-dd5d-80d8-9ae2-f9acbc91de9e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">트로이목마 (Trojan Horse)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-805f-b0df-ea031373bdd5" class="bulleted-list"><li style="list-style-type:disc"><strong>정상적인 프로그램으로 가장</strong>하여 숨어 있으며, 사용자 실행 시 악성 기능을 수행하지만 <strong>스스로 복제하지는 않는</strong> 악성 프로그램입니다.</li></ul><ul id="2a170133-dd5d-80b7-853b-c97f6e71a4fd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">백도어 (Backdoor)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-805a-9c89-e751fcde904d" class="bulleted-list"><li style="list-style-type:disc">보안이 제거된 <strong>비밀 통로</strong>로, 무단 접근을 위해 시스템에 만들어 둔 통로입니다. (탐지 방법: 무결성 검사, 로그 분석 등)</li></ul><ul id="2a170133-dd5d-8029-8426-cea433773159" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">랜섬웨어 (Ransomware)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80fd-8966-db39af6b1a85" class="bulleted-list"><li style="list-style-type:disc">내부 문서 파일 등을 <strong>암호화</strong>해 사용자가 열지 못하게 하고 이를 <strong>인질로 금전을 요구</strong>하는 악성 프로그램입니다.</li></ul><ul id="2a170133-dd5d-804d-a10a-f84c73310036" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">APT (Advanced Persistent Threat)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8059-a671-f4835d528614" class="bulleted-list"><li style="list-style-type:disc"><strong>지능형 지속 공격</strong>으로, 특정 개인 및 조직을 타겟으로 침투 후 장기간에 걸쳐 내부 서버 제어권을 획득하여 데이터를 수집하는 공격입니다.</li></ul><ul id="2a170133-dd5d-807d-93cc-d6c87ee71898" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Qshing (큐싱)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8043-8dd7-dcfab2b6198e" class="bulleted-list"><li style="list-style-type:disc"><strong>QR 코드</strong>를 통해 악성 앱 다운을 유도하거나 설치하도록 하는 공격입니다.</li></ul><ul id="2a170133-dd5d-8059-af42-cbd90a184fa6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">XSS (Cross Site Scripting)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-803a-9d32-c6410a03293c" class="bulleted-list"><li style="list-style-type:disc">브라우저 <strong>스크립트 취약점</strong>을 악용하여 특정 링크 클릭 시 <strong>악성 스크립트가 실행</strong>되어 개인 정보를 탈취하는 공격입니다.</li></ul><ul id="2a170133-dd5d-80b4-a713-e8a730bf2616" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">CSRF (Cross-Site Request Forgery)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80ba-875d-e2ba8cb80be3" class="bulleted-list"><li style="list-style-type:disc">사용자가 <strong>공격자가 의도한 행위</strong> (수정, 삭제, 등록 등)를 특정 웹사이트에 요청하게 하는 공격입니다.</li></ul><ul id="2a170133-dd5d-8009-8c44-f4b305634c29" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제로 데이 공격 (Zero-Day Attack)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8088-9b39-ef55f4b55d7e" class="bulleted-list"><li style="list-style-type:disc"><strong>발견된 취약점의 존재를 공표하기 전에</strong> 해당 취약점을 이용하여 이루어지는 보안 공격입니다.</li></ul><ul id="2a170133-dd5d-80c5-9445-e61e5ea76a94" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스니핑 (Sniffing)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8089-b82e-d3593c5265dd" class="bulleted-list"><li style="list-style-type:disc">네트워크를 통해 전송되는 <strong>패킷을 엿보면서</strong> 계정 정보(ID/PW)를 가로채는 행위입니다.</li></ul><ul id="2a170133-dd5d-804b-b9df-d88fce01867c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스푸핑 (Spoofing)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-808a-82f4-fb0cc150f0d0" class="bulleted-list"><li style="list-style-type:disc">검증된 사람이 네트워크를 통해 데이터를 보낸 것처럼 <strong>데이터를 변조하여 위장 접속</strong>을 시도하는 일종의 속임수입니다. (IP, ARP, DNS Spoofing 등)</li></ul><ul id="2a170133-dd5d-80c7-aa6b-ddef9f34d743" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">세션 하이재킹 (Session Hijacking)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8020-b779-ef8202808045" class="bulleted-list"><li style="list-style-type:disc">서버에 접속하고 있는 <strong>클라이언트들의 세션 정보를 가로채</strong> 서버와 클라이언트 사이의 연결을 가로채는 공격입니다.</li></ul><ul id="2a170133-dd5d-800f-9493-caf545619562" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스피어 피싱 (Spear Phishing)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8074-b4d2-ee43f22f1009" class="bulleted-list"><li style="list-style-type:disc">조직 내 <strong>특정 개인 또는 그룹</strong>을 대상으로, 신뢰할 수 있는 발신자가 보낸 것처럼 속여 금융 개인 정보를 탈취하는 피싱 공격입니다.</li></ul><ul id="2a170133-dd5d-80d0-ac7b-fb81fd4e209b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">스미싱 (Smishing)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b4-acdf-d6e35d222237" class="bulleted-list"><li style="list-style-type:disc">**문자 메시지(SMS)**를 통해 사용자를 속여 개인 신용 정보를 탈취하는 공격입니다.</li></ul><ul id="2a170133-dd5d-805d-8578-c2db43e2ba8d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">파밍 (Pharming)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-800d-b474-fd281c542a82" class="bulleted-list"><li style="list-style-type:disc"><strong>금융기관의 도메인 주소(DNS)를 중간에 가로채</strong> 사용자가 금융기관 사이트에 접속한 듯 착각하게 하여 개인 정보를 탈취하는 공격입니다.</li></ul><ul id="2a170133-dd5d-801b-84c0-df74ac07aabf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">타이포스쿼팅 (Typosquatting)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b8-b276-f50fc883c13e" class="bulleted-list"><li style="list-style-type:disc">사용자가 웹 <strong>URL 주소를 잘못 입력하는 실수</strong>를 악용하여, 유사한 주소를 가진 악성 사이트로 유도하는 공격입니다.</li></ul><ul id="2a170133-dd5d-805a-b277-ddb362c24bba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">웨일링 (Whaling)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8093-a877-f41956c384d9" class="bulleted-list"><li style="list-style-type:disc"><strong>CEO, 고위 경영진, 연예인</strong> 등 유명인사를 타깃으로 한 스피어 피싱 공격입니다.</li></ul><ul id="2a170133-dd5d-80b7-b668-d91d1b6804a0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">키로거 (Keylogger)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c3-88f1-ed1060c6bc17" class="bulleted-list"><li style="list-style-type:disc">사용자의 <strong>키 입력</strong>을 캐치하는 프로그램을 이용하여 개인 정보를 빼내는 행위입니다.</li></ul><ul id="2a170133-dd5d-80e7-bcb5-fcab6c35197b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">버퍼 오버플로우 (Buffer Overflow)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-807d-b42d-f1d9aece8b1a" class="bulleted-list"><li style="list-style-type:disc">프로그램에서 할당된 <strong>메모리의 범위를 넘어선 위치</strong>에서 자료를 사용하려고 할 때 발생하는 오류입니다.</li></ul><ul id="2a170133-dd5d-80ae-b183-ed58e5ae5a7a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">SQL 삽입 공격 (SQL Injection Attack)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8073-a664-d145a245f66e" class="bulleted-list"><li style="list-style-type:disc">임의의 <strong>SQL 문을 주입</strong>하고 실행되게 하여 데이터베이스가 비정상적인 동작을 하도록 조작하는 코드 삽입 공격입니다.</li></ul><ul id="2a170133-dd5d-80db-a346-c862c1222c49" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Brute Force Attack (무작위 대입 공격)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8012-be4d-f5c5f0b5b3a5" class="bulleted-list"><li style="list-style-type:disc">가능한 <strong>모든 문자열 조합</strong>을 시도하여 암호키나 로그인 정보를 탈취하는 공격입니다.</li></ul><ul id="2a170133-dd5d-801c-ae31-f86bb660ebef" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Watering Hole Attack (워터링 홀 공격)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80d7-a0ba-fbecc263218f" class="bulleted-list"><li style="list-style-type:disc">타겟이 <strong>주로 방문하는 웹 사이트</strong>를 미리 감염시킨 후, 해당 타겟이 방문할 때까지 기다리는 공격입니다.</li></ul><ul id="2a170133-dd5d-80c2-93e0-f16f686068b7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Bluebug (블루버그)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f3-9527-f7f32b340245" class="bulleted-list"><li style="list-style-type:disc"><strong>블루투스 연결 취약점</strong>을 이용하여 휴대폰 등의 장치에 무단으로 접근하여 정보를 탈취하는 공격입니다.</li></ul><ul id="2a170133-dd5d-803c-83db-c40e0f729a27" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Credential Stuffing</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8052-814d-e1fae0861f48" class="bulleted-list"><li style="list-style-type:disc">공격자가 수집한 **로그인 인증 정보 (Credential)**를 다른 사이트의 계정 정보에 <strong>무작위로 대입</strong>하여 접속을 시도하는 공격입니다.</li></ul><ul id="2a170133-dd5d-8028-ad4d-c9ed2f6e711a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Island Hopping</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c7-bebf-d8eb5168426b" class="bulleted-list"><li style="list-style-type:disc">타겟 기업을 침해하기 위해 <strong>보안이 더 취약한 협력사, 파트너 기업의 네트워크</strong>를 해킹한 후 이를 경유하여 공격하는 기법입니다.</li></ul><ul id="2a170133-dd5d-8085-a7ae-cc76c9a23a3b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">사회 공학 (Social Engineering)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8098-ad8f-d3f5f59cd923" class="bulleted-list"><li style="list-style-type:disc">인간 상호 작용의 깊은 신뢰를 바탕으로 사람들을 속여 <strong>보안 절차를 깨뜨리기 위한 비기술적 침입 수단</strong>입니다.</li></ul><ul id="2a170133-dd5d-8035-93b1-e6195cfecec5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Rootkit (루트킷)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-801b-82a9-ea9ec9fb8be1" class="bulleted-list"><li style="list-style-type:disc"><strong>권한이 없는 사용자가 접근할 수 없는 영역</strong>에 접근하여 시스템을 제어하도록 설계된 악성 소프트웨어의 모음으로, 해킹에 사용되는 기능들을 제공하는 프로그램들의 모음입니다.</li></ul><ul id="2a170133-dd5d-80aa-9c06-d351cea638fd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">S-HTTP (Secure Hypertext Transfer Protocol)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-801d-98e0-ed112b1cfe14" class="bulleted-list"><li style="list-style-type:disc">웹상에서 네트워크 트래픽을 <strong>암호화</strong>하는 주요 방법 중 하나로, <strong>기존 HTTP의 보안을 확장</strong>하여 클라이언트와 서버 간 전송되는 <strong>모든 메시지를 각각 암호화</strong>해 전송하는 기술입니다.<br/><br/></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

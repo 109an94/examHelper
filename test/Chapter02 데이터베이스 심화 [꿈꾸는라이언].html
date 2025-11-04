@@ -1,0 +1,706 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Chapter02 데이터베이스 심화 [꿈꾸는 라이언]</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2a170133-dd5d-8070-bf5f-e783d822e88c" class="page sans"><header><h1 class="page-title">Chapter02 데이터베이스 심화 [꿈꾸는 라이언]</h1><p class="page-description"></p></header><div class="page-body"><ul id="2a170133-dd5d-80af-bf63-d3c9a4940813" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">이상 (Anomaly) 현상</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-806a-a34a-d74ddf32a80e" class="bulleted-list"><li style="list-style-type:disc">데이터베이스 설계 시 중복성 및 종속성 문제로 인해 발생하는 현상으로, 삽입 이상, 삭제 이상, 갱신 이상이 있으며 데이터 불일치(정보 모순)를 초래합니다.</li></ul><ul id="2a170133-dd5d-80fd-b8c0-d792676bfd6c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">삽입 이상 (Insertion Anomaly)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8050-a6cb-ded03394397c" class="bulleted-list"><li style="list-style-type:disc">데이터 삽입 시 불필요한 데이터가 함께 삽입되어야 하는 이상 현상입니다.</li></ul><ul id="2a170133-dd5d-8042-9061-f2aca6ac223f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">삭제 이상 (Deletion Anomaly)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8090-aa3b-e71d6d065aba" class="bulleted-list"><li style="list-style-type:disc">튜플 삭제 시 필요한 데이터까지 함께 삭제되는 이상 현상입니다.</li></ul><ul id="2a170133-dd5d-80e7-96f0-ea30a7779781" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">갱신 이상 (Update Anomaly)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8005-9249-cb431ed289a0" class="bulleted-list"><li style="list-style-type:disc">중복된 데이터 중 일부만 수정되어 데이터가 불일치하는 정보 모순이 발생하는 이상 현상입니다.</li></ul><ul id="2a170133-dd5d-804d-a08b-da5942f83f93" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">정규화 (Normalization)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-803b-90ef-d3c8bbdaae3f" class="bulleted-list"><li style="list-style-type:disc">이상 현상이 발생하지 않도록 중복성과 종속성을 최소화하여 데이터 구조의 안정성을 최대화하고 관리를 용이하게 하는 논리적 설계 단계의 작업입니다.</li></ul><ul id="2a170133-dd5d-8017-9a86-efcfb465a55e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제 1 정규형 (1NF)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8026-a2f3-d624d3100480" class="bulleted-list"><li style="list-style-type:disc">릴레이션의 모든 도메인 (Domain)이 원자 값만으로 되어 있도록 하는 정규형입니다.</li></ul><ul id="2a170133-dd5d-80f7-9861-e304a07dc3b9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제 2 정규형 (2NF)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f3-9981-c70fe97a93e4" class="bulleted-list"><li style="list-style-type:disc">제 1 정규형을 만족하며, 기본키가 아닌 속성이 기본키에 대해 부분적 함수 종속을 만족하지 않도록 (즉, 완전 함수적 종속을 만족하도록) 하는 정규형입니다.</li></ul><ul id="2a170133-dd5d-8081-91a7-cc6066c27186" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">제 3 정규형 (3NF)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8066-8927-db6645718eb5" class="bulleted-list"><li style="list-style-type:disc">제 2 정규형을 만족하며, 기본키가 아닌 모든 속성이 기본키에 대해 이행적 함수 종속 관계를 만족하지 않도록 (X→Y, Y→Z 일 때 X→Z 관계를 제거) 하는 정규형입니다.</li></ul><ul id="2a170133-dd5d-8087-98ed-c5bb88823e48" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">BCNF (Boyce-Codd Normal Form)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-803f-80d7-e990e6df3424" class="bulleted-list"><li style="list-style-type:disc">제 3 정규형을 만족하며, 릴레이션 R에서 모든 결정자 (다른 속성을 결정하는 속성)가 후보키인 정규형입니다.</li></ul><ul id="2a170133-dd5d-802b-93f1-e8f0a0d032eb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">반정규화 (Denormalization)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8033-a349-e5d7e2ea30be" class="bulleted-list"><li style="list-style-type:disc">정규화 과정 후 시스템 성능 향상 및 운영 편의성을 위해 의도적으로 데이터 중복/통합/분리를 허용하여 정규화 원칙을 위반하는 작업입니다.</li></ul><ul id="2a170133-dd5d-8098-8cd0-dfc2df91983b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">완전 함수적 종속 (Full Functional Dependency)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80c4-a592-ea26f88e3837" class="bulleted-list"><li style="list-style-type:disc">종속자가 기본키 전체에만 종속되며, 기본키를 구성하는 속성의 어떤 부분에도 종속되지 않는 관계입니다.</li></ul><ul id="2a170133-dd5d-8094-b733-d873e83c94b7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">부분 함수적 종속 (Partial Functional Dependency)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8007-abdc-f9de3a84dde4" class="bulleted-list"><li style="list-style-type:disc">기본키가 여러 속성으로 구성되어 있을 때, 종속자가 기본키를 구성하는 속성 중 일부에만 종속되는 관계입니다.</li></ul><ul id="2a170133-dd5d-806b-885c-e5cfa5cfd3a8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">이행적 함수 종속 (Transitive Functional Dependency)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-805b-858e-e3eb985738e7" class="bulleted-list"><li style="list-style-type:disc">속성 X, Y, Z가 있을 때, X → Y 이고 Y → Z 이면 X → Z 관계가 성립하는 함수 종속 관계입니다.</li></ul><ul id="2a170133-dd5d-80df-a21e-de9c088f83c6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Select (선택, σ )</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80de-a3f0-d34af292cd4a" class="bulleted-list"><li style="list-style-type:disc">관계 대수 순수 관계 연산자 중 하나로, 조건을 만족하는 튜플들의 부분 집합을 추출하는 수평 연산입니다.</li></ul><ul id="2a170133-dd5d-80e6-8fd9-d74eb83c1ff4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Project (추출, ㅠ)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8053-af9a-e56f8e279b06" class="bulleted-list"><li style="list-style-type:disc">관계 대수 순수 관계 연산자 중 하나로, 속성들의 부분 집합을 추출하고 중복을 제거하는 수직 연산입니다.</li></ul><ul id="2a170133-dd5d-8019-ac2d-d1c9fa47ea37" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Join (조인, ▷◁ )</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b3-9e75-d0f8905c9f6b" class="bulleted-list"><li style="list-style-type:disc">관계 대수 순수 관계 연산자 중 하나로, 두 개의 릴레이션을 합쳐 새로운 릴레이션을 형성하는 연산입니다.</li></ul><ul id="2a170133-dd5d-80e0-af77-f33c01c63779" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Division (나누기,÷ )</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80fc-810a-fa3de9ff5690" class="bulleted-list"><li style="list-style-type:disc">관계 대수 순수 관계 연산자 중 하나로, 릴레이션 A의 속성이 릴레이션 B의 속성 값을 모두 가진 튜플에서 B가 가진 속성을 제외한 나머지 속성들만 추출하는 연산입니다.</li></ul><ul id="2a170133-dd5d-8054-89b5-d69b042a5540" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Cartesian Product (교차곱, X)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80db-a0fa-e632e2035dfd" class="bulleted-list"><li style="list-style-type:disc">관계 대수 일반 집합 연산자 중 하나로, 두 릴레이션의 가능한 모든 튜플의 집합을 생성하며, 결과 릴레이션의 차수는 더하기, 기수는 곱하기가 됩니다.</li></ul><ul id="2a170133-dd5d-8053-8490-fb7e6d4294f1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">트랜잭션 (Transaction)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8013-9d23-f6b504e5946b" class="bulleted-list"><li style="list-style-type:disc">데이터베이스의 상태를 변환시키는 하나의 논리적 기능을 수행하기 위한 작업 단위입니다.</li></ul><ul id="2a170133-dd5d-8093-b801-d9e654e4d98b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">원자성 (Atomicity)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8064-a848-e9b690810fc4" class="bulleted-list"><li style="list-style-type:disc">트랜잭션 연산이 전부 정상적으로 수행되거나 (Commit), 아니면 어떠한 연산도 수행되지 않아야 (Rollback) 한다는 트랜잭션의 ACID 속성입니다.</li></ul><ul id="2a170133-dd5d-804f-8168-f2d3be83849b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">일관성 (Consistency)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8075-a3dc-f823158ad141" class="bulleted-list"><li style="list-style-type:disc">시스템의 고정 요소는 트랜잭션 수행 전과 후가 동일해야 한다는 트랜잭션의 ACID 속성입니다.</li></ul><ul id="2a170133-dd5d-80d7-91cd-dc24a2ae476a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">독립성 (Isolation)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8089-81ce-c8d5762ae120" class="bulleted-list"><li style="list-style-type:disc">개별 트랜잭션은 다른 트랜잭션의 간섭 및 영향을 받지 않고 독립적으로 수행되어야 한다는 트랜잭션의 ACID 속성입니다.</li></ul><ul id="2a170133-dd5d-8016-993b-efc5bc97a9c8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">영속성 (Durability)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8097-90c1-f6d41fa5ecb9" class="bulleted-list"><li style="list-style-type:disc">완료된 (Commit 된) 트랜잭션의 결과는 영구적으로 기록되어야 한다는 트랜잭션의 ACID 속성입니다.</li></ul><ul id="2a170133-dd5d-80c0-ac72-e962fc4eae5d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">COMMIT</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8058-9776-c16eb73fc9e1" class="bulleted-list"><li style="list-style-type:disc">트랜잭션이 정상적으로 종료된 후 변경된 내용을 데이터베이스에 영구적으로 반영하는 명령어입니다.</li></ul><ul id="2a170133-dd5d-80f3-b83f-f16b73c4fca5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ROLLBACK</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-809e-a649-e53c9aead8a7" class="bulleted-list"><li style="list-style-type:disc">트랜잭션이 비정상적으로 종료된 후 모든 변경 작업을 취소하고 이전 상태로 원복시키는 명령어입니다.</li></ul><ul id="2a170133-dd5d-8012-ae01-f285f643da38" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">REDO</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-804d-b028-d23d42ca6b3d" class="bulleted-list"><li style="list-style-type:disc">데이터베이스 비정상 종료 시 시작(start)과 완료(commit) 기록이 있는 트랜잭션들의 작업을 재작업하는 (이전 값을 이후 값으로 변경) 회복 연산입니다.</li></ul><ul id="2a170133-dd5d-804c-95ad-e99809753f51" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">UNDO</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8031-bb2d-ce029bcda8a2" class="bulleted-list"><li style="list-style-type:disc">데이터베이스 비정상 종료 시 시작 기록은 있지만 완료 기록이 없는 트랜잭션들이 작업한 내용을 모두 취소하는 (이후 값을 이전 값으로 변경) 회복 연산입니다.</li></ul><ul id="2a170133-dd5d-80c7-9dd1-dfd3951f52a6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">즉시 갱신 기법 (Immediate Update)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8019-8189-e39d4e902bb9" class="bulleted-list"><li style="list-style-type:disc">트랜잭션 실행 상태에서 변경되는 내용을 바로 데이터베이스에 적용하고, 변경되는 모든 내용을 로그에 기록하여 장애 시 Redo와 Undo를 모두 수행하는 데이터 회복 기법입니다.</li></ul><ul id="2a170133-dd5d-8099-9bbd-c8f424163ba5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">지연 갱신 기법 (Deferred Update)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8096-9cc4-d3489d73642e" class="bulleted-list"><li style="list-style-type:disc">트랜잭션 수행 후 부분 완료될 때까지 데이터베이스에 적용을 지연시키고, 로그를 토대로 저장하며, 트랜잭션 실패 시 Undo 수행 없이 Redo 만 수행하는 데이터 회복 기법입니다.</li></ul><ul id="2a170133-dd5d-8051-9dd7-c4e5aea0fccc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">로킹 (Locking)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8078-a573-d72c6efdce9c" class="bulleted-list"><li style="list-style-type:disc">데이터베이스 병행 제어를 위해 트랜잭션이 접근하고자 하는 데이터를 잠가 (Lock) 다른 트랜잭션이 접근하지 못하도록 하는 병행 제어 기법입니다.</li></ul><ul id="2a170133-dd5d-804b-8cfc-c8ba8723c832" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">로킹 단위 (Locking Granularity)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8097-9660-e4172f051454" class="bulleted-list"><li style="list-style-type:disc">로킹의 대상이 되는 객체의 크기로, 단위가 작을수록 병행성 (공유도)은 높아지나 로킹 오버헤드가 증가합니다.</li></ul><ul id="2a170133-dd5d-80cc-a27d-dd4c60dd1cb9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">낙관적 검증 (Optimistic Concurrency Control)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-806c-9b3e-dc780ce7135f" class="bulleted-list"><li style="list-style-type:disc">일단 트랜잭션을 수행하고, 트랜잭션 종료 시에 다른 트랜잭션과의 충돌 여부를 검증하는 병행 제어 기법입니다.</li></ul><ul id="2a170133-dd5d-805f-b32d-cdc4fe937206" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">타임 스탬프 기법 (Timestamp Ordering)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8012-a034-fe4108dc71c5" class="bulleted-list"><li style="list-style-type:disc">트랜잭션에 고유한 시간 정보 (타임 스탬프)를 부여하여, 부여된 시간에 따라 트랜잭션 수행의 순서를 결정하는 병행 제어 기법입니다.</li></ul><ul id="2a170133-dd5d-8044-bec1-fbd480e5df94" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">분산 데이터베이스 (Distributed Database)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8090-9569-e00b5e100538" class="bulleted-list"><li style="list-style-type:disc">논리적으로는 하나의 시스템에 존재하나, 물리적으로는 연결된 다수의 컴퓨터에 분산되어 있는 데이터베이스입니다.</li></ul><ul id="2a170133-dd5d-80f3-bd55-ed8aea00de38" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">위치 투명성 (Location Transparency)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80e8-886d-dbf3d59c3fa0" class="bulleted-list"><li style="list-style-type:disc">사용자가 데이터베이스의 물리적 위치를 인식할 필요 없이 논리적 이름만으로 접근할 수 있도록 하는 분산 데이터베이스의 목표입니다.</li></ul><ul id="2a170133-dd5d-8022-b16f-d5faa0d221f6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">중복 투명성 (Replication Transparency)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8033-86a2-cd3e35c16ae9" class="bulleted-list"><li style="list-style-type:disc">사용자가 분산된 데이터의 중복 여부를 인식할 필요 없이 접근할 수 있도록 하는 분산 데이터베이스의 목표입니다.</li></ul><ul id="2a170133-dd5d-8051-b4ee-cc4ccf361532" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">인덱스 (Index)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80b2-b0a5-f286e8404716" class="bulleted-list"><li style="list-style-type:disc">데이터베이스 테이블 검색 속도 향상을 위한 저장 위치 자료로, 데이터의 빠른 조회를 위한 위치 정보 (키 값, 포인터)를 포함합니다.</li></ul><ul id="2a170133-dd5d-802f-b201-fe9ae9839fd6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">파티셔닝 (Partitioning)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-807a-ae3c-f3de95203945" class="bulleted-list"><li style="list-style-type:disc">대용량 데이터베이스를 여러 섹션으로 분할하여 데이터 접근 및 조회 속도를 향상시키는 기법입니다.</li></ul><ul id="2a170133-dd5d-804d-acc3-d326dcf02f33" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">복구 시간 목표 (RTO, Recovery Time Objective)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-8014-828e-fb24a9591019" class="bulleted-list"><li style="list-style-type:disc">서비스 중단 후 복원까지 허용되는 최대 시간으로, 서비스를 사용할 수 없는 최대 허용 시간을 결정합니다.</li></ul><ul id="2a170133-dd5d-80b0-b948-cb8f5690f63b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">복구 시점 목표 (RPO, Recovery Point Objective)</span><div class="indented"></div></li></ul><ul id="2a170133-dd5d-80f4-abe0-f78c7df6cf33" class="bulleted-list"><li style="list-style-type:disc">마지막 데이터 복구 후 허용되는 최대 데이터 손실량을 결정하는 목표 시간입니다.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
